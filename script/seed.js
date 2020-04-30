@@ -1,6 +1,6 @@
 'use strict'
 
-const db = require('../server/db')
+const {db} = require('../server/db')
 const {User, Product, Category} = require('../server/db/models')
 
 async function seed() {
@@ -12,11 +12,9 @@ async function seed() {
     {email: 'murphy@email.com', password: '123'}
   ]
 
-  const [cody, murphy] = await Promise.all([
-    users.map(user => {
-      User.create({email: user.email, password: user.password})
-    })
-  ])
+  const [cody, murphy] = await Promise.all(
+    users.map(user => User.create({email: user.email, password: user.password}))
+  )
 
   // console.log(`seeded ${users.length} users`)
   // console.log(`seeded successfully`)
@@ -50,7 +48,7 @@ async function seed() {
       imageURL:
         'https://rockstarjackets.com/wp-content/uploads/2020/04/Zara-Woman-Leather-Jacket.jpg',
       description: 'Used black leather jacket from Zara',
-      condition: 'Used - Very good',
+      condition: 'Used - Very Good',
       price: 50.0,
       userId: murphy.id,
       categoryId: clothing.id
@@ -66,18 +64,18 @@ async function seed() {
       categoryId: household.id
     }
   ]
-  const [macbook, jacket, sofa] = await Promise.all(
-    products.map(product => {
+  await Promise.all(
+    products.map(product =>
       Product.create({
         name: product.name,
-        imageUrl: product.imageUrl,
+        imageURL: product.imageURL,
         description: product.description,
         condition: product.condition,
         price: product.price,
         userId: product.userId,
         categoryId: product.categoryId
       })
-    })
+    )
   )
 }
 
