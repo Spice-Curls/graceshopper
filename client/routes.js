@@ -9,6 +9,7 @@ import {Login, Signup, UserHome} from './components'
 
 //store
 import {me} from './store'
+import {getCategories} from './store/index'
 
 /**
  * COMPONENT
@@ -58,8 +59,9 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    loadInitialData() {
+    loadInitialData: () => {
       dispatch(me())
+      dispatch(getCategories())
     }
   }
 }
