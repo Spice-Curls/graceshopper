@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 
 //components
 import NotUserHome from './components/NotUserHome'
+import CategoryProducts from './components/CategoryProducts'
 import {Login, Signup, UserHome} from './components'
 
 //store
@@ -31,12 +32,22 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/" component={UserHome} />
+            {/* <Route path='/:category' render={ props => <CategoryProducts {...props} /> } /> */}
           </Switch>
         )}
         {!isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/" component={NotUserHome} />
+            {/* <Route path="/" component={NotUserHome} /> */}
+            <Route
+              path="/:category?"
+              render={props => (
+                <div>
+                  <NotUserHome />
+                  <CategoryProducts {...props} />
+                </div>
+              )}
+            />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

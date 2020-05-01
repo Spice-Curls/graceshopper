@@ -9,7 +9,7 @@ import SearchBar from './SearchBar'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>GraceShopper</h1>
+    <Link to="/">GraceShopper</Link>
     <nav>
       {isLoggedIn ? (
         <div>
