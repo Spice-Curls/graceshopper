@@ -1,31 +1,23 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 
-class Categories extends Component {
-  constructor() {
-    super()
-    this.state = {
-      categories: ['food', 'cats', 'dragons', 'castles', 'planets', 'universes']
-    }
-  }
-  render() {
-    const {categories} = this.state
-    return (
-      <div className="categories-list">
-        {categories.map((category, idx) => (
-          <Link to={`/${category}`} key={idx}>
-            {category}
-          </Link>
-        ))}
-      </div>
-    )
-  }
+const Categories = props => {
+  const {categories} = props
+  return (
+    <div className="categories-list">
+      {categories.map((category, idx) => (
+        <Link to={`/${category.name.toLowerCase()}`} key={idx}>
+          {category.name}
+        </Link>
+      ))}
+    </div>
+  )
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({categories}) => {
   return {
-    state
+    categories
   }
 }
 
