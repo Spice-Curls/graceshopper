@@ -1,6 +1,15 @@
 'use strict'
 
-const {db, User, Product, Category} = require('../server/db')
+const {
+  db,
+  User,
+  Category,
+  Product,
+  Cart,
+  CartItem,
+  Wishlist,
+  WishlistItem
+} = require('../server/db')
 
 async function seed() {
   await db.sync({force: true})
@@ -39,8 +48,8 @@ async function seed() {
       description: '15" Macbook Pro with quieter keyboard',
       condition: 'Used - Like New or Open Box',
       price: 1000.0,
-      categoryId: electronics.id,
-      userId: cody.id
+      sellerId: cody.id,
+      categoryId: electronics.id
     },
     {
       name: 'Leather Jacket from Zara',
@@ -49,7 +58,7 @@ async function seed() {
       description: 'Used black leather jacket from Zara',
       condition: 'Used - Very Good',
       price: 50.0,
-      userId: murphy.id,
+      sellerId: murphy.id,
       categoryId: clothing.id
     },
     {
@@ -59,11 +68,11 @@ async function seed() {
       description: 'Moving. Need someone to get this sofa off of my hands',
       condition: 'Used - Acceptable',
       price: 100.0,
-      userId: murphy.id,
+      sellerId: murphy.id,
       categoryId: household.id
     }
   ]
-  await Promise.all(
+  const [macbook, jacket, sofa] = await Promise.all(
     products.map(product =>
       Product.create({
         name: product.name,
@@ -71,11 +80,37 @@ async function seed() {
         description: product.description,
         condition: product.condition,
         price: product.price,
-        userId: product.userId,
+        sellerId: product.sellerId,
         categoryId: product.categoryId
       })
     )
   )
+
+  const murphyCart = await Cart.create({buyerId: murphy.id})
+
+  await CartItem.create({
+    productId: jacket.id,
+    quantity: 1,
+    cartId: murphyCart.id
+  })
+  await CartItem.create({
+    productId: macbook.id,
+    quantity: 2,
+    cartId: murphyCart.id
+  })
+
+  const codyWishlist = await Wishlist.create({buyerId: cody.id})
+
+  await WishlistItem.create({
+    productId: sofa.id,
+    quantity: 1,
+    wishlistId: codyWishlist.id
+  })
+  await WishlistItem.create({
+    productId: macbook.id,
+    quantity: 1,
+    wishlistId: codyWishlist.id
+  })
 }
 
 // We've separated the `seed` function from the `runSeed` function.
