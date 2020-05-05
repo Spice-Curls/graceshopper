@@ -7,12 +7,10 @@ import Categories from './Categories'
 /**
  * COMPONENT
  */
-export const NotUserHome = props => {
-  //   const {email} = props
-
+export const NotUserHome = ({email}) => {
   return (
     <div>
-      <h3>Welcome</h3>
+      <h3>Welcome {email}</h3>
       <Categories />
     </div>
   )

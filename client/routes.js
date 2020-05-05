@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import NotUserHome from './components/NotUserHome'
 import CategoryProducts from './components/CategoryProducts'
 import {Login, Signup, UserHome} from './components'
+import Cart from './components/Cart'
 
 //store
 import {me} from './store'
@@ -41,6 +42,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/" component={UserHome} />
+            <Route exact path="/:cart?" component={Cart} />
             {/* <Route path='/:category' render={ props => <CategoryProducts {...props} /> } /> */}
           </Switch>
         )}
@@ -57,6 +59,7 @@ class Routes extends Component {
                 </div>
               )}
             />
+            <Route exact path="/:cart?" component={Cart} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

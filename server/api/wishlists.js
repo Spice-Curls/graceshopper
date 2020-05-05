@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Wishlist, WishlistItem} = require('../db/models')
+const {Wishlist, WishlistItem, Product} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
