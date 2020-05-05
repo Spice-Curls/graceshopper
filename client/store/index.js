@@ -10,6 +10,8 @@ import categoriesReducer from './categories/reducer'
 
 // actions
 import {_getCategories} from './categories/actions'
+import {_addToCart} from './cart/actions'
+import {_addToWishlist} from './wishlist/actions'
 
 const reducer = combineReducers({
   user,
@@ -23,6 +25,16 @@ const getCategories = () => {
   }
 }
 
+const addToCart = cart => async dispatch => {
+  const productCart = (await axios.post(`/api/cartItems`, {cart})).data
+  dispatch(_addToCart(productCart))
+}
+
+const addToWishlist = wishlist => async dispatch => {
+  const wish = (await axios.post(`/api/wishlistItems`, {wishlist})).data
+  dispatch(_addToWishlist(wish))
+}
+
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
@@ -30,6 +42,6 @@ const store = createStore(reducer, middleware)
 
 export default store
 
-export {getCategories}
+export {getCategories, addToCart, addToWishlist}
 
 export * from './user'

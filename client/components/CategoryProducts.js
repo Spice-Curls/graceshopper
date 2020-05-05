@@ -1,8 +1,8 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
+import {addToCart, addToWishlist} from '../store/index'
 
-const CategoryProducts = ({match, categories}) => {
+const CategoryProducts = ({match, categories, addCart, addWish}) => {
   const category = categories.find(
     find => find.name.toLowerCase() === match.params.category
   )
@@ -17,6 +17,12 @@ const CategoryProducts = ({match, categories}) => {
               <div>{product.description}</div>
               <div>{product.condition}</div>
               <div>{product.price}</div>
+              <button type="submit" onClick={() => addWish(product)}>
+                Add To Wishlist
+              </button>
+              <button type="submit" onClick={() => addCart(product)}>
+                Add To Cart
+              </button>
             </div>
           )
         })}
@@ -30,4 +36,11 @@ const mapState = ({categories}) => {
   }
 }
 
-export default connect(mapState)(CategoryProducts)
+const mapDispatch = dispatch => {
+  return {
+    addCart: cart => dispatch(addToCart(cart)),
+    addWish: wishlist => dispatch(addToWishlist(wishlist))
+  }
+}
+
+export default connect(mapState, mapDispatch)(CategoryProducts)
