@@ -1,11 +1,14 @@
-import {ADD_TO_CART} from '../constants'
+import {GET_CART, ADD_TO_CART} from '../constants'
 
-const cartReducer = (state = [], action) => {
-  console.log('hello')
+const initialState = {
+  cartItems: []
+}
+const cartReducer = (state = initialState, action) => {
   switch (action.type) {
+    case GET_CART:
+      return action.cart
     case ADD_TO_CART:
-      console.log('REDUCER!!!', state, action.cart)
-      return [...state, action.cart]
+      return action.cart
   }
   return state
 }
