@@ -7,7 +7,7 @@ import {logout} from '../store'
 //components
 import SearchBar from './SearchBar'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({userId, handleClick, isLoggedIn, history}) => (
   <div>
     <Link to="/">GraceShopper</Link>
     <nav>
@@ -15,8 +15,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         <div>
           {/* The navbar will show these links after you log in */}
           <Link to="/">Home</Link>
-          <SearchBar />
-          <Link to="/user">My Profile</Link>
+          <SearchBar history={history} />
+          <Link to={`/user/${userId}`}>My Profile</Link>
           <Link to="/cart">Cart</Link>
           <a href="#" onClick={handleClick}>
             Logout
@@ -40,7 +40,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    userId: state.user.id
   }
 }
 

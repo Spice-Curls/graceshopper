@@ -9,10 +9,10 @@ class SearchBar extends Component {
     this.state = {
       text: '',
       items: [],
-      options: ['Product', 'Category', 'User']
+      options: ['Product', 'Category', 'User'],
+      type: 'product'
     }
     this.onSubmit = this.onSubmit.bind(this)
-    this.onChange = this.onChange.bind(this)
     this.findItems = this.findItems.bind(this)
   }
 
@@ -34,7 +34,7 @@ class SearchBar extends Component {
       case 'category':
         items = (await axios.get('/api/categories')).data.map(category => {
           return {
-            value: category.name,
+            value: category.id,
             label: category.name
           }
         })
@@ -42,7 +42,7 @@ class SearchBar extends Component {
       case 'user':
         items = (await axios.get('/api/users')).data.map(user => {
           return {
-            value: user.email,
+            value: user.id,
             label: user.email
           }
         })
@@ -53,11 +53,7 @@ class SearchBar extends Component {
 
   onSubmit(ev) {
     ev.preventDefault()
-    console.log(this.state.text)
-  }
-
-  onChange(ev) {
-    this.setState({text: ev.target.value})
+    this.props.history.push(`/search/${this.state.type}/${this.state.text}`)
   }
 
   render() {
@@ -68,6 +64,7 @@ class SearchBar extends Component {
       <form onSubmit={onSubmit}>
         <select
           onChange={filter => {
+            this.setState({type: filter.target.value.toLowerCase()})
             findItems(filter.target.value.toLowerCase())
           }}
         >

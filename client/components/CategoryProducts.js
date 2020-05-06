@@ -6,7 +6,6 @@ const CategoryProducts = ({match, categories, addCart, addWish}) => {
   const category = categories.find(
     find => find.name.toLowerCase() === match.params.category
   )
-  console.log(categories)
   return (
     <div>
       {category &&
