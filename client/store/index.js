@@ -7,6 +7,8 @@ import user from './user'
 
 // reducers
 import categoriesReducer from './categories/reducer'
+import cartReducer from './cart/reducer'
+import wishlistReducer from './wishlist/reducer'
 
 // actions
 import {_getCategories} from './categories/actions'
@@ -15,7 +17,9 @@ import {_addToWishlist} from './wishlist/actions'
 
 const reducer = combineReducers({
   user,
-  categories: categoriesReducer
+  categories: categoriesReducer,
+  wishlists: wishlistReducer,
+  carts: cartReducer
 })
 
 const getCategories = () => {
@@ -26,6 +30,7 @@ const getCategories = () => {
 }
 
 const addToCart = cart => async dispatch => {
+  console.log(cart)
   const productCart = (await axios.post(`/api/cartItems`, {cart})).data
   dispatch(_addToCart(productCart))
 }
