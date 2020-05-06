@@ -4,7 +4,7 @@ module.exports = router
 router.use('/users', require('./users'))
 router.use('/categories', require('./categories'))
 router.use('/products', require('./products'))
-router.use('/carts', require('./carts'))
+router.use('/cart', require('./cart'))
 router.use('/cartItems', require('./cartItems'))
 router.use('/wishlists', require('./wishlists'))
 router.use('/wishlistItems', require('./wishlistItems'))

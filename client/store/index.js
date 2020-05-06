@@ -12,14 +12,14 @@ import wishlistReducer from './wishlist/reducer'
 
 // actions
 import {_getCategories} from './categories/actions'
-import {_addToCart} from './cart/actions'
+import {_getCart, _addToCart} from './cart/actions'
 import {_addToWishlist} from './wishlist/actions'
 
 const reducer = combineReducers({
   user,
   categories: categoriesReducer,
   wishlists: wishlistReducer,
-  carts: cartReducer
+  cart: cartReducer
 })
 
 const getCategories = () => {
@@ -29,8 +29,14 @@ const getCategories = () => {
   }
 }
 
+const getCart = buyerId => {
+  return async dispatch => {
+    const cart = (await axios.get(`api/cart/${buyerId}`)).data
+    dispatch(_getCart(cart))
+  }
+}
+
 const addToCart = cart => async dispatch => {
-  console.log(cart)
   const productCart = (await axios.post(`/api/cartItems`, {cart})).data
   dispatch(_addToCart(productCart))
 }
@@ -47,6 +53,6 @@ const store = createStore(reducer, middleware)
 
 export default store
 
-export {getCategories, addToCart, addToWishlist}
+export {getCategories, getCart, addToCart, addToWishlist}
 
 export * from './user'

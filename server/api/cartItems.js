@@ -13,12 +13,19 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
-  try {
-    console.log('CARTS!!!', req.body.cart)
-    let products = await CartItem.create(req.body.cart)
-    res.json(products)
-  } catch (ex) {
-    next(ex)
-  }
-})
+// router.post('/', async (req, res, next) => {
+//   try {
+//     console.log('CARTS!!!', req.body.cart)
+//     // req.body
+//     /**
+//      * {
+//      *   productId: UUID,
+//      *   quantity: number,
+//      * }
+//      */
+//     let products = await CartItem.create(req.body.cart)
+//     res.json(products)
+//   } catch (ex) {
+//     next(ex)
+//   }
+// })
