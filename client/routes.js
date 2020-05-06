@@ -8,6 +8,7 @@ import NotUserHome from './components/NotUserHome'
 import CategoryProducts from './components/CategoryProducts'
 import {Login, Signup, UserHome} from './components'
 import Cart from './components/Cart'
+import Categories from './components/Categories'
 
 //store
 import {me} from './store'
@@ -29,11 +30,12 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route exact path="/" component={Categories} />
         <Route
-          path="/:category?"
+          path="/category/:category?"
           render={props => (
             <div>
-              <NotUserHome />
+              <Categories />
               <CategoryProducts {...props} />
             </div>
           )}
@@ -42,7 +44,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/" component={UserHome} />
-            <Route exact path="/:carts?" component={Cart} />
+            <Route exact path="/cart" component={Cart} />
             {/* <Route path='/:category' render={ props => <CategoryProducts {...props} /> } /> */}
           </Switch>
         )}

@@ -7,7 +7,7 @@ const Categories = props => {
   return (
     <div className="categories-list">
       {categories.map((category, idx) => (
-        <Link to={`/${category.name.toLowerCase()}`} key={idx}>
+        <Link to={`/category/${category.name.toLowerCase()}`} key={idx}>
           {category.name}
         </Link>
       ))}
