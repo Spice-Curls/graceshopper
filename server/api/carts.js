@@ -1,10 +1,14 @@
 const router = require('express').Router()
 const {Cart, CartItem} = require('../db/models')
 module.exports = router
+//route is /api/carts
 
-router.get('/', async (req, res, next) => {
+router.get('/:userId', async (req, res, next) => {
   try {
-    const cart = await Cart.findAll({include: [CartItem]})
+    const cart = await Cart.findAll({
+      where: {buyerId: req.params.userId},
+      include: [CartItem]
+    })
     res.json(cart)
   } catch (err) {
     next(err)
