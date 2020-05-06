@@ -26,7 +26,7 @@ const Navbar = ({userId, handleClick, isLoggedIn, history}) => (
         <div>
           {/* The navbar will show these links before you log in */}
           <Link to="/login">Login</Link>
-          <SearchBar />
+          <SearchBar history={history} />
           <Link to="/signup">Sign Up</Link>
         </div>
       )}
