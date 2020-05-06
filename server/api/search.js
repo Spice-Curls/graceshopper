@@ -14,7 +14,6 @@ router.get('/:type/:query', async (req, res, next) => {
         res.status(201).send(products)
         break
       case 'category':
-        console.log(req.params.query)
         const category = await Product.findAll({
           where: {categoryId: req.params.query}
         })
@@ -26,6 +25,6 @@ router.get('/:type/:query', async (req, res, next) => {
         break
     }
   } catch (err) {
-    console.log(er)
+    console.log(err)
   }
 })

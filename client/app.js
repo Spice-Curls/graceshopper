@@ -7,7 +7,7 @@ import Routes from './routes'
 const App = () => {
   return (
     <div>
-      <Route render={props => <Navbar {...props} />} />
+      <Route render={({history}) => <Navbar history={history} />} />
       <Routes />
     </div>
   )
