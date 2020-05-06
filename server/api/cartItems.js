@@ -2,6 +2,8 @@ const router = require('express').Router()
 const {CartItem} = require('../db/models')
 module.exports = router
 
+//route is /api/cartItems
+
 router.get('/', async (req, res, next) => {
   try {
     const cartItems = await CartItem.findAll()
