@@ -41,8 +41,8 @@ class Routes extends Component {
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/" component={UserHome} />
-            <Route exact path="/:cart?" component={Cart} />
+            <Route exact path="/" component={UserHome} />
+            <Route exact path="/:carts?" component={Cart} />
             {/* <Route path='/:category' render={ props => <CategoryProducts {...props} /> } /> */}
           </Switch>
         )}
@@ -59,7 +59,6 @@ class Routes extends Component {
                 </div>
               )}
             />
-            <Route exact path="/:cart?" component={Cart} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
