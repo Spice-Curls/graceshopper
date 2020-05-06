@@ -9,6 +9,7 @@ import CategoryProducts from './components/CategoryProducts'
 import {Login, Signup, UserHome} from './components'
 import Cart from './components/Cart'
 import Categories from './components/Categories'
+import Search from './components/Search'
 
 //store
 import {me} from './store'
@@ -39,6 +40,10 @@ class Routes extends Component {
               <CategoryProducts {...props} />
             </div>
           )}
+        />
+        <Route
+          path="/search/:type/:query"
+          render={({match}) => <Search match={match} />}
         />
         {isLoggedIn && (
           <Switch>
