@@ -8,6 +8,7 @@ class Cart extends Component {
   }
   render() {
     const {cart} = this.props
+    console.log(1)
     if (!cart.cartItems) {
       return <div>cart is empty</div>
     }
