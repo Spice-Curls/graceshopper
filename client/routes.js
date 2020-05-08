@@ -10,6 +10,7 @@ import {Login, Signup, UserHome} from './components'
 import Cart from './components/Cart'
 import Categories from './components/Categories'
 import Search from './components/Search'
+import UserProducts from './components/UserProducts'
 
 //store
 import {me} from './store'
@@ -50,6 +51,7 @@ class Routes extends Component {
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/" component={UserHome} />
             <Route exact path="/cart" component={Cart} />
+            <Route exact path="/user/:userId" component={UserProducts} />
             {/* <Route path='/:category' render={ props => <CategoryProducts {...props} /> } /> */}
           </Switch>
         )}
