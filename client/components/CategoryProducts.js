@@ -38,7 +38,7 @@ const mapState = ({categories}) => {
 
 const mapDispatch = dispatch => {
   return {
-    addCart: cart => dispatch(addToCart(cart)),
+    addCart: product => dispatch(addToCart(product)),
     addWish: wishlist => dispatch(addToWishlist(wishlist))
   }
 }
