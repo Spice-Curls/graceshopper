@@ -5,8 +5,8 @@ module.exports = router
 
 router.get('/:buyerId', async (req, res, next) => {
   try {
-    console.log(await Cart.findAll())
-    console.log(req.params.buyerId)
+    // console.log(await Cart.findAll())
+    // console.log(req.params.buyerId)
     const cart = await Cart.findOne({
       where: {buyerId: req.params.buyerId},
       include: [{model: CartItem, include: [Product]}]

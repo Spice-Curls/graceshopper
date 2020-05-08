@@ -6,28 +6,27 @@ import axios from 'axios'
 import user from './user'
 
 // reducers
-import cartReducer from './cart/reducer'
 import categoriesReducer from './categories/reducer'
-import userProductsReducer from './userProducts/reducer'
+import cartReducer from './cart/reducer'
 import wishlistReducer from './wishlist/reducer'
 
 // actions
 import {_getCategories} from './categories/actions'
 import {_getCart, _addToCart} from './cart/actions'
-import {_getUserProducts} from './userProducts/actions'
 import {_addToWishlist} from './wishlist/actions'
 
 const reducer = combineReducers({
   user,
-  cart: cartReducer,
   categories: categoriesReducer,
-  userProducts: userProductsReducer,
-  wishlists: wishlistReducer
+  wishlists: wishlistReducer,
+  cart: cartReducer
 })
 
-const addToCart = cart => async dispatch => {
-  const productCart = (await axios.post(`/api/cartItems`, {cart})).data
-  dispatch(_addToCart(productCart))
+const getCategories = () => {
+  return async dispatch => {
+    const categories = (await axios.get('/api/categories')).data
+    dispatch(_getCategories(categories))
+  }
 }
 
 const getCart = buyerId => {
@@ -37,19 +36,9 @@ const getCart = buyerId => {
   }
 }
 
-const getCategories = () => {
-  return async dispatch => {
-    const categories = (await axios.get('/api/categories')).data
-    dispatch(_getCategories(categories))
-  }
-}
-
-const getUserProducts = userId => {
-  return async dispatch => {
-    const products = (await axios.get(`/api/products/${userId}`)).data
-    console.log(products)
-    dispatch(_getUserProducts(products))
-  }
+const addToCart = product => async dispatch => {
+  const productCart = (await axios.post(`/api/cartItems`, {product})).data
+  dispatch(_addToCart(productCart))
 }
 
 const addToWishlist = wishlist => async dispatch => {
@@ -64,6 +53,6 @@ const store = createStore(reducer, middleware)
 
 export default store
 
-export {getCategories, getUserProducts, getCart, addToCart, addToWishlist}
+export {getCategories, getCart, addToCart, addToWishlist}
 
 export * from './user'
