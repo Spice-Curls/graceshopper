@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {CartItem, Cart} = require('../db/models')
+const {CartItem, Cart, User} = require('../db/models')
 module.exports = router
 
 //route is /api/cartItems
@@ -16,8 +16,14 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const {product} = req.body
-    const cart = await Cart.findOne({where: {buyerId: req.user.id}})
-    const item = await CartItem.findOne({where: {productId: product.id}})
+    const {id} = req.user
+    let cart = await Cart.findOne({where: {buyerId: id}})
+    if (!cart) {
+      cart = await Cart.create({buyerId: id})
+    }
+    const item = await CartItem.findOne({
+      where: {productId: product.id, cartId: cart.id}
+    })
     if (item) {
       const quantity = item.quantity + 1
       await item.update({

@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const products = await Product.findByPk(req.params.id)
+    const products = await Product.findAll({where: {sellerId: req.params.id}})
     res.json(products)
   } catch (err) {
     next(err)
