@@ -25,8 +25,8 @@ const reducer = combineReducers({
   wishlists: wishlistReducer
 })
 
-const addToCart = cart => async dispatch => {
-  const productCart = (await axios.post(`/api/cartItems`, {cart})).data
+const addToCart = product => async dispatch => {
+  const productCart = (await axios.post(`/api/cartItems`, {product})).data
   dispatch(_addToCart(productCart))
 }
 
@@ -47,7 +47,6 @@ const getCategories = () => {
 const getUserProducts = userId => {
   return async dispatch => {
     const products = (await axios.get(`/api/products/${userId}`)).data
-    console.log(products)
     dispatch(_getUserProducts(products))
   }
 }

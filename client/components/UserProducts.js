@@ -8,6 +8,9 @@ class userProducts extends Component {
   }
   render() {
     const {userProducts} = this.props
+    if (!userProducts) {
+      return <h1>No items</h1>
+    }
     return (
       <div>
         {userProducts.map(product => {
