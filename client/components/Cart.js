@@ -8,8 +8,6 @@ class Cart extends Component {
   }
   render() {
     const {cart} = this.props
-    const quantity = []
-    for (let i = 0; i <= 20; i++) quantity.push(i)
     if (!cart.cartItems) {
       return <div>cart is empty</div>
     }
@@ -18,12 +16,7 @@ class Cart extends Component {
         {cart.cartItems.map(cartItem => (
           <div key={cartItem.id}>
             <div>name: {cartItem.product.name}</div>
-            <div>
-              quantity:
-              <select defaultValue={cartItem.quantity}>
-                {quantity.map(number => <option>{number}</option>)}
-              </select>
-            </div>
+            <div>quantity: {cartItem.quantity}</div>
           </div>
         ))}
       </div>
