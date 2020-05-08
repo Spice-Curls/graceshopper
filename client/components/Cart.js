@@ -8,15 +8,16 @@ class Cart extends Component {
   }
   render() {
     const {cart} = this.props
-    if (!cart.cartItems) {
-      return <div>cart is empty</div>
+    if (!cart) {
+      return <div>Cart is empty</div>
     }
     return (
       <div>
         {cart.cartItems.map(cartItem => (
           <div key={cartItem.id}>
-            <div>name: {cartItem.product.name}</div>
-            <div>quantity: {cartItem.quantity}</div>
+            <div>{cartItem.product.name}</div>
+            <img src={cartItem.product.imageURL} />
+            <div>Quantity: {cartItem.quantity}</div>
           </div>
         ))}
       </div>
