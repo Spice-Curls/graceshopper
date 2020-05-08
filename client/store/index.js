@@ -31,13 +31,13 @@ const getCategories = () => {
 
 const getCart = buyerId => {
   return async dispatch => {
-    const cart = (await axios.get(`api/cart/${buyerId}`)).data
+    const cart = (await axios.get(`/api/cart/${buyerId}`)).data
     dispatch(_getCart(cart))
   }
 }
 
-const addToCart = cart => async dispatch => {
-  const productCart = (await axios.post(`/api/cartItems`, {cart})).data
+const addToCart = product => async dispatch => {
+  const productCart = (await axios.post(`/api/cartItems`, {product})).data
   dispatch(_addToCart(productCart))
 }
 
