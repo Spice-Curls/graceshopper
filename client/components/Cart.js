@@ -10,7 +10,6 @@ class Cart extends Component {
     const {cart} = this.props
     const quantity = []
     for (let i = 0; i <= 20; i++) quantity.push(i)
-
     if (!cart.cartItems) {
       return <div>cart is empty</div>
     }
