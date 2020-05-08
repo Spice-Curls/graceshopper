@@ -50,6 +50,7 @@ const getUserProducts = userId => {
     console.log(products)
     dispatch(_getUserProducts(products))
   }
+}
 
 const addToWishlist = wishlist => async dispatch => {
   const wish = (await axios.post(`/api/wishlistItems`, {wishlist})).data
