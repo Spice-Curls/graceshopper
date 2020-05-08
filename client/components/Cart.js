@@ -8,16 +8,23 @@ class Cart extends Component {
   }
   render() {
     const {cart} = this.props
-    if (!cart) {
-      return <div>Cart is empty</div>
+    const quantity = []
+    for (let i = 0; i <= 20; i++) quantity.push(i)
+
+    if (!cart.cartItems) {
+      return <div>cart is empty</div>
     }
     return (
       <div>
         {cart.cartItems.map(cartItem => (
           <div key={cartItem.id}>
-            <div>{cartItem.product.name}</div>
-            <img src={cartItem.product.imageURL} />
-            <div>Quantity: {cartItem.quantity}</div>
+            <div>name: {cartItem.product.name}</div>
+            <div>
+              quantity:
+              <select defaultValue={cartItem.quantity}>
+                {quantity.map(number => <option>{number}</option>)}
+              </select>
+            </div>
           </div>
         ))}
       </div>
