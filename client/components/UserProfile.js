@@ -4,7 +4,7 @@ import {getUserProducts, addProduct} from '../store/index'
 
 const initialState = {
   name: '',
-  imageURL: '',
+  image: null,
   description: '',
   condition: '',
   price: '',
@@ -26,14 +26,7 @@ class UserProfile extends Component {
     this.setState(initialState)
   }
   render() {
-    const {
-      name,
-      imageURL,
-      description,
-      condition,
-      price,
-      categoryId
-    } = this.state
+    const {name, image, description, condition, price, categoryId} = this.state
     const {userProducts, categories} = this.props
     const {addProduct} = this
 
@@ -73,11 +66,9 @@ class UserProfile extends Component {
           </select>
           <label>Add Image:</label>
           <input
-            type="text"
-            name="imageURL"
-            value={imageURL}
-            onChange={ev => this.setState({imageURL: ev.target.value})}
-            multiple
+            type="file"
+            name="image"
+            onChange={ev => this.setState({image: ev.target.files[0]})}
           />
           <textarea
             rows="3"

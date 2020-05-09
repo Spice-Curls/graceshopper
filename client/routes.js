@@ -10,7 +10,7 @@ import {Login, Signup, UserHome} from './components'
 import Cart from './components/Cart'
 import Categories from './components/Categories'
 import Search from './components/Search'
-import UserProducts from './components/UserProducts'
+import UserProfile from './components/UserProfile'
 import Wishlist from './components/Wishlist'
 
 //store
