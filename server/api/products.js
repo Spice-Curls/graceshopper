@@ -26,6 +26,7 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.post('/:id', singleUpload, async (req, res, next) => {
+  console.log(req.body)
   try {
     const user = req.params.id
     let imageUrl
