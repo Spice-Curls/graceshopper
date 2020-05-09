@@ -59,7 +59,6 @@ class SearchBar extends Component {
   render() {
     const {items, options} = this.state
     const {onSubmit, findItems} = this
-
     return (
       <form onSubmit={onSubmit}>
         <select

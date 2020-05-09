@@ -11,6 +11,7 @@ router.get('/', async (req, res, next) => {
       attributes: ['id', 'email'],
       include: [Cart]
     })
+    console.log(users)
     res.json(users)
   } catch (err) {
     next(err)
