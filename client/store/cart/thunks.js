@@ -8,7 +8,7 @@ export const addToCart = product => async dispatch => {
 
 export const getCart = buyerId => {
   return async dispatch => {
-    const cart = (await axios.get(`/api/cart/${buyerId}`)).data
+    const cart = (await axios.get(`/api/cartItems/${buyerId}`)).data
     dispatch(_getCart(cart))
   }
 }

@@ -16,14 +16,13 @@ class Cart extends Component {
   render() {
     // const {total, subTotal} = this.state
     const {cartItems, totalPrice} = this.props
-    console.log(cartItems)
     if (!cartItems) {
       return <div>cart is empty</div>
     }
     return (
       <div>
-        {cartItems.map(cartItem => (
-          <div key={cartItem.id}>
+        {cartItems.map((cartItem, idx) => (
+          <div key={idx}>
             <div>name: {cartItem.product.name}</div>
             <div>quantity: {cartItem.quantity}</div>
             <div>Item Total: {cartItem.quantity * cartItem.product.price}</div>
