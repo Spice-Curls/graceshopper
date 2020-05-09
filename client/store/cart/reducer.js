@@ -9,8 +9,7 @@ const cartReducer = (state = initialState.cartItems, action) => {
       state = action.cart
       break
     case ADD_TO_CART:
-      console.log(state)
-      state = [...state, action.cart]
+      state = [action.cart]
       break
   }
   return state

@@ -1,9 +1,17 @@
-import {ADD_TO_WISHLIST} from '../constants'
+import {ADD_TO_WISHLIST, GET_WISHLIST} from '../constants'
 
-const wishlistReducer = (state = [], action) => {
+const initialState = {
+  wishlistItems: []
+}
+
+const wishlistReducer = (state = initialState.wishlistItems, action) => {
   switch (action.type) {
+    case GET_WISHLIST:
+      state = action.product
+      break
     case ADD_TO_WISHLIST:
-      return [...state, action.wishlist]
+      state = [action.product]
+      break
   }
   return state
 }

@@ -7,9 +7,9 @@ export const _getCart = cart => {
   }
 }
 
-export const _addToCart = cart => {
+export const _addToCart = product => {
   return {
     type: ADD_TO_CART,
-    cart
+    product
   }
 }

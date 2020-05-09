@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 //components
 import SearchBar from './SearchBar'
+import user from '../store/user'
 
 const Navbar = ({userId, handleClick, isLoggedIn, history}) => (
   <div>
@@ -17,6 +18,7 @@ const Navbar = ({userId, handleClick, isLoggedIn, history}) => (
           <Link to="/">Home</Link>
           <SearchBar history={history} />
           <Link to={`/user/${userId}`}>My Profile</Link>
+          <Link to={`/wishlists/${userId}`}>Wishlist</Link>
           <Link to="/cart">Cart</Link>
           <a href="#" onClick={handleClick}>
             Logout

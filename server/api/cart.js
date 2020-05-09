@@ -31,13 +31,3 @@ router.get('/:buyerId', async (req, res, next) => {
 //     next(err)
 //   }
 // })
-
-// router.post('/', async (req, res, next) => {
-//   try {
-//     console.log('CARTS!!!', req.body.cart)
-//     let products = await CartItem.create(req.body.cart)
-//     res.json(products)
-//   } catch (ex) {
-//     next(ex)
-//   }
-// })
