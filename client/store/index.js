@@ -15,7 +15,8 @@ import wishlistReducer from './wishlist/reducer'
 import {_getCategories} from './categories/actions'
 import {_getCart, _addToCart} from './cart/actions'
 import {_getUserProducts, _addProduct} from './userProducts/actions'
-import {_addToWishlist} from './wishlist/actions'
+import {_addToWishlist, _getWishlist} from './wishlist/actions'
+
 
 const reducer = combineReducers({
   user,
@@ -35,6 +36,11 @@ const getCart = buyerId => {
     const cart = (await axios.get(`/api/cart/${buyerId}`)).data
     dispatch(_getCart(cart))
   }
+}
+
+const getWishlist = buyerId => async dispatch => {
+  const products = (await axios.get(`/api/wishlists/${buyerId}`)).data
+  dispatch(_getWishlist(products))
 }
 
 const getCategories = () => {
@@ -58,9 +64,10 @@ const addProduct = (_product, userId) => {
   }
 }
 
-const addToWishlist = wishlist => async dispatch => {
-  const wish = (await axios.post(`/api/wishlistItems`, {wishlist})).data
-  dispatch(_addToWishlist(wish))
+const addToWishlist = product => async dispatch => {
+  const wishlistProduct = (await axios.post(`/api/wishlistItems`, {product}))
+    .data
+  dispatch(_addToWishlist(wishlistProduct))
 }
 
 const middleware = composeWithDevTools(
@@ -76,6 +83,7 @@ export {
   addProduct,
   getCart,
   addToCart,
+  getWishlist,
   addToWishlist
 }
 

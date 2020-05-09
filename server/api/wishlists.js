@@ -2,11 +2,14 @@ const router = require('express').Router()
 const {Wishlist, WishlistItem, Product} = require('../db/models')
 module.exports = router
 
-router.get('/', async (req, res, next) => {
+router.get('/:buyerId', async (req, res, next) => {
   try {
-    const wishlist = await Wishlist.findAll({include: [WishlistItem]})
+    const wishlist = await Wishlist.findOne({
+      where: {buyerId: req.params.buyerId},
+      include: [{model: WishlistItem, include: [Product]}]
+    })
     res.json(wishlist)
-  } catch (err) {
-    next(err)
+  } catch (ex) {
+    next(ex)
   }
 })
