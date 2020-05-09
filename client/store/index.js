@@ -19,20 +19,21 @@ import {_addToWishlist, _getWishlist} from './wishlist/actions'
 
 const reducer = combineReducers({
   user,
-  cart: cartReducer,
+  cartItems: cartReducer,
   categories: categoriesReducer,
   userProducts: userProductsReducer,
   wishlists: wishlistReducer
 })
 
 const addToCart = product => async dispatch => {
-  const productCart = (await axios.post(`/api/cartItems`, {product})).data
-  dispatch(_addToCart(productCart))
+  const cartItem = (await axios.post(`/api/cartItems`, {product})).data
+  console.log(cartItem)
+  dispatch(_addToCart(cartItem))
 }
 
 const getCart = buyerId => {
   return async dispatch => {
-    const cart = (await axios.get(`/api/cart/${buyerId}`)).data
+    const cart = (await axios.get(`/api/cartItems/${buyerId}`)).data
     dispatch(_getCart(cart))
   }
 }

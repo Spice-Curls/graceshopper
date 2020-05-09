@@ -86,17 +86,17 @@ async function seed() {
     )
   )
 
-  const murphyCart = await Cart.create({buyerId: murphy.id})
+  // const murphyCart = await Cart.create({buyerId: murphy.id})
 
   await CartItem.create({
     productId: jacket.id,
     quantity: 1,
-    cartId: murphyCart.id
+    buyerId: murphy.id
   })
   await CartItem.create({
     productId: macbook.id,
     quantity: 2,
-    cartId: murphyCart.id
+    buyerId: murphy.id
   })
 
   const codyWishlist = await Wishlist.create({buyerId: cody.id})
