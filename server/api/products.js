@@ -19,3 +19,13 @@ router.get('/:id', async (req, res, next) => {
     next(err)
   }
 })
+
+router.post('/:id', async (req, res, next) => {
+  try {
+    const user = req.params.id
+    const product = Product.create({...req.body, sellerId: user})
+    res.json(product)
+  } catch (err) {
+    next(err)
+  }
+})

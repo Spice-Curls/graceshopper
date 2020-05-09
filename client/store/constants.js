@@ -1,5 +1,6 @@
 export const GET_CATEGORIES = 'GET_CATEGORIES'
 export const GET_USER_PRODUCTS = 'GET_USER_PRODUCTS'
+export const ADD_PRODUCT = 'ADD_PRODUCT'
 export const GET_CART = 'GET_CART'
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const GET_WISHLIST = 'GET_WISHLIST'
