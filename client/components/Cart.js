@@ -15,14 +15,14 @@ class Cart extends Component {
   }
   render() {
     // const {total, subTotal} = this.state
-    const {cart, totalPrice} = this.props
-    console.log(cart)
-    if (!cart || !cart.cartItems) {
+    const {cartItems, totalPrice} = this.props
+    console.log(cartItems)
+    if (!cartItems) {
       return <div>cart is empty</div>
     }
     return (
       <div>
-        {cart.cartItems.map(cartItem => (
+        {cartItems.map(cartItem => (
           <div key={cartItem.id}>
             <div>name: {cartItem.product.name}</div>
             <div>quantity: {cartItem.quantity}</div>
@@ -35,17 +35,17 @@ class Cart extends Component {
   }
 }
 
-const mapStateToProps = ({user, cart}) => {
+const mapStateToProps = ({user, cartItems}) => {
   let totalPrice = 0
-  if (cart && cart.cartItems) {
-    totalPrice = cart.cartItems.reduce((total, cartItem) => {
+  if (cartItems.length) {
+    totalPrice = cartItems.reduce((total, cartItem) => {
       total += cartItem.quantity * cartItem.product.price
       return total
     }, 0)
   }
   return {
     buyerId: user.id,
-    cart,
+    cartItems,
     totalPrice
   }
 }

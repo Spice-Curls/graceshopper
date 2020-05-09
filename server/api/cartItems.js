@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {CartItem, Cart, User} = require('../db/models')
+const {CartItem, Product} = require('../db/models')
 module.exports = router
 
 //route is /api/cartItems
@@ -13,16 +13,23 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.get('/:buyerId', async (req, res) => {
+  const cartItems = await CartItem.findAll({
+    where: {
+      buyerId: req.params.buyerId
+    },
+    include: [Product]
+  })
+  res.json(cartItems)
+})
+
 router.post('/', async (req, res, next) => {
   try {
     const {product} = req.body
     const {id} = req.user
-    let cart = await Cart.findOne({where: {buyerId: id}})
-    if (!cart) {
-      cart = await Cart.create({buyerId: id})
-    }
     const item = await CartItem.findOne({
-      where: {productId: product.id, cartId: cart.id}
+      where: {productId: product.id, buyerId: id},
+      include: [Product]
     })
     if (item) {
       const quantity = item.quantity + 1
@@ -34,9 +41,12 @@ router.post('/', async (req, res, next) => {
       const newItem = await CartItem.create({
         productId: product.id,
         quantity: 1,
-        cartId: cart.id
+        buyerId: id
       })
-      res.status(201).json(newItem)
+      const updatedItem = await CartItem.findByPk(newItem.id, {
+        include: [Product]
+      })
+      res.status(201).json(updatedItem)
     }
   } catch (ex) {
     next(ex)
