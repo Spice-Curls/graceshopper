@@ -2,11 +2,12 @@
 const aws = require('aws-sdk')
 const multer = require('multer')
 const multerS3 = require('multer-s3')
+require('dotenv').config()
 
 aws.config.update({
-  secretAccessKey: 'Vkdf1/8ptTRFjUBe4NXB4qtXQxW3IwcO0pS+9Dvc',
-  accessKeyId: 'AKIAYYJQTU7S3YNGLBQ4',
-  region: 'us-east-2'
+  secretAccessKey: process.env.SECRET_ACCESS_KEY,
+  accessKeyId: process.env.ACCESS_KEY_ID,
+  region: process.env.REGION
 })
 
 const s3 = new aws.S3()
