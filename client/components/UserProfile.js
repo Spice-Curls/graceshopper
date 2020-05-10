@@ -43,14 +43,14 @@ class UserProfile extends Component {
     const {addProduct} = this
 
     return (
-      <div>
-        <div>My Products</div>
+      <div className="user-profile">
+        <h3>My Products</h3>
         {userProducts &&
           userProducts.map((product, idx) => {
             return <div key={idx}>{product.name}</div>
           })}
         <br />
-        <form onSubmit={addProduct}>
+        <form onSubmit={addProduct} className="product-form">
           <input
             type="text"
             name="name"
