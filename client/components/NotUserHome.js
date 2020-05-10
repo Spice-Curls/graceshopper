@@ -10,7 +10,6 @@ import Categories from './Categories'
 export const NotUserHome = ({email}) => {
   return (
     <div>
-      <h3>Welcome {email}</h3>
       <Categories />
     </div>
   )

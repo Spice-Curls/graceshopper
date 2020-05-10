@@ -85,23 +85,24 @@ async function seed() {
     )
   )
 
-  // const murphyCart = await Cart.create({buyerId: murphy.id})
-  // await Order.create({
-  //   shippingAddress: '123 hello street',
-  //   billingAddress: '123 hello street',
-  //   totalPrice: 1000,
-  //   buyerId: murphy.id,
-  // })
+  const order1 = await Order.create({
+    shippingAddress: '123 hello street',
+    billingAddress: '123 hello street',
+    totalPrice: 1000,
+    buyerId: murphy.id
+  })
 
   await CartItem.create({
     productId: jacket.id,
     quantity: 1,
-    buyerId: murphy.id
+    buyerId: murphy.id,
+    orderId: order1.id
   })
   await CartItem.create({
     productId: macbook.id,
     quantity: 2,
-    buyerId: murphy.id
+    buyerId: murphy.id,
+    orderId: order1.id
   })
 
   // const codyWishlist = await Wishlist.create({buyerId: cody.id})
