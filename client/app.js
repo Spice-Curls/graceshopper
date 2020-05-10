@@ -1,4 +1,5 @@
 import React from 'react'
+import {Route} from 'react-router-dom'
 
 import {Navbar} from './components'
 import Routes from './routes'
@@ -6,7 +7,7 @@ import Routes from './routes'
 const App = () => {
   return (
     <div>
-      <Navbar />
+      <Route render={({history}) => <Navbar history={history} />} />
       <Routes />
     </div>
   )

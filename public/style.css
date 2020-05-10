@@ -1,4 +1,4 @@
-body {
+/* body {
   font-family: sans-serif;
 }
 
@@ -19,3 +19,8 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+.categories-list {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+} */

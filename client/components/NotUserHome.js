@@ -2,13 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 
+import Categories from './Categories'
+
 /**
  * COMPONENT
  */
-export const UserHome = props => {
-  const {email} = props
-
-  return <div />
+export const NotUserHome = ({email}) => {
+  return (
+    <div>
+      <Categories />
+    </div>
+  )
 }
 
 /**
@@ -20,11 +24,11 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState)(UserHome)
+export default connect(mapState)(NotUserHome)
 
 /**
  * PROP TYPES
  */
-UserHome.propTypes = {
+NotUserHome.propTypes = {
   email: PropTypes.string
 }
