@@ -1,4 +1,4 @@
-const Sequelize = require('Sequelize')
+const Sequelize = require('sequelize')
 const db = require('../db')
 const {STRING, UUID, UUIDV4, DECIMAL} = Sequelize
 
@@ -16,9 +16,9 @@ const Order = db.define('order', {
     type: STRING,
     allowNull: false
   },
-  totalPrice: {
+  totalAmount: {
     type: DECIMAL
   }
 })
 
-module.export = Order
+module.exports = Order
