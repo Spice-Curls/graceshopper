@@ -24,12 +24,18 @@ import categoriesReducer from './categories/reducer'
 import {_getCategories} from './categories/actions'
 import {getCategories} from './categories/thunks'
 
+//order
+import ordersReducer from './orders/reducer'
+import {_createOrder} from './orders/actions'
+import {createOrder} from './orders/thunks'
+
 const reducer = combineReducers({
   user,
   cartItems: cartReducer,
   categories: categoriesReducer,
   userProducts: userProductsReducer,
-  wishlists: wishlistReducer
+  wishlists: wishlistReducer,
+  orders: ordersReducer
 })
 
 // const addToCart = product => async dispatch => {
@@ -94,7 +100,8 @@ export {
   addToCart,
   getWishlist,
   addToWishlist,
-  editCart
+  editCart,
+  createOrder
 }
 
 export * from './user'

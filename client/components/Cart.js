@@ -7,7 +7,7 @@ class Cart extends Component {
   constructor() {
     super()
     this.state = {
-      totalPrice: 0,
+      total: 0,
       subTotal: 0
     }
   }
@@ -17,8 +17,7 @@ class Cart extends Component {
   render() {
     // const {total, subTotal} = this.state
 
-    const {cartItems, changeAmount} = this.props
-    const {totalPrice} = this.state
+    const {cartItems, totalPrice, changeAmount, buyerId} = this.props
     if (!cartItems) {
       return <div>cart is empty</div>
     }
@@ -48,15 +47,24 @@ class Cart extends Component {
           )
         })}
         <div>Total Price: {totalPrice}</div>
+        <Link to={`/checkout/${buyerId}`}>Proceed to Checkout</Link>
       </div>
     )
   }
 }
 
 const mapStateToProps = ({user, cartItems}) => {
+  let totalPrice = 0
+  if (cartItems.length) {
+    totalPrice = cartItems.reduce((total, cartItem) => {
+      total += cartItem.quantity * cartItem.product.price
+      return total
+    }, 0)
+  }
   return {
     buyerId: user.id,
-    cartItems
+    cartItems,
+    totalPrice
   }
 }
 

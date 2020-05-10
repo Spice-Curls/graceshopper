@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getUserProducts, addProduct} from '../store/index'
+import Popup from 'reactjs-popup'
 
 const initialState = {
   name: '',
@@ -9,7 +10,8 @@ const initialState = {
   condition: '',
   price: 0,
   categoryId: '',
-  stock: 0
+  stock: 0,
+  editAmount: 0
 }
 
 class UserProfile extends Component {
@@ -39,8 +41,16 @@ class UserProfile extends Component {
     this.setState(initialState)
   }
   render() {
-    const {name, stock, description, condition, price, categoryId} = this.state
-    const {userProducts, categories} = this.props
+    const {
+      name,
+      stock,
+      description,
+      condition,
+      price,
+      categoryId,
+      editAmount
+    } = this.state
+    const {userProducts, categories, remove, user} = this.props
     const {addProduct} = this
 
     return (
@@ -48,7 +58,21 @@ class UserProfile extends Component {
         <div>My Products</div>
         {userProducts &&
           userProducts.map((product, idx) => {
-            return <div key={idx}>{product.name}</div>
+            return (
+              <div key={idx}>
+                {product.name}({product.stock})
+                <Popup modal trigger={<span>Edit</span>}>
+                  <label>Edit Amount</label>
+                  <input
+                    type="number"
+                    value={editAmount}
+                    onChange={ev =>
+                      this.setState({editAmount: ev.target.value})
+                    }
+                  />
+                </Popup>
+              </div>
+            )
           })}
         <br />
         <form onSubmit={addProduct}>
@@ -141,7 +165,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getUserProducts: userId => dispatch(getUserProducts(userId)),
     addProduct: (product, formData, userId) =>
-      dispatch(addProduct(product, formData, userId))
+      dispatch(addProduct(product, formData, userId)),
+    remove: (product, userId) => console.log(product, userId)
   }
 }
 
