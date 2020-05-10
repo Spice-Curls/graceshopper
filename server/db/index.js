@@ -5,10 +5,9 @@ const {
   User,
   Product,
   Category,
-  Cart,
   CartItem,
-  Wishlist,
-  WishlistItem
+  WishlistItem,
+  Order
 } = require('./models/')
 
 module.exports = {
@@ -16,8 +15,7 @@ module.exports = {
   User,
   Product,
   Category,
-  Cart,
   CartItem,
-  Wishlist,
-  WishlistItem
+  WishlistItem,
+  Order
 }
