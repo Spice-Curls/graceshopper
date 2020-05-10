@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import Select from 'react-select'
 import axios from 'axios'
 
+// import styles from './navbar/navbar.css';
+
 class SearchBar extends Component {
   constructor() {
     super()
@@ -60,23 +62,26 @@ class SearchBar extends Component {
     const {items, options} = this.state
     const {onSubmit, findItems} = this
     return (
-      <form onSubmit={onSubmit}>
-        <select
-          onChange={filter => {
-            this.setState({type: filter.target.value.toLowerCase()})
-            findItems(filter.target.value.toLowerCase())
-          }}
-        >
-          {options.map((option, index) => (
-            <option key={index}>{option}</option>
-          ))}
-        </select>
-        <Select
-          onChange={item => this.setState({text: item.value})}
-          options={items}
-        />
-        <button>Search</button>
-      </form>
+      <div className="searchbar">
+        <form onSubmit={onSubmit}>
+          <select
+            onChange={filter => {
+              this.setState({type: filter.target.value.toLowerCase()})
+              findItems(filter.target.value.toLowerCase())
+            }}
+          >
+            {options.map((option, index) => (
+              <option key={index}>{option}</option>
+            ))}
+          </select>
+          <Select
+            onChange={item => this.setState({text: item.value})}
+            options={items}
+            className="searchinput"
+          />
+          <button>Search</button>
+        </form>
+      </div>
     )
   }
 }
