@@ -5,10 +5,9 @@ const {
   User,
   Category,
   Product,
-  Cart,
   CartItem,
-  Wishlist,
-  WishlistItem
+  WishlistItem,
+  Order
 } = require('../server/db')
 
 async function seed() {
@@ -87,6 +86,12 @@ async function seed() {
   )
 
   // const murphyCart = await Cart.create({buyerId: murphy.id})
+  // await Order.create({
+  //   shippingAddress: '123 hello street',
+  //   billingAddress: '123 hello street',
+  //   totalPrice: 1000,
+  //   buyerId: murphy.id,
+  // })
 
   await CartItem.create({
     productId: jacket.id,
@@ -99,17 +104,17 @@ async function seed() {
     buyerId: murphy.id
   })
 
-  const codyWishlist = await Wishlist.create({buyerId: cody.id})
+  // const codyWishlist = await Wishlist.create({buyerId: cody.id})
 
   await WishlistItem.create({
     productId: sofa.id,
     quantity: 1,
-    wishlistId: codyWishlist.id
+    buyerId: cody.id
   })
   await WishlistItem.create({
     productId: macbook.id,
     quantity: 1,
-    wishlistId: codyWishlist.id
+    buyerId: cody.id
   })
 }
 

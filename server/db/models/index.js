@@ -2,8 +2,8 @@ const User = require('./User')
 const Category = require('./Category')
 const Product = require('./Product')
 const CartItem = require('./CartItem')
-const Wishlist = require('./Wishlist')
 const WishlistItem = require('./WishlistItem')
+const Order = require('./Order')
 
 Product.belongsTo(User, {as: 'seller'})
 User.hasMany(Product, {foreignKey: 'sellerId'})
@@ -11,19 +11,13 @@ User.hasMany(Product, {foreignKey: 'sellerId'})
 Product.belongsTo(Category)
 Category.hasMany(Product)
 
-// Cart.belongsTo(User, {as: 'buyer'})
-// User.hasOne(Cart, {foreignKey: 'buyerId'})
 CartItem.belongsTo(User, {as: 'buyer'})
 User.hasMany(CartItem, {foreignKey: 'buyerId'})
-// Cart.hasMany(CartItem)
-// CartItem.belongsTo(Cart)
 CartItem.belongsTo(Product)
 Product.hasMany(CartItem)
 
-Wishlist.belongsTo(User, {as: 'buyer'})
-User.hasOne(Wishlist, {foreignKey: 'buyerId'})
-Wishlist.hasMany(WishlistItem)
-WishlistItem.belongsTo(Wishlist)
+WishlistItem.belongsTo(User, {as: 'buyer'})
+User.hasMany(WishlistItem, {foreignKey: 'buyerId'})
 WishlistItem.belongsTo(Product)
 Product.hasMany(WishlistItem)
 
@@ -45,6 +39,6 @@ module.exports = {
   Category,
   Product,
   CartItem,
-  Wishlist,
-  WishlistItem
+  WishlistItem,
+  Order
 }
