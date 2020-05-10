@@ -16,7 +16,7 @@ class Cart extends Component {
   render() {
     // const {total, subTotal} = this.state
     const {cart, totalPrice} = this.props
-    console.log(cart)
+    // console.log(cart)
     if (!cart || !cart.cartItems) {
       return <div>cart is empty</div>
     }

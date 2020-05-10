@@ -11,7 +11,7 @@ const CategoryProducts = ({match, categories, addCart, addWish}) => {
       {category &&
         category.products.map(product => {
           return (
-            <div key={product.id}>
+            <div className="product" key={product.id}>
               <div>{product.name}</div>
               <img src={product.imageURL} />
               <div>{product.description}</div>

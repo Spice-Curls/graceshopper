@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Category, Product, User} = require('../db/models')
+const {Product, User} = require('../db/models')
 module.exports = router
 
 //route is /api/search
@@ -11,18 +11,20 @@ router.get('/:type/:query', async (req, res, next) => {
         const products = await Product.findAll({
           where: {name: req.params.query}
         })
-        res.status(201).send(products)
+        res.status(200).send(products)
         break
       case 'category':
         const category = await Product.findAll({
           where: {categoryId: req.params.query}
         })
-        res.status(201).send(category)
+        res.status(200).send(category)
         break
       case 'user':
         const user = await User.findOne({where: {id: req.params.query}})
-        res.status(201).send([user])
+        res.status(200).send([user])
         break
+      default:
+        res.status(404)
     }
   } catch (err) {
     console.log(err)
