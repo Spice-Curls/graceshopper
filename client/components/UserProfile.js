@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import axios from 'axios'
 import {connect} from 'react-redux'
 import {getUserProducts, addProduct} from '../store/index'
 
@@ -8,8 +7,9 @@ const initialState = {
   image: null,
   description: '',
   condition: '',
-  price: '',
-  categoryId: ''
+  price: 0,
+  categoryId: '',
+  stock: 0
 }
 
 class UserProfile extends Component {
@@ -29,6 +29,7 @@ class UserProfile extends Component {
     formData.append('description', this.state.description)
     formData.append('condition', this.state.condition)
     formData.append('price', this.state.price)
+    formData.append('stock', this.state.stock)
     if (this.state.categoryId.length === 0) {
       formData.append('categoryId', this.props.categories[0].id)
     } else {
@@ -38,7 +39,7 @@ class UserProfile extends Component {
     this.setState(initialState)
   }
   render() {
-    const {name, image, description, condition, price, categoryId} = this.state
+    const {name, stock, description, condition, price, categoryId} = this.state
     const {userProducts, categories} = this.props
     const {addProduct} = this
 
@@ -59,6 +60,7 @@ class UserProfile extends Component {
             onChange={ev => this.setState({name: ev.target.value})}
             required
           />
+          <label>Price</label>
           <input
             type="number"
             name="price"
@@ -86,6 +88,12 @@ class UserProfile extends Component {
             name="image"
             onChange={ev => this.setState({image: ev.target.files[0]})}
             required
+          />
+          <label>Stock:</label>
+          <input
+            type="number"
+            value={stock}
+            onChange={ev => this.setState({stock: ev.target.value})}
           />
           <textarea
             rows="3"

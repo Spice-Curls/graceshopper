@@ -17,6 +17,7 @@ const CategoryProducts = ({match, categories, addCart, addWish}) => {
               <div>{product.description}</div>
               <div>{product.condition}</div>
               <div>{product.price}</div>
+              <div>Stock: {product.stock}</div>
               <button type="submit" onClick={() => addWish(product)}>
                 Add To Wishlist
               </button>
