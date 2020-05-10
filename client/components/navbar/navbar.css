@@ -3,7 +3,7 @@ body {
 }
 
 .navbar {
-  position: fixed;
+  /* position: fixed; */
   width: 100%;
   border-bottom: 2px solid black;
   background-color: white;
@@ -13,7 +13,6 @@ body {
 .navbar > div {
   display: flex;
   justify-content: space-between;
-  /* position: absolute; */
 }
 
 nav > div > .leftnav {
@@ -51,17 +50,22 @@ nav > div > .rightnav {
 div.categoriesandproducts {
   display: flex;
   /* margin-top: 8%; */
-  padding-top: 4.5%;
+  /* padding-top: 4.5%; */
 }
 
 img {
-  min-width: 90%;
-  max-height: 90%;
-  max-width: 90%;
-  max-height: 90%;
+  min-width: 40vw;
+  max-height: 70vh;
+  max-width: 40vw;
+  max-height: 70vh;
 }
 
 .product {
   margin-left: 40%;
   padding: 2rem 5rem;
+  width: 100vw;
+}
+
+.login {
+  /* padding-top: 4.5%; */
 }
