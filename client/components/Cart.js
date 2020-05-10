@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getCart} from '../store/index'
+import {Link} from 'react-router-dom'
 
 class Cart extends Component {
   constructor() {
@@ -16,7 +17,6 @@ class Cart extends Component {
   render() {
     // const {total, subTotal} = this.state
     const {cart, totalPrice} = this.props
-    console.log(cart)
     if (!cart || !cart.cartItems) {
       return <div>cart is empty</div>
     }
