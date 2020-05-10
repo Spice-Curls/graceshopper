@@ -28,6 +28,7 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.post('/:id', singleUpload, async (req, res, next) => {
+  console.log(req.body.stock)
   const url = req.file.location
   try {
     const user = req.params.id
@@ -38,7 +39,8 @@ router.post('/:id', singleUpload, async (req, res, next) => {
       price: req.body.price,
       categoryId: req.body.categoryId,
       imageURL: url,
-      sellerId: user
+      sellerId: user,
+      stock: req.body.stock
     })
 
     res.json(product)

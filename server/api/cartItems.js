@@ -23,6 +23,21 @@ router.get('/:buyerId', async (req, res) => {
   res.json(cartItems)
 })
 
+router.put('/:buyerId/:id', async (req, res, next) => {
+  const {id, buyerId} = req.params
+  const {quantity} = req.body
+  try {
+    await CartItem.update({quantity}, {where: {buyerId, id}})
+    const updated = await CartItem.findOne({
+      where: {buyerId, id},
+      include: [Product]
+    })
+    res.json(updated)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post('/', async (req, res, next) => {
   try {
     const {product} = req.body

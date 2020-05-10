@@ -16,8 +16,8 @@ import {getUserProducts, addProduct} from './userProducts/thunks'
 
 //cart
 import cartReducer from './cart/reducer'
-import {_getCart, _addToCart} from './cart/actions'
-import {addToCart, getCart} from './cart/thunks'
+import {_getCart, _addToCart, _editCart} from './cart/actions'
+import {addToCart, getCart, editCart} from './cart/thunks'
 
 //categories
 import categoriesReducer from './categories/reducer'
@@ -93,7 +93,8 @@ export {
   getCart,
   addToCart,
   getWishlist,
-  addToWishlist
+  addToWishlist,
+  editCart
 }
 
 export * from './user'
