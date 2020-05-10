@@ -3,22 +3,21 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 //store
-import {logout} from '../../store/index'
+import {logout} from '../store/index'
 //components
-import SearchBar from '../SearchBar'
-import user from '../../store/user'
-
-import styles from './navbar.css'
+import SearchBar from './SearchBar'
+import user from '../store/user'
 
 const Navbar = ({userId, handleClick, isLoggedIn, history}) => (
   <div>
     <nav className="navbar">
-      <Link to="/">GraceShopper</Link>
       {isLoggedIn ? (
-        <div>
+        <div className="logged-in">
           <div className="leftnav">
             {/* The navbar will show these links after you log in */}
-            <Link to="/">Home</Link>
+            <Link to="/">
+              <h1>GraceShopper</h1>
+            </Link>
           </div>
           <SearchBar history={history} />
           <div className="rightnav">
@@ -31,8 +30,11 @@ const Navbar = ({userId, handleClick, isLoggedIn, history}) => (
           </div>
         </div>
       ) : (
-        <div>
+        <div className="logged-out">
           {/* The navbar will show these links before you log in */}
+          <Link to="/">
+            <h1>GraceShopper</h1>
+          </Link>
           <SearchBar history={history} />
           <div className="rightnav">
             <Link to="/login">Login</Link>

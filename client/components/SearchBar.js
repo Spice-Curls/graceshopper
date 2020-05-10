@@ -3,8 +3,6 @@ import {connect} from 'react-redux'
 import Select from 'react-select'
 import axios from 'axios'
 
-// import styles from './navbar/navbar.css';
-
 class SearchBar extends Component {
   constructor() {
     super()
