@@ -11,22 +11,23 @@ import {getWishlist, addToWishlist} from './wishlist/thunks'
 
 //products
 import userProductsReducer from './userProducts/reducer'
-import {_getUserProducts, _addProduct} from './userProducts/actions'
-import {getUserProducts, addProduct} from './userProducts/thunks'
+import {
+  getUserProducts,
+  addProduct,
+  editProduct,
+  removeProduct
+} from './userProducts/thunks'
 
 //cart
 import cartReducer from './cart/reducer'
-import {_getCart, _addToCart, _editCart} from './cart/actions'
 import {addToCart, getCart, editCart} from './cart/thunks'
 
 //categories
 import categoriesReducer from './categories/reducer'
-import {_getCategories} from './categories/actions'
 import {getCategories} from './categories/thunks'
 
 //order
 import ordersReducer from './orders/reducer'
-import {_createOrder} from './orders/actions'
 import {createOrder} from './orders/thunks'
 
 const reducer = combineReducers({
@@ -101,7 +102,9 @@ export {
   getWishlist,
   addToWishlist,
   editCart,
-  createOrder
+  createOrder,
+  removeProduct,
+  editProduct
 }
 
 export * from './user'
