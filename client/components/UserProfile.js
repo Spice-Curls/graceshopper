@@ -1,6 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getUserProducts, addProduct} from '../store/index'
+import {
+  getUserProducts,
+  addProduct,
+  editProduct,
+  removeProduct
+} from '../store/index'
 import Popup from 'reactjs-popup'
 
 const initialState = {
@@ -11,7 +16,7 @@ const initialState = {
   price: 0,
   categoryId: '',
   stock: 0,
-  editAmount: 0
+  editAmount: ''
 }
 
 class UserProfile extends Component {
@@ -50,7 +55,7 @@ class UserProfile extends Component {
       categoryId,
       editAmount
     } = this.state
-    const {userProducts, categories, remove, user} = this.props
+    const {userProducts, categories, remove, updateStock} = this.props
     const {addProduct} = this
 
     return (
@@ -61,15 +66,38 @@ class UserProfile extends Component {
             return (
               <div key={idx}>
                 {product.name}({product.stock})
-                <Popup modal trigger={<span>Edit</span>}>
-                  <label>Edit Amount</label>
-                  <input
-                    type="number"
-                    value={editAmount}
-                    onChange={ev =>
-                      this.setState({editAmount: ev.target.value})
-                    }
-                  />
+                <Popup modal trigger={<a href="#">Edit</a>}>
+                  {close => (
+                    <div>
+                      <form
+                        onSubmit={ev => {
+                          ev.preventDefault()
+                          updateStock(product, editAmount)
+                          close()
+                        }}
+                      >
+                        <label>Edit Amount</label>
+                        <input
+                          type="number"
+                          value={editAmount}
+                          required
+                          onChange={ev =>
+                            this.setState({editAmount: ev.target.value})
+                          }
+                        />
+                        <button>Update Stock</button>
+                      </form>
+                      <form
+                        onSubmit={ev => {
+                          ev.preventDefault()
+                          remove(product)
+                          close()
+                        }}
+                      >
+                        <button>Remove Item</button>
+                      </form>
+                    </div>
+                  )}
                 </Popup>
               </div>
             )
@@ -166,7 +194,8 @@ const mapDispatchToProps = dispatch => {
     getUserProducts: userId => dispatch(getUserProducts(userId)),
     addProduct: (product, formData, userId) =>
       dispatch(addProduct(product, formData, userId)),
-    remove: (product, userId) => console.log(product, userId)
+    remove: product => dispatch(removeProduct(product)),
+    updateStock: (product, amount) => dispatch(editProduct(product, amount))
   }
 }
 
