@@ -21,6 +21,11 @@ User.hasMany(WishlistItem, {foreignKey: 'buyerId'})
 WishlistItem.belongsTo(Product)
 Product.hasMany(WishlistItem)
 
+Order.belongsTo(User, {as: 'buyer'})
+User.hasMany(Order, {foreignKey: 'buyerId'})
+CartItem.belongsTo(Order)
+Order.hasMany(CartItem)
+
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:
