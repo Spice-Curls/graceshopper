@@ -2,7 +2,7 @@ const router = require('express').Router()
 const {Order, CartItem} = require('../db/models')
 module.exports = router
 
-router.use('/', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const order = await Order.findAll({include: [CartItem]})
     res.json(order)
@@ -11,9 +11,10 @@ router.use('/', async (req, res, next) => {
   }
 })
 
-router.use('/:buyerId', async (req, res, next) => {
+router.get('/:buyerId', async (req, res, next) => {
   try {
     const order = await Order.findAll({where: {buyerId: req.params.buyerId}})
+    console.log('ORDER!!!', order)
     res.json(order)
   } catch (err) {
     next(err)
