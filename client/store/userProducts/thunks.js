@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {_getUserProducts} from './actions'
+import {_getUserProducts, _addProduct} from './actions'
 
 export const getUserProducts = userId => {
   return async dispatch => {
