@@ -33,11 +33,19 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route exact path="/" component={Categories} />
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <div className="categoriesandproducts">
+              <Categories />
+            </div>
+          )}
+        />
         <Route
           path="/category/:category?"
           render={props => (
-            <div>
+            <div className="categoriesandproducts">
               <Categories />
               <CategoryProducts {...props} />
             </div>

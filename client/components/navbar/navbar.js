@@ -3,37 +3,44 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 //store
-import {logout} from '../store'
+import {logout} from '../../store/index'
 //components
-import SearchBar from './SearchBar'
-import user from '../store/user'
+import SearchBar from '../SearchBar'
+import user from '../../store/user'
+
+import styles from './navbar.css'
 
 const Navbar = ({userId, handleClick, isLoggedIn, history}) => (
   <div>
-    <Link to="/">GraceShopper</Link>
-    <nav>
+    <nav className="navbar">
+      <Link to="/">GraceShopper</Link>
       {isLoggedIn ? (
         <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/">Home</Link>
+          <div className="leftnav">
+            {/* The navbar will show these links after you log in */}
+            <Link to="/">Home</Link>
+          </div>
           <SearchBar history={history} />
-          <Link to={`/user/${userId}`}>My Profile</Link>
-          <Link to={`/wishlists/${userId}`}>Wishlist</Link>
-          <Link to="/cart">Cart</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
+          <div className="rightnav">
+            <Link to={`/user/${userId}`}>My Profile</Link>
+            <Link to={`/wishlists/${userId}`}>Wishlist</Link>
+            <Link to="/cart">Cart</Link>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+          </div>
         </div>
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
           <SearchBar history={history} />
-          <Link to="/signup">Sign Up</Link>
+          <div className="rightnav">
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+          </div>
         </div>
       )}
     </nav>
-    <hr />
   </div>
 )
 
