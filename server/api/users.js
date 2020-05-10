@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Cart} = require('../db/models')
+const {User, CartItem} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -9,7 +9,7 @@ router.get('/', async (req, res, next) => {
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
       attributes: ['id', 'email'],
-      include: [Cart]
+      include: [CartItem]
     })
     console.log(users)
     res.json(users)

@@ -1,8 +1,10 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
+const multer = require('multer')
 
 module.exports = router
 
+// const upload = multer();
 const upload = require('./services/s3')
 const singleUpload = upload.single('image')
 
@@ -26,19 +28,20 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.post('/:id', singleUpload, async (req, res, next) => {
+  const url = req.file.location
   try {
     const user = req.params.id
-    let imageUrl
-    singleUpload(req, res, err => {
-      if (err) {
-        // console.log(err);
-      }
-      console.log(req.file)
-      // imageUrl = res.json({imageUrl: req.body.imageURL})
-      // console.log(imageUrl);
+    const product = await Product.create({
+      name: req.body.name,
+      description: req.body.description,
+      condition: req.body.condition,
+      price: req.body.price,
+      categoryId: req.body.categoryId,
+      imageURL: url,
+      sellerId: user
     })
-    // const product = Product.create({...req.body, sellerId: user})
-    // res.json(product)
+
+    res.json(product)
   } catch (err) {
     next(err)
   }

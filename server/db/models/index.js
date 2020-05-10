@@ -1,7 +1,6 @@
 const User = require('./User')
 const Category = require('./Category')
 const Product = require('./Product')
-const Cart = require('./Cart')
 const CartItem = require('./CartItem')
 const Wishlist = require('./Wishlist')
 const WishlistItem = require('./WishlistItem')
@@ -12,10 +11,12 @@ User.hasMany(Product, {foreignKey: 'sellerId'})
 Product.belongsTo(Category)
 Category.hasMany(Product)
 
-Cart.belongsTo(User, {as: 'buyer'})
-User.hasOne(Cart, {foreignKey: 'buyerId'})
-Cart.hasMany(CartItem)
-CartItem.belongsTo(Cart)
+// Cart.belongsTo(User, {as: 'buyer'})
+// User.hasOne(Cart, {foreignKey: 'buyerId'})
+CartItem.belongsTo(User, {as: 'buyer'})
+User.hasMany(CartItem, {foreignKey: 'buyerId'})
+// Cart.hasMany(CartItem)
+// CartItem.belongsTo(Cart)
 CartItem.belongsTo(Product)
 Product.hasMany(CartItem)
 
@@ -43,7 +44,6 @@ module.exports = {
   User,
   Category,
   Product,
-  Cart,
   CartItem,
   Wishlist,
   WishlistItem
