@@ -1,15 +1,22 @@
 import React, {Component} from 'react'
-import axios from 'axios'
 import {connect} from 'react-redux'
-import {getUserProducts, addProduct} from '../store/index'
+import {
+  getUserProducts,
+  addProduct,
+  editProduct,
+  removeProduct
+} from '../store/index'
+import Popup from 'reactjs-popup'
 
 const initialState = {
   name: '',
   image: null,
   description: '',
   condition: '',
-  price: '',
-  categoryId: ''
+  price: 0,
+  categoryId: '',
+  stock: 0,
+  editAmount: ''
 }
 
 class UserProfile extends Component {
@@ -29,6 +36,7 @@ class UserProfile extends Component {
     formData.append('description', this.state.description)
     formData.append('condition', this.state.condition)
     formData.append('price', this.state.price)
+    formData.append('stock', this.state.stock)
     if (this.state.categoryId.length === 0) {
       formData.append('categoryId', this.props.categories[0].id)
     } else {
@@ -38,19 +46,64 @@ class UserProfile extends Component {
     this.setState(initialState)
   }
   render() {
-    const {name, image, description, condition, price, categoryId} = this.state
-    const {userProducts, categories} = this.props
+    const {
+      name,
+      stock,
+      description,
+      condition,
+      price,
+      categoryId,
+      editAmount
+    } = this.state
+    const {userProducts, categories, remove, updateStock} = this.props
     const {addProduct} = this
 
     return (
-      <div>
-        <div>My Products</div>
+      <div className="user-profile">
+        <h3>My Products</h3>
         {userProducts &&
           userProducts.map((product, idx) => {
-            return <div key={idx}>{product.name}</div>
+            return (
+              <div key={idx}>
+                {product.name}({product.stock})
+                <Popup modal trigger={<a href="#">Edit</a>}>
+                  {close => (
+                    <div>
+                      <form
+                        onSubmit={ev => {
+                          ev.preventDefault()
+                          updateStock(product, editAmount)
+                          close()
+                        }}
+                      >
+                        <label>Edit Amount</label>
+                        <input
+                          type="number"
+                          value={editAmount}
+                          required
+                          onChange={ev =>
+                            this.setState({editAmount: ev.target.value})
+                          }
+                        />
+                        <button>Update Stock</button>
+                      </form>
+                      <form
+                        onSubmit={ev => {
+                          ev.preventDefault()
+                          remove(product)
+                          close()
+                        }}
+                      >
+                        <button>Remove Item</button>
+                      </form>
+                    </div>
+                  )}
+                </Popup>
+              </div>
+            )
           })}
         <br />
-        <form onSubmit={addProduct}>
+        <form onSubmit={addProduct} className="product-form">
           <input
             type="text"
             name="name"
@@ -59,6 +112,7 @@ class UserProfile extends Component {
             onChange={ev => this.setState({name: ev.target.value})}
             required
           />
+          <label>Price</label>
           <input
             type="number"
             name="price"
@@ -86,6 +140,12 @@ class UserProfile extends Component {
             name="image"
             onChange={ev => this.setState({image: ev.target.files[0]})}
             required
+          />
+          <label>Stock:</label>
+          <input
+            type="number"
+            value={stock}
+            onChange={ev => this.setState({stock: ev.target.value})}
           />
           <textarea
             rows="3"
@@ -133,7 +193,9 @@ const mapDispatchToProps = dispatch => {
   return {
     getUserProducts: userId => dispatch(getUserProducts(userId)),
     addProduct: (product, formData, userId) =>
-      dispatch(addProduct(product, formData, userId))
+      dispatch(addProduct(product, formData, userId)),
+    remove: product => dispatch(removeProduct(product)),
+    updateStock: (product, amount) => dispatch(editProduct(product, amount))
   }
 }
 

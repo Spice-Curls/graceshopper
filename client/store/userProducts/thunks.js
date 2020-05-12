@@ -1,7 +1,11 @@
 import axios from 'axios'
 
-import {_getUserProducts, _addProduct} from './actions'
-
+import {
+  _getUserProducts,
+  _addProduct,
+  _editProduct,
+  _destroyProduct
+} from './actions'
 
 export const getUserProducts = userId => {
   return async dispatch => {
@@ -18,5 +22,20 @@ export const addProduct = (_product, formData, userId) => {
       _product
     )).data
     dispatch(_addProduct(product))
+  }
+}
+
+export const editProduct = (product, amount) => {
+  return async dispatch => {
+    const editted = (await axios.put(`/api/products/${product.id}`, {amount}))
+      .data
+    dispatch(_editProduct(editted))
+  }
+}
+
+export const removeProduct = product => {
+  return async dispatch => {
+    await axios.delete(`/api/products/${product.id}`)
+    dispatch(_destroyProduct(product))
   }
 }
