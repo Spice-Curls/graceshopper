@@ -12,6 +12,7 @@ import Categories from './components/Categories'
 import Search from './components/Search'
 import UserProfile from './components/UserProfile'
 import Wishlist from './components/Wishlist'
+import Checkout from './components/Checkout'
 
 //store
 import {me} from './store'
@@ -62,6 +63,7 @@ class Routes extends Component {
             <Route exact path="/cart" component={Cart} />
             <Route exact path="/user/:userId" component={UserProfile} />
             <Route exact path="/wishlists/:userId" component={Wishlist} />
+            <Route path="/checkout/:userId" component={Checkout} />
             {/* <Route path='/:category' render={ props => <CategoryProducts {...props} /> } /> */}
           </Switch>
         )}

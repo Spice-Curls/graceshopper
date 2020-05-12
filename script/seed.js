@@ -48,7 +48,8 @@ async function seed() {
       condition: 'Used - Like New or Open Box',
       price: 1000.0,
       sellerId: cody.id,
-      categoryId: electronics.id
+      categoryId: electronics.id,
+      stock: 90
     },
     {
       name: 'Leather Jacket from Zara',
@@ -58,7 +59,8 @@ async function seed() {
       condition: 'Used - Very Good',
       price: 50.0,
       sellerId: murphy.id,
-      categoryId: clothing.id
+      categoryId: clothing.id,
+      stock: 80
     },
     {
       name: 'Loveseat Sofa',
@@ -68,7 +70,8 @@ async function seed() {
       condition: 'Used - Acceptable',
       price: 100.0,
       sellerId: murphy.id,
-      categoryId: household.id
+      categoryId: household.id,
+      stock: 70
     }
   ]
   const [macbook, jacket, sofa] = await Promise.all(
@@ -80,7 +83,8 @@ async function seed() {
         condition: product.condition,
         price: product.price,
         sellerId: product.sellerId,
-        categoryId: product.categoryId
+        categoryId: product.categoryId,
+        stock: product.stock
       })
     )
   )
