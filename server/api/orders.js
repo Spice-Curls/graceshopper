@@ -22,7 +22,7 @@ router.get('/:buyerId', async (req, res, next) => {
   }
 })
 
-router.post('/:buyerId', async (req, res, next) => {
+router.post('/:buyerId/ordered', async (req, res, next) => {
   try {
     const order = await Order.findOne({
       where: {buyerId: req.params.buyerId},
@@ -39,18 +39,6 @@ router.post('/:buyerId', async (req, res, next) => {
         description: products.product.description
       }
     })
-    console.log('PROD!!!!', arr)
-
-    //   const productsOutput = `<ul>
-    //   ${`${arr.map(
-    //     product => `
-    //     <li>${product.name}</li>
-    //     <li>${product.price}</li>
-    //     <li>${product.description}</li>
-    //     <img src=cid:${product.imageURL}/>
-    //   `
-    //   )}`}
-    // </ul>`
 
     const output = `
     <h3>Thank you for shopping with us at GraceShopper</h3>
@@ -104,20 +92,20 @@ router.post('/:buyerId', async (req, res, next) => {
   }
 })
 
-// const user = await User.findOne({where: {id: req.params.buyerId}})
-// let products = order.cartItems.reduce((acc, product) => {
-//   if (product.product.name !== acc.name) {
-//     acc.products = {
-//       name: product.product.name,
-//       imageURL: product.product.imageURL,
-//       price: product.product.price,
-//       description: product.product.description
-//     }
-//   }
-//   return acc
-// }, {})
+// // const user = await User.findOne({where: {id: req.params.buyerId}})
+// // let products = order.cartItems.reduce((acc, product) => {
+// //   if (product.product.name !== acc.name) {
+// //     acc.products = {
+// //       name: product.product.name,
+// //       imageURL: product.product.imageURL,
+// //       price: product.product.price,
+// //       description: product.product.description
+// //     }
+// //   }
+// //   return acc
+// // }, {})
 
-// console.log('PRODUCTS!!!!!!', products)
+// // console.log('PRODUCTS!!!!!!', products)
 
-// console.log('USER!!!', user)
-// console.log('ORDER!!!', order.cartItems.map)
+// // console.log('USER!!!', user)
+// // console.log('ORDER!!!', order.cartItems.map)
