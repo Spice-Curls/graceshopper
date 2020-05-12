@@ -1,5 +1,7 @@
+const nodemailer = require('nodemailer')
 const router = require('express').Router()
 const {Order, CartItem, Product} = require('../db/models')
+
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -20,6 +22,8 @@ router.get('/:buyerId', async (req, res, next) => {
   }
 })
 
+
+=======
 router.post('/:buyerId', async (req, res, next) => {
   const {buyerId} = req.params
   const {

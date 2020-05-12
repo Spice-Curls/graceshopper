@@ -92,7 +92,7 @@ async function seed() {
   const order1 = await Order.create({
     shippingAddress: '123 hello street',
     billingAddress: '123 hello street',
-    totalPrice: 1000,
+    totalAmount: 1000,
     buyerId: murphy.id
   })
 
