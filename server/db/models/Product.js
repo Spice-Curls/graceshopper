@@ -37,6 +37,10 @@ const Product = db.define('product', {
   price: {
     type: DECIMAL(10, 2),
     allowNull: false
+  },
+  stock: {
+    type: DECIMAL,
+    allowNull: false
   }
 })
 

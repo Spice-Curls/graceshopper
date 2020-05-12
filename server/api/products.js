@@ -27,6 +27,25 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+router.put('/:id', async (req, res, next) => {
+  try {
+    await Product.update({stock: req.body.amount}, {where: {id: req.params.id}})
+    const product = await Product.findOne({where: {id: req.params.id}})
+    res.json(product)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const destroyed = await Product.destroy({where: {id: req.params.id}})
+    res.status(200).json(destroyed)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post('/:id', singleUpload, async (req, res, next) => {
   const url = req.file.location
   try {
@@ -38,7 +57,8 @@ router.post('/:id', singleUpload, async (req, res, next) => {
       price: req.body.price,
       categoryId: req.body.categoryId,
       imageURL: url,
-      sellerId: user
+      sellerId: user,
+      stock: req.body.stock
     })
 
     res.json(product)
