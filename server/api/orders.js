@@ -22,8 +22,6 @@ router.get('/:buyerId', async (req, res, next) => {
   }
 })
 
-
-=======
 router.post('/:buyerId', async (req, res, next) => {
   const {buyerId} = req.params
   const {
