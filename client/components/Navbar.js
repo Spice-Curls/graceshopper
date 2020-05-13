@@ -8,7 +8,7 @@ import {logout} from '../store/index'
 import SearchBar from './SearchBar'
 import user from '../store/user'
 
-const Navbar = ({userId, handleClick, isLoggedIn, history}) => (
+const Navbar = ({userId, handleClick, isLoggedIn, history, cart}) => (
   <div>
     <nav className="navbar">
       {isLoggedIn ? (
@@ -23,7 +23,7 @@ const Navbar = ({userId, handleClick, isLoggedIn, history}) => (
           <div className="rightnav">
             <Link to={`/user/${userId}`}>My Profile</Link>
             <Link to={`/wishlists/${userId}`}>Wishlist</Link>
-            <Link to="/cart">Cart</Link>
+            <Link to="/cart">Cart ({cart})</Link>
             <a href="#" onClick={handleClick}>
               Logout
             </a>
@@ -50,9 +50,14 @@ const Navbar = ({userId, handleClick, isLoggedIn, history}) => (
  * CONTAINER
  */
 const mapState = state => {
+  const numInCart = state.cartItems.reduce((acc, now) => {
+    acc += now.quantity
+    return acc
+  }, 0)
   return {
     isLoggedIn: !!state.user.id,
-    userId: state.user.id
+    userId: state.user.id,
+    cart: numInCart
   }
 }
 

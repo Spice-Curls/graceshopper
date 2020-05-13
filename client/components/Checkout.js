@@ -7,6 +7,7 @@ class Checkout extends Component {
   constructor() {
     super()
     this.state = {
+      name: '',
       shippingAddress: '',
       billingAddress: '',
       creditCard: ''
@@ -28,7 +29,7 @@ class Checkout extends Component {
   }
   render() {
     const {cart, totalPrice} = this.props
-    const {shippingAddress, billingAddress, creditCard} = this.state
+    const {name, shippingAddress, billingAddress, creditCard} = this.state
     const {placeOrder} = this
     return (
       <div>
@@ -44,6 +45,12 @@ class Checkout extends Component {
           <li>Total Price: {totalPrice}</li>
         </ul>
         <form onSubmit={placeOrder}>
+          <label>Full Name:</label>
+          <input
+            type="text"
+            value={name}
+            onChange={ev => this.setState({name: ev.target.value})}
+          />
           <label>Shipping Address:</label>
           <input
             type="text"
