@@ -6,10 +6,19 @@ const cartReducer = (state = [], action) => {
       state = action.cartItems
       break
     case ADD_TO_CART:
-      state = [...state, action.cartItem]
+      //if the item is already in the cart
+      if (state.filter(item => item.id === action.cartItem.id).length !== 0) {
+        state = state.map(
+          item => (item.id === action.cartItem.id ? action.cartItem : item)
+        )
+      } else {
+        state = [...state, action.cartItem]
+      }
       break
     case EDIT_CART:
-      state.map(item => (item.id === action.item.id ? action.item : item))
+      state = state.map(
+        item => (item.id === action.item.id ? action.item : item)
+      )
       break
   }
   return state
