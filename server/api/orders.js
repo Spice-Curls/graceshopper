@@ -78,7 +78,7 @@ router.post('/:buyerId', async (req, res, next) => {
     ${`${arr.map(
       product => `
       <li>${product.name} (${product.quantity})</li>
-      <li>${product.price}</li>
+      <li>$${product.price}</li>
       <li>${product.description}</li>
       <img src='${product.imageURL}' style='width: 200px; height: 200px;'/>
     `
@@ -95,7 +95,7 @@ router.post('/:buyerId', async (req, res, next) => {
       tls: {rejectUnauthorized: false}
     })
 
-    let info = await transporter.sendMail({
+    await transporter.sendMail({
       from: '"GraceShopper" <graceshopperspice@gmail.com>',
       to: email,
       subject: 'Order Confirmation',
