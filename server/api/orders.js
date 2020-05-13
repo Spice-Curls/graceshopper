@@ -3,7 +3,7 @@ const router = require('express').Router()
 const {Order, CartItem, Product} = require('../db/models')
 module.exports = router
 
-router.use('/', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const order = await Order.findAll({include: [CartItem]})
     res.json(order)
@@ -12,7 +12,7 @@ router.use('/', async (req, res, next) => {
   }
 })
 
-router.use('/:buyerId', async (req, res, next) => {
+router.get('/:buyerId', async (req, res, next) => {
   try {
     const order = await Order.findAll({where: {buyerId: req.params.buyerId}})
     res.json(order)
@@ -20,15 +20,37 @@ router.use('/:buyerId', async (req, res, next) => {
     next(err)
   }
 })
-router.post('/:buyerId/ordered', async (req, res, next) => {
+
+router.post('/:buyerId', async (req, res, next) => {
+  const {buyerId} = req.params
+  const {
+    shippingAddress,
+    billingAddress,
+    creditCard,
+    cart,
+    price
+  } = req.body.order
   try {
-    const order = await Order.findOne({
+    //create the order
+    const newOrder = await Order.create({
+      shippingAddress,
+      billingAddress,
+      totalAmount: price,
+      buyerId,
+      cartItems: cart
+    })
+
+    //update the order id and take out buyerId so it doesnt show in cart again
+    await CartItem.update(
+      {orderId: newOrder.id, buyerId: null},
+      {where: {buyerId}}
+    )
+    
+   const order = await Order.findOne({
       where: {buyerId: req.params.buyerId},
       include: [{model: CartItem, include: Product}]
     })
-
-    res.send(order)
-
+   
     let arr = order.cartItems.map(products => {
       return {
         name: products.product.name,
@@ -37,7 +59,7 @@ router.post('/:buyerId/ordered', async (req, res, next) => {
         description: products.product.description
       }
     })
-
+    
     const output = `
     <h3>Thank you for shopping with us at GraceShopper</h3>
       <p>Order Confirmation Number: ${order.id}</p>
@@ -82,10 +104,18 @@ router.post('/:buyerId/ordered', async (req, res, next) => {
         }
       ]
     })
-    console.log('INFO!!!', info)
-    console.log('Message sent: %s', info.messageId)
-    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info))
-  } catch (ex) {
-    next(ex)
+
+    //update the stock
+    cart.forEach(async item => {
+      const stock = item.product.stock
+      await Product.update(
+        {stock: stock - item.quantity},
+        {where: {id: item.product.id}}
+      )
+    })
+
+    res.json(newOrder)
+  } catch (err) {
+    next(err)
   }
 })
