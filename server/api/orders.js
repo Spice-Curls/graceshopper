@@ -49,9 +49,11 @@ router.post('/:buyerId', async (req, res, next) => {
     )
 
     const order = await Order.findOne({
-      where: {buyerId: req.params.buyerId},
+      where: {id: newOrder.id},
       include: [{model: CartItem, include: Product}]
     })
+
+    console.log(order)
 
     let arr = order.cartItems.map(products => {
       return {
