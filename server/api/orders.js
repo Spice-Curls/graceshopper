@@ -23,7 +23,9 @@ router.get('/:buyerId', async (req, res, next) => {
 
 router.post('/:buyerId', async (req, res, next) => {
   const {buyerId} = req.params
+  const {email} = req.user
   const {
+    name,
     shippingAddress,
     billingAddress,
     creditCard,
@@ -45,37 +47,40 @@ router.post('/:buyerId', async (req, res, next) => {
       {orderId: newOrder.id, buyerId: null},
       {where: {buyerId}}
     )
-    
-   const order = await Order.findOne({
-      where: {buyerId: req.params.buyerId},
+
+    const order = await Order.findOne({
+      where: {id: newOrder.id},
       include: [{model: CartItem, include: Product}]
     })
-   
+
+    console.log(order)
+
     let arr = order.cartItems.map(products => {
       return {
         name: products.product.name,
         imageURL: products.product.imageURL,
         price: products.product.price,
-        description: products.product.description
+        description: products.product.description,
+        quantity: products.quantity
       }
     })
-    
+
     const output = `
     <h3>Thank you for shopping with us at GraceShopper</h3>
       <p>Order Confirmation Number: ${order.id}</p>
         <ul>
-          <li>Ship to Jonathan</li>
-          <li>at 123 street</li>
-          <li>Email: jncrdro@gmail.com'</li>
-          <li>Phone: 1231231231</li>
+          <li>Ship to ${name}</li>
+          <li>Address: ${shippingAddress}</li>
+          <li>Email: ${email}</li>
+          <li>Total Price: $${newOrder.totalAmount}</li>
         </ul>
         <ul>
     ${`${arr.map(
       product => `
-      <li>${product.name}</li>
+      <li>${product.name} (${product.quantity})</li>
       <li>${product.price}</li>
       <li>${product.description}</li>
-      <img src=cid:${product.imageURL}/>
+      <img src='${product.imageURL}' style='width: 200px; height: 200px;'/>
     `
     )}`}
   </ul>
@@ -91,8 +96,8 @@ router.post('/:buyerId', async (req, res, next) => {
     })
 
     let info = await transporter.sendMail({
-      from: '"GraceSHopper" <graceshopperspice@gmail.com>',
-      to: 'jncrdro@gmail.com',
+      from: '"GraceShopper" <graceshopperspice@gmail.com>',
+      to: email,
       subject: 'Order Confirmation',
       text: 'Testing',
       html: output,
