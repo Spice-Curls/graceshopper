@@ -1,4 +1,4 @@
-import {GET_CART, ADD_TO_CART, EDIT_CART} from '../constants'
+import {GET_CART, ADD_TO_CART, EDIT_CART, COPY_CART} from '../constants'
 
 export const _getCart = cartItems => {
   return {
@@ -18,5 +18,12 @@ export const _editCart = item => {
   return {
     type: EDIT_CART,
     item
+  }
+}
+
+export const _copyCart = cartItems => {
+  return {
+    type: COPY_CART,
+    cartItems
   }
 }

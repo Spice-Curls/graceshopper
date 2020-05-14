@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {_addToCart, _getCart, _editCart} from './actions'
+import {_addToCart, _getCart, _editCart, _copyCart} from './actions'
 
 export const addToCart = product => async dispatch => {
   const productCart = (await axios.post(`/api/cartItems`, {product})).data
@@ -20,5 +20,12 @@ export const editCart = (quantity, item) => {
       {quantity}
     )).data
     dispatch(_editCart(editted))
+  }
+}
+
+export const copyCart = () => {
+  return dispatch => {
+    const cart = JSON.parse(window.localStorage.getItem('cart'))
+    dispatch(_copyCart(cart))
   }
 }
