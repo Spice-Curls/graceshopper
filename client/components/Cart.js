@@ -11,19 +11,16 @@ class Cart extends Component {
       subTotal: 0
     }
   }
-  componentDidMount() {
-    this.props.getCart(this.props.buyerId)
-  }
   render() {
+
     // const {total, subTotal} = this.state
     const {cartItems, totalPrice, changeAmount, buyerId} = this.props
 
     const currentCart = JSON.parse(localStorage.getItem('cart'))
 
-    if (!cartItems) {
+    if (cartItems.length === 0) {
       return <div>cart is empty</div>
     }
-
     return (
       <div>
         {cartItems.map((cartItem, idx) => {
