@@ -1,19 +1,29 @@
 .navbar {
-  /* position: fixed; */
   width: 100%;
   border-bottom: 2px solid black;
-  background-color: white;
-  padding-bottom: 1rem;
+  background-color: black;
+  color: white;
+  .leftnav {
+    float: left;
+    margin: 0.5rem;
+  }
+  .leftnav > a {
+    color: white;
+  }
+  .rightnav > * {
+    display: flex;
+    justify-content: space-around;
+    align-content: flex-end;
+    font-size: 1.3rem;
+    margin: 0.5rem;
+    color: white;
+  }
 }
 
 .navbar :first-child {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-nav > div > .leftnav {
-  float: left;
 }
 
 nav > div > .searchbar > form {
@@ -24,33 +34,6 @@ nav > div > .searchbar > form {
   width: 25vw;
 }
 
-nav > div > .rightnav {
-  display: flex;
-  justify-content: space-around;
-}
-
-.categories-list {
-  display: flex;
-  flex-direction: column;
-  width: 30%;
-  border-right: 2px solid black;
-  font-size: 1rem;
-  position: fixed;
-  height: 100vh;
-  padding-right: 1rem;
-  overflow: auto;
-}
-
-.categories-list > a {
-  padding: 1rem;
-}
-
-div.categoriesandproducts {
-  display: flex;
-  /* margin-top: 8%; */
-  /* padding-top: 4.5%; */
-}
-
 img {
   min-width: 40vw;
   max-height: 70vh;
@@ -58,10 +41,8 @@ img {
   max-height: 70vh;
 }
 
-.product {
-  margin-left: 40%;
-  padding: 2rem 5rem;
-  width: 100vw;
+select {
+  height: 2rem;
 }
 
 // .login {
