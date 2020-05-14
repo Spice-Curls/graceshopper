@@ -10,6 +10,7 @@ import user from '../store/user'
 
 const Navbar = props => {
   const {userId, handleClick, isLoggedIn, history, cart} = props
+  console.log('HISTORY', history)
   useEffect(() => {
     props.loadCart(userId)
   })
@@ -26,9 +27,34 @@ const Navbar = props => {
             </div>
             <SearchBar history={history} />
             <div className="rightnav">
-              <Link to={`/user/${userId}`}>My Profile</Link>
-              <Link to={`/wishlists/${userId}`}>Wishlist</Link>
-              <Link to="/cart">Cart ({cart})</Link>
+              <Link
+                className={
+                  history.location.pathname === `/user/${userId}`
+                    ? 'selected'
+                    : ''
+                }
+                to={`/user/${userId}`}
+              >
+                My Profile
+              </Link>
+              <Link
+                className={
+                  history.location.pathname === `/wishlists/${userId}`
+                    ? 'selected'
+                    : ''
+                }
+                to={`/wishlists/${userId}`}
+              >
+                Wishlist
+              </Link>
+              <Link
+                className={
+                  history.location.pathname === '/cart' ? 'selected' : ''
+                }
+                to="/cart"
+              >
+                Cart ({cart})
+              </Link>
               <a href="#" onClick={handleClick}>
                 Logout
               </a>

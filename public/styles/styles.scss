@@ -1,2 +1,46 @@
 @import 'navbar';
 @import 'userProfile';
+@import 'cart';
+@import 'product';
+@import 'categories';
+
+.rightnav > a:hover {
+  background-color: aqua;
+  margin: 0.5rem;
+  border-radius: 10px;
+}
+.categories-list > a:hover {
+  background-color: aqua;
+  margin: 0.5rem;
+  border-radius: 10px;
+}
+button {
+  margin: 0.2rem;
+  height: 2rem;
+  width: 5rem;
+  background-color: black;
+  color: white;
+}
+button:hover {
+  transition: all 0.5s ease;
+  background-color: red;
+}
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.selected {
+  //   padding: 0.5rem;
+  background-color: lightblue;
+  border-radius: 10px;
+}
+
+// .navbar > .logged-in {
+//   position: fixed;
+//   top: 2;
+//   width: 100%;
+// }

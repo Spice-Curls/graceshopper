@@ -7,17 +7,17 @@ const CategoryProducts = ({match, categories, addCart, addWish}) => {
     find => find.name.toLowerCase() === match.params.category
   )
   return (
-    <div>
+    <div className="product-container">
       {category &&
         category.products.map(product => {
           return (
             <div className="product" key={product.id}>
-              <div>{product.name}</div>
+              <h3>{product.name}</h3>
               <img src={product.imageURL} />
-              <div>{product.description}</div>
-              <div>{product.condition}</div>
-              <div>{product.price}</div>
-              <div>Stock: {product.stock}</div>
+              <h3>{product.description}</h3>
+              <h3>{product.condition}</h3>
+              <h3>{product.price}</h3>
+              <h3>Stock: {product.stock}</h3>
               <button type="submit" onClick={() => addWish(product)}>
                 Add To Wishlist
               </button>

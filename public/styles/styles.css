@@ -1,9 +1,30 @@
 .navbar {
-  /* position: fixed; */
   width: 100%;
   border-bottom: 2px solid black;
-  background-color: white;
-  padding-bottom: 1rem;
+  background-color: black;
+  color: white;
+}
+
+.navbar .leftnav {
+  float: left;
+  margin: 0.5rem;
+}
+
+.navbar .leftnav > a {
+  color: white;
+}
+
+.navbar .rightnav > * {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  -ms-flex-line-pack: end;
+  align-content: flex-end;
+  font-size: 1.3rem;
+  margin: 0.5rem;
+  color: white;
 }
 
 .navbar :first-child {
@@ -18,10 +39,6 @@
   align-items: center;
 }
 
-nav > div > .leftnav {
-  float: left;
-}
-
 nav > div > .searchbar > form {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -32,43 +49,6 @@ nav > div > .searchbar > form {
   width: 25vw;
 }
 
-nav > div > .rightnav {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: distribute;
-  justify-content: space-around;
-}
-
-.categories-list {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  width: 30%;
-  border-right: 2px solid black;
-  font-size: 1rem;
-  position: fixed;
-  height: 100vh;
-  padding-right: 1rem;
-  overflow: auto;
-}
-
-.categories-list > a {
-  padding: 1rem;
-}
-
-div.categoriesandproducts {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  /* margin-top: 8%; */
-  /* padding-top: 4.5%; */
-}
-
 img {
   min-width: 40vw;
   max-height: 70vh;
@@ -76,10 +56,8 @@ img {
   max-height: 70vh;
 }
 
-.product {
-  margin-left: 40%;
-  padding: 2rem 5rem;
-  width: 100vw;
+select {
+  height: 2rem;
 }
 
 .user-profile > .product-form {
@@ -94,5 +72,127 @@ img {
 
 .product-form {
   width: 30vw;
+}
+
+.cart-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  margin: 0.5rem;
+}
+
+.cart {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 10rem;
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+.product-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+}
+
+.product {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.product > * {
+  margin: 0.1rem;
+}
+
+.categories-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 20%;
+  border-right: 2px solid black;
+  font-size: 1rem;
+  padding-right: 1rem;
+  overflow: auto;
+  -ms-flex-item-align: auto;
+  align-self: auto;
+}
+
+.categories-list > a {
+  padding: 1rem;
+  font-size: 1.5rem;
+}
+
+.categoriesandproducts {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+}
+
+.rightnav > a:hover {
+  background-color: aqua;
+  margin: 0.5rem;
+  border-radius: 10px;
+}
+
+.categories-list > a:hover {
+  background-color: aqua;
+  margin: 0.5rem;
+  border-radius: 10px;
+}
+
+button {
+  margin: 0.2rem;
+  height: 2rem;
+  width: 5rem;
+  background-color: black;
+  color: white;
+}
+
+button:hover {
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  background-color: red;
+}
+
+body {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.selected {
+  background-color: lightblue;
+  border-radius: 10px;
 }
 /*# sourceMappingURL=styles.css.map */

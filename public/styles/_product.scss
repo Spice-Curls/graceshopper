@@ -1,0 +1,15 @@
+.product-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product > * {
+  margin: 0.1rem;
+}

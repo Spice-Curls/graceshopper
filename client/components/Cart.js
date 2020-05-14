@@ -17,14 +17,14 @@ class Cart extends Component {
       return <div>Cart is empty</div>
     }
     return (
-      <div>
+      <div className="cart-container">
         {cartItems.map((cartItem, idx) => {
           const quantity = []
           for (let amount = 1; amount <= cartItem.product.stock; amount++) {
             quantity.push(amount)
           }
           return (
-            <div key={idx}>
+            <div key={cartItem.id} className="cart">
               <div>name: {cartItem.product.name}</div>
               <select
                 defaultValue={cartItem.quantity}
@@ -34,6 +34,7 @@ class Cart extends Component {
               >
                 {quantity.map(index => <option key={index}>{index}</option>)}
               </select>
+              <img src={cartItem.product.imageURL} />
               <div>
                 Item Total: {cartItem.quantity * cartItem.product.price}
               </div>
