@@ -1,8 +1,28 @@
-.user-profile > .product-form {
-  display: flex;
-  flex-direction: column;
+// .user-profile > .product-form {
+//   display: flex;
+//   flex-direction: column;
+// }
+
+// .product-form {
+//   width: 30vw;
+// }
+
+.user-profile {
+  width: 100%;
 }
 
-.product-form {
-  width: 30vw;
+.user-profile > * {
+  display: flex;
+  flex-direction: column;
+  // width: 100%;
+  align-content: center;
+  align-items: center;
+}
+input,
+select,
+textarea,
+label {
+  font-size: 1.3rem;
+  width: 15rem;
+  height: 2rem;
 }
