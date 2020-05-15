@@ -1,13 +1,25 @@
 .cart-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  // justify-content: space-around;
+  align-content: center;
+  align-items: center;
   margin: 0.5rem;
 }
 .cart {
   display: flex;
   flex-direction: column;
-  width: 10rem;
+  width: 100%;
   margin: 0.5rem;
   padding: 0.5rem;
+  h3 {
+    margin: 0.2rem;
+  }
+}
+
+.cart > * {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  align-self: center;
 }
