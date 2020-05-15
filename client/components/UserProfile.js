@@ -64,7 +64,7 @@ class UserProfile extends Component {
         {userProducts &&
           userProducts.map((product, idx) => {
             return (
-              <div key={idx}>
+              <h3 key={idx}>
                 {product.name}({product.stock})
                 <Popup modal trigger={<a href="#">Edit</a>}>
                   {close => (
@@ -99,7 +99,7 @@ class UserProfile extends Component {
                     </div>
                   )}
                 </Popup>
-              </div>
+              </h3>
             )
           })}
         <br />

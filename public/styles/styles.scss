@@ -7,7 +7,7 @@
 .rightnav > a:hover {
   background-color: aqua;
   margin: 0.5rem;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 .categories-list > a:hover {
   background-color: aqua;
@@ -23,6 +23,7 @@ button {
 }
 button:hover {
   transition: all 0.5s ease;
+  box-shadow: 5px 10px 18px red;
   background-color: red;
 }
 
@@ -33,11 +34,27 @@ body {
   height: 100%;
 }
 
-.selected {
-  //   padding: 0.5rem;
-  background-color: lightblue;
-  border-radius: 10px;
+.product {
+  margin-top: 16%;
 }
+
+.categories-list {
+  margin-top: 13%;
+}
+
+.user-profile {
+  margin-top: 13%;
+}
+
+select {
+  height: 2rem;
+}
+
+// .selected {
+//   //   padding: 0.5rem;
+//   //   background-color: lightblue;
+//   border-radius: 10px;
+// }
 
 // .navbar > .logged-in {
 //   position: fixed;
