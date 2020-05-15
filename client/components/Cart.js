@@ -74,7 +74,7 @@ const mapStateToProps = ({user, cartItems}) => {
     }, 0)
   }
   return {
-    buyerId: user.id,
+    buyerId: user.id || '',
     cartItems,
     totalPrice
   }

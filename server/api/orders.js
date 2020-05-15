@@ -21,9 +21,15 @@ router.get('/:buyerId', async (req, res, next) => {
   }
 })
 
-router.post('/:buyerId', async (req, res, next) => {
-  const {buyerId} = req.params
-  const {email} = req.user
+router.post('/:buyerId?', async (req, res, next) => {
+  let {buyerId} = req.params
+  let email
+  if (!buyerId) {
+    email = req.body.order.email
+    buyerId = null
+  } else {
+    email = req.user.email
+  }
   const {
     name,
     shippingAddress,
@@ -52,8 +58,6 @@ router.post('/:buyerId', async (req, res, next) => {
       where: {id: newOrder.id},
       include: [{model: CartItem, include: Product}]
     })
-
-    console.log(order)
 
     let arr = order.cartItems.map(products => {
       return {

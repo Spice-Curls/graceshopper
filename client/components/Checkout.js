@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
-import {getCart} from '../store/index'
 import {connect} from 'react-redux'
-import {createOrder} from '../store/index'
+import {Link} from 'react-router-dom'
+
+import {createOrder, getCart} from '../store/index'
 
 class Checkout extends Component {
   constructor() {
@@ -10,7 +11,8 @@ class Checkout extends Component {
       name: '',
       shippingAddress: '',
       billingAddress: '',
-      creditCard: ''
+      creditCard: '',
+      email: ''
     }
     this.placeOrder = this.placeOrder.bind(this)
   }
@@ -22,14 +24,20 @@ class Checkout extends Component {
     // ev.preventDefault();
     this.props.createOrder({
       ...this.state,
-      userId: this.props.match.params.userId,
+      userId: this.props.userId || '',
       cart: this.props.cart,
       price: this.props.totalPrice
     })
   }
   render() {
-    const {cart, totalPrice} = this.props
-    const {name, shippingAddress, billingAddress, creditCard} = this.state
+    const {cart, totalPrice, userId} = this.props
+    const {
+      name,
+      shippingAddress,
+      billingAddress,
+      creditCard,
+      email
+    } = this.state
     const {placeOrder} = this
     return (
       <div>
@@ -44,32 +52,54 @@ class Checkout extends Component {
           ))}
           <li>Total Price: {totalPrice}</li>
         </ul>
-        <form onSubmit={placeOrder}>
-          <label>Full Name:</label>
-          <input
-            type="text"
-            value={name}
-            onChange={ev => this.setState({name: ev.target.value})}
-          />
-          <label>Shipping Address:</label>
-          <input
-            type="text"
-            value={shippingAddress}
-            onChange={ev => this.setState({shippingAddress: ev.target.value})}
-          />
-          <label>Billing Address:</label>
-          <input
-            type="text"
-            value={billingAddress}
-            onChange={ev => this.setState({billingAddress: ev.target.value})}
-          />
-          <label>Credit Card:</label>
-          <input
-            type="text"
-            value={creditCard}
-            onChange={ev => this.setState({creditCard: ev.target.value})}
-          />
-          <button>Place Order</button>
+        <form>
+          <div>
+            <label>Full Name:</label>
+            <input
+              type="text"
+              value={name}
+              onChange={ev => this.setState({name: ev.target.value})}
+            />
+          </div>
+          <div>
+            <label>Shipping Address:</label>
+            <input
+              type="text"
+              value={shippingAddress}
+              onChange={ev => this.setState({shippingAddress: ev.target.value})}
+            />
+          </div>
+          <div>
+            <label>Billing Address:</label>
+            <input
+              type="text"
+              value={billingAddress}
+              onChange={ev => this.setState({billingAddress: ev.target.value})}
+            />
+          </div>
+          <div>
+            <label>Credit Card:</label>
+            <input
+              type="text"
+              value={creditCard}
+              onChange={ev => this.setState({creditCard: ev.target.value})}
+            />
+          </div>
+          {!userId ? (
+            <div>
+              <label>Email:</label>
+              <input
+                type="text"
+                value={email}
+                onChange={ev => this.setState({email: ev.target.value})}
+              />
+            </div>
+          ) : (
+            ''
+          )}
+          <Link onClick={placeOrder} to="/confirmation">
+            Place Order
+          </Link>
         </form>
       </div>
     )
@@ -77,6 +107,9 @@ class Checkout extends Component {
 }
 
 const mapState = state => {
+  if (!state.user.id) {
+    state.cartItems = JSON.parse(window.localStorage.getItem('cart'))
+  }
   let totalPrice = 0
   if (state.cartItems.length) {
     totalPrice = state.cartItems.reduce((total, cartItem) => {
@@ -87,7 +120,8 @@ const mapState = state => {
   return {
     url: state.match,
     cart: state.cartItems,
-    totalPrice
+    totalPrice,
+    userId: state.user.id
   }
 }
 
