@@ -1,4 +1,9 @@
-import {GET_CART, ADD_TO_CART, EDIT_CART, COPY_CART} from '../constants'
+import {
+  GET_CART,
+  ADD_TO_CART,
+  EDIT_CART,
+  REMOVE_ITEM_FROM_CART
+} from '../constants'
 
 const cartReducer = (state = [], action) => {
   switch (action.type) {
@@ -20,8 +25,8 @@ const cartReducer = (state = [], action) => {
         item => (item.id === action.item.id ? action.item : item)
       )
       break
-    case COPY_CART:
-      state = [...action.cartItems]
+    case REMOVE_ITEM_FROM_CART:
+      state = state.filter(item => item.id !== action.item.id)
       break
   }
   return state

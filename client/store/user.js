@@ -1,7 +1,7 @@
 import axios from 'axios'
 import history from '../history'
 // import {_copyCart} from './cart/actions'
-import {copyCart} from './cart/thunks'
+import {addToCart} from './index'
 
 /**
  * ACTION TYPES
@@ -41,8 +41,17 @@ export const auth = (email, password, method) => async dispatch => {
   }
 
   try {
+    const products = JSON.parse(window.localStorage.getItem('cart'))
+    products.forEach(product => {
+      dispatch(addToCart(product))
+      window.localStorage.removeItem('cart')
+    })
+  } catch (err) {
+    console.log(err)
+  }
+
+  try {
     dispatch(getUser(res.data))
-    // dispatch(copyCart())
     history.push('/home')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
