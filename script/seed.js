@@ -114,12 +114,14 @@ async function seed() {
   await WishlistItem.create({
     productId: sofa.id,
     quantity: 1,
-    buyerId: cody.id
+    buyerId: cody.id,
+    orderId: order1.id
   })
   await WishlistItem.create({
     productId: macbook.id,
     quantity: 1,
-    buyerId: cody.id
+    buyerId: cody.id,
+    orderId: order1.id
   })
 }
 

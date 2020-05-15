@@ -6,8 +6,12 @@ import user from './user'
 
 //wishlist
 import wishlistReducer from './wishlist/reducer'
-import {_addToWishlist, _getWishlist} from './wishlist/actions'
-import {getWishlist, addToWishlist} from './wishlist/thunks'
+import {
+  getWishlist,
+  addToWishlist,
+  editWishlist,
+  removeItemFromWishlist
+} from './wishlist/thunks'
 
 //products
 import userProductsReducer from './userProducts/reducer'
@@ -35,7 +39,7 @@ const reducer = combineReducers({
   cartItems: cartReducer,
   categories: categoriesReducer,
   userProducts: userProductsReducer,
-  wishlists: wishlistReducer,
+  wishlistItems: wishlistReducer,
   orders: ordersReducer
 })
 
@@ -50,15 +54,17 @@ export {
   getCategories,
   getUserProducts,
   addProduct,
+  editProduct,
+  removeProduct,
   getCart,
   addToCart,
+  editCart,
+  removeItemFromCart,
   getWishlist,
   addToWishlist,
-  editCart,
-  createOrder,
-  removeProduct,
-  editProduct,
-  removeItemFromCart
+  editWishlist,
+  removeItemFromWishlist,
+  createOrder
 }
 
 export * from './user'
