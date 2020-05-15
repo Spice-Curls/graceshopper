@@ -41,14 +41,18 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.get('/:buyerId', async (req, res) => {
-  const wishlistItems = await WishlistItem.findAll({
-    where: {
-      buyerId: req.params.buyerId
-    },
-    include: [Product]
-  })
-  res.json(wishlistItems)
+router.get('/:buyerId', async (req, res, next) => {
+  try {
+    const wishlistItems = await WishlistItem.findAll({
+      where: {
+        buyerId: req.params.buyerId
+      },
+      include: [Product]
+    })
+    res.json(wishlistItems)
+  } catch (err) {
+    next(err)
+  }
 })
 
 router.put('/:buyerId/:id', async (req, res, next) => {

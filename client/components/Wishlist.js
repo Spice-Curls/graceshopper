@@ -33,7 +33,6 @@ class Wishlist extends Component {
     return (
       <div className="wishlist-container">
         {wishlistItems.map(wishlistItem => {
-          console.log(wishlistItem)
           const quantity = []
           for (let amount = 1; amount <= wishlistItem.product.stock; amount++) {
             quantity.push(amount)
