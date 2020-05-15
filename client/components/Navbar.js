@@ -38,11 +38,9 @@ const Navbar = props => {
               </Link>
               <Link
                 className={
-                  history.location.pathname === `/wishlists/${userId}`
-                    ? 'selected'
-                    : ''
+                  history.location.pathname === '/wishlists' ? 'selected' : ''
                 }
-                to={`/wishlists/${userId}`}
+                to="/wishlists"
               >
                 Wishlist
               </Link>
