@@ -41,23 +41,10 @@ router.post('/', async (req, res, next) => {
         res.status(201).json(updatedItem)
       }
     } else if (localStorage) {
-        const duplicate = localStorage.find(
-          item => item.productId === product.id
-        )
-        if (duplicate) {
-          duplicate.quantity++
-          res.json(duplicate)
-        } else {
-          const cartItem = await CartItem.create({
-            productId: product.id,
-            quantity: 1,
-            buyerId: null
-          })
-          const item = await CartItem.findByPk(cartItem.id, {
-            include: [Product]
-          })
-          res.json(item)
-        }
+      const duplicate = localStorage.find(item => item.productId === product.id)
+      if (duplicate) {
+        duplicate.quantity++
+        res.json(duplicate)
       } else {
         const cartItem = await CartItem.create({
           productId: product.id,
@@ -69,12 +56,23 @@ router.post('/', async (req, res, next) => {
         })
         res.json(item)
       }
+    } else {
+      const cartItem = await CartItem.create({
+        productId: product.id,
+        quantity: 1,
+        buyerId: null
+      })
+      const item = await CartItem.findByPk(cartItem.id, {
+        include: [Product]
+      })
+      res.json(item)
+    }
   } catch (ex) {
     next(ex)
   }
 })
 
-router.get('/:buyerId', async (req, res) => {
+router.get('/:buyerId', async (req, res, next) => {
   try {
     const cartItems = await CartItem.findAll({
       where: {

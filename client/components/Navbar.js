@@ -88,7 +88,7 @@ const Navbar = props => {
  * CONTAINER
  */
 
-const mapState = ({cartItems, user}) => {
+const mapState = ({user, cartItems, wishlistItems}) => {
   if (!user.id) {
     const items = JSON.parse(window.localStorage.getItem('cart'))
     cartItems = items
@@ -99,14 +99,14 @@ const mapState = ({cartItems, user}) => {
       acc += now.quantity
       return acc
     }, 0)
- const numInWishlist = state.wishlistItems.reduce((acc, now) => {
+  const numInWishlist = wishlistItems.reduce((acc, now) => {
     acc += now.quantity
     return acc
   }, 0)
   return {
     isLoggedIn: !!user.id,
     userId: user.id,
-    cart: numInCart || 0
+    cart: numInCart || 0,
     wishlist: numInWishlist
   }
 }
