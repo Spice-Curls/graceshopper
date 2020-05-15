@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {CartItem, Product} = require('../db/models')
+const {v4} = require('uuid')
 module.exports = router
 
 //route is /api/cartItems
@@ -15,29 +16,59 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const {product} = req.body
-    const {id} = req.user
-    const item = await CartItem.findOne({
-      where: {productId: product.id, buyerId: id},
-      include: [Product]
-    })
-    if (item) {
-      const quantity = item.quantity + 1
-      await item.update({
-        quantity
-      })
-      res.status(201).json(item)
-    } else {
-      const newItem = await CartItem.create({
-        productId: product.id,
-        quantity: 1,
-        buyerId: id
-      })
-      const updatedItem = await CartItem.findByPk(newItem.id, {
+    const {product, localStorage} = req.body
+    if (req.user) {
+      const {id} = req.user
+      const item = await CartItem.findOne({
+        where: {productId: product.id, buyerId: id},
         include: [Product]
       })
-      res.status(201).json(updatedItem)
-    }
+      if (item) {
+        const quantity = item.quantity + 1
+        await item.update({
+          quantity
+        })
+        res.status(201).json(item)
+      } else {
+        const newItem = await CartItem.create({
+          productId: product.id,
+          quantity: 1,
+          buyerId: id
+        })
+        const updatedItem = await CartItem.findByPk(newItem.id, {
+          include: [Product]
+        })
+        res.status(201).json(updatedItem)
+      }
+    } else if (localStorage) {
+        const duplicate = localStorage.find(
+          item => item.productId === product.id
+        )
+        if (duplicate) {
+          duplicate.quantity++
+          res.json(duplicate)
+        } else {
+          const cartItem = await CartItem.create({
+            productId: product.id,
+            quantity: 1,
+            buyerId: null
+          })
+          const item = await CartItem.findByPk(cartItem.id, {
+            include: [Product]
+          })
+          res.json(item)
+        }
+      } else {
+        const cartItem = await CartItem.create({
+          productId: product.id,
+          quantity: 1,
+          buyerId: null
+        })
+        const item = await CartItem.findByPk(cartItem.id, {
+          include: [Product]
+        })
+        res.json(item)
+      }
   } catch (ex) {
     next(ex)
   }

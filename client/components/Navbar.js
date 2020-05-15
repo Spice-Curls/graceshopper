@@ -65,6 +65,14 @@ const Navbar = props => {
             </Link>
             <SearchBar history={history} />
             <div className="rightnav">
+              <Link
+                className={
+                  history.location.pathname === '/cart' ? 'selected' : ''
+                }
+                to="/cart"
+              >
+                Cart ({cart})
+              </Link>
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
             </div>
@@ -78,15 +86,21 @@ const Navbar = props => {
 /**
  * CONTAINER
  */
-const mapState = state => {
-  const numInCart = state.cartItems.reduce((acc, now) => {
-    acc += now.quantity
-    return acc
-  }, 0)
+const mapState = ({cartItems, user}) => {
+  if (!user.id) {
+    const items = JSON.parse(window.localStorage.getItem('cart'))
+    cartItems = items
+  }
+  const numInCart =
+    cartItems &&
+    cartItems.reduce((acc, now) => {
+      acc += now.quantity
+      return acc
+    }, 0)
   return {
-    isLoggedIn: !!state.user.id,
-    userId: state.user.id,
-    cart: numInCart
+    isLoggedIn: !!user.id,
+    userId: user.id,
+    cart: numInCart || 0
   }
 }
 

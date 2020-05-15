@@ -61,11 +61,11 @@ class Routes extends Component {
           path="/search/:type/:query"
           render={({match}) => <Search match={match} />}
         />
+        <Route exact path="/cart" component={Cart} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/" component={UserHome} />
-            <Route exact path="/cart" component={Cart} />
             <Route exact path="/user/:userId" component={UserProfile} />
             <Route exact path="/wishlist" component={Wishlist} />
             <Route path="/checkout/:userId" component={Checkout} />
@@ -77,7 +77,7 @@ class Routes extends Component {
             {/* Routes placed here are only available after logging in */}
             {/* <Route path="/" component={NotUserHome} /> */}
             <Route
-              path="/:category?"
+              path="/category/:category?"
               render={props => (
                 <div>
                   <NotUserHome />
