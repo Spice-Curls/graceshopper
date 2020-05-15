@@ -16,27 +16,31 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const {product} = req.body
-    const {id} = req.user
-    const item = await CartItem.findOne({
-      where: {productId: product.id, buyerId: id},
-      include: [Product]
-    })
-    if (item) {
-      const quantity = item.quantity + 1
-      await item.update({
-        quantity
-      })
-      res.status(201).json(item)
-    } else {
-      const newItem = await CartItem.create({
-        productId: product.id,
-        quantity: 1,
-        buyerId: id
-      })
-      const updatedItem = await CartItem.findByPk(newItem.id, {
+    if (req.user) {
+      const {id} = req.user
+      const item = await CartItem.findOne({
+        where: {productId: product.id, buyerId: id},
         include: [Product]
       })
-      res.status(201).json(updatedItem)
+      if (item) {
+        const quantity = item.quantity + 1
+        await item.update({
+          quantity
+        })
+        res.status(201).json(item)
+      } else {
+        const newItem = await CartItem.create({
+          productId: product.id,
+          quantity: 1,
+          buyerId: id
+        })
+        const updatedItem = await CartItem.findByPk(newItem.id, {
+          include: [Product]
+        })
+        res.status(201).json(updatedItem)
+      }
+    } else {
+      console.log(product)
     }
   } catch (ex) {
     next(ex)

@@ -16,9 +16,8 @@ const CategoryProducts = ({match, categories, addCart, addWish, user}) => {
         newCart.push(product)
         window.localStorage.setItem('cart', JSON.stringify(newCart))
       }
-    } else {
-      addCart(product)
     }
+    addCart(product)
   }
   return (
     <div className="product-container">

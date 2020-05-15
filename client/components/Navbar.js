@@ -67,6 +67,7 @@ const Navbar = props => {
             </Link>
             <SearchBar history={history} />
             <div className="rightnav">
+              <Link to="/cart">Cart</Link>
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
             </div>

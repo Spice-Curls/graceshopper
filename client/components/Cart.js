@@ -22,9 +22,17 @@ class Cart extends Component {
       removeItem
     } = this.props
 
+    if (!buyerId) {
+      const items = JSON.parse(window.localStorage.getItem('cart'))
+      items &&
+        items.forEach(item => {
+          cartItems.push(item)
+        })
+    }
     if (cartItems.length === 0) {
       return <div>cart is empty</div>
     }
+    console.log(cartItems)
     return (
       <div className="cart-container">
         {cartItems.map(cartItem => {

@@ -24,30 +24,6 @@ import {getCategories} from './store/index'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
-
-    // localStorage.setItem(
-    //   'cart',
-    //   JSON.stringify(
-    //     {
-    //       id: 'f6e6da3a-ba4c-4ab5-a12a-9d57df7c0871',
-    //       quantity: 1,
-    //       createdAt: '2020-05-12T21:35:55.615Z',
-    //       updatedAt: '2020-05-12T21:35:55.615Z',
-    //       buyerId: '861d0f9d-db65-48a7-a553-0467999c4fbd',
-    //       productId: '4abeaf79-c960-4af9-ae2c-399777ce0f38',
-    //       orderId: '16d83814-9591-4e88-acda-70a779c2ae38',
-    //     },
-    //     {
-    //       id: '8070b3fb-267b-4938-b128-8658a813c3dc',
-    //       quantity: 2,
-    //       createdAt: '2020-05-12T21:35:55.618Z',
-    //       updatedAt: '2020-05-12T21:35:55.618Z',
-    //       buyerId: '861d0f9d-db65-48a7-a553-0467999c4fbd',
-    //       productId: 'dc3d2e88-237a-48b9-b610-3dc10d709cd2',
-    //       orderId: '16d83814-9591-4e88-acda-70a779c2ae38',
-    //     }
-    //   )
-    // )
   }
 
   render() {
@@ -85,11 +61,11 @@ class Routes extends Component {
           path="/search/:type/:query"
           render={({match}) => <Search match={match} />}
         />
+        <Route exact path="/cart" component={Cart} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/" component={UserHome} />
-            <Route exact path="/cart" component={Cart} />
             <Route exact path="/user/:userId" component={UserProfile} />
             <Route exact path="/wishlists/:userId" component={Wishlist} />
             <Route path="/checkout/:userId" component={Checkout} />
@@ -101,7 +77,7 @@ class Routes extends Component {
             {/* Routes placed here are only available after logging in */}
             {/* <Route path="/" component={NotUserHome} /> */}
             <Route
-              path="/:category?"
+              path="/category/:category?"
               render={props => (
                 <div>
                   <NotUserHome />
