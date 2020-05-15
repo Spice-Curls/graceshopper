@@ -14,7 +14,7 @@ export const _getWishlist = wishlistItems => {
 
 export const _addToWishlist = wishlistItem => {
   return {
-    type: ADD_TO_CART,
+    type: ADD_TO_WISHLIST,
     wishlistItem
   }
 }

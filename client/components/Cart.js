@@ -22,33 +22,38 @@ class Cart extends Component {
       removeItem
     } = this.props
 
-    if (cartItems.length === 0) {
+    if (cartItems && cartItems.length === 0) {
       return <div>cart is empty</div>
     }
     return (
       <div className="cart-container">
-        {cartItems.map(cartItem => {
-          const quantity = []
-          for (let amount = 1; amount <= cartItem.product.stock; amount++) {
-            quantity.push(amount)
-          }
-          return (
-            <div key={cartItem.id} className="cart">
-              <h3>Name: {cartItem.product.name}</h3>
-              <select
-                defaultValue={cartItem.quantity}
-                onChange={ev => {
-                  changeAmount(ev.target.value, cartItem)
-                }}
-              >
-                {quantity.map(index => <option key={index}>{index}</option>)}
-              </select>
-              <img src={cartItem.product.imageURL} />
-              <h3>Item Total: {cartItem.quantity * cartItem.product.price}</h3>
-              <button onClick={() => removeItem(cartItem)}>Remove Item</button>
-            </div>
-          )
-        })}
+        {cartItems &&
+          cartItems.map(cartItem => {
+            const quantity = []
+            for (let amount = 1; amount <= cartItem.product.stock; amount++) {
+              quantity.push(amount)
+            }
+            return (
+              <div key={cartItem.id} className="cart">
+                <div>name: {cartItem.product.name}</div>
+                <select
+                  defaultValue={cartItem.quantity}
+                  onChange={ev => {
+                    changeAmount(ev.target.value, cartItem)
+                  }}
+                >
+                  {quantity.map(index => <option key={index}>{index}</option>)}
+                </select>
+                <img src={cartItem.product.imageURL} />
+                <div>
+                  Item Total: {cartItem.quantity * cartItem.product.price}
+                </div>
+                <button onClick={() => removeItem(cartItem)}>
+                  Remove Item
+                </button>
+              </div>
+            )
+          })}
         <div>Total Price: {totalPrice}</div>
         <Link to={`/checkout/${buyerId}`}>Proceed to Checkout</Link>
       </div>
@@ -58,7 +63,11 @@ class Cart extends Component {
 
 const mapStateToProps = ({user, cartItems}) => {
   let totalPrice = 0
-  if (cartItems.length) {
+  if (!user.id) {
+    const items = JSON.parse(window.localStorage.getItem('cart'))
+    cartItems = items
+  }
+  if (cartItems && cartItems.length) {
     totalPrice = cartItems.reduce((total, cartItem) => {
       total += cartItem.quantity * cartItem.product.price
       return total

@@ -1,7 +1,14 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getWishlist, editWishlist} from '../store/index'
 import {Link} from 'react-router-dom'
+
+//thunks
+import {
+  getWishlist,
+  editWishlist,
+  removeItemFromWishlist,
+  addToCart
+} from '../store/index'
 
 class Wishlist extends Component {
   constructor() {
@@ -12,15 +19,20 @@ class Wishlist extends Component {
     }
   }
   render() {
-    // const {total, subTotal} = this.state
-    const {wishlistItems, totalPrice, changeAmount, buyerId} = this.props
+    const {
+      wishlistItems,
+      totalPrice,
+      changeAmount,
+      removeItem,
+      addCart
+    } = this.props
 
     if (wishlistItems.length === 0) {
-      return <div>Your Wishlist is empty</div>
+      return <div>This Wishlist is Empty</div>
     }
     return (
       <div className="wishlist-container">
-        {wishlistItems.map((wishlistItem, idx) => {
+        {wishlistItems.map(wishlistItem => {
           const quantity = []
           for (let amount = 1; amount <= wishlistItem.product.stock; amount++) {
             quantity.push(amount)
@@ -40,11 +52,21 @@ class Wishlist extends Component {
               <div>
                 Item Total: {wishlistItem.quantity * wishlistItem.product.price}
               </div>
+              <button onClick={() => removeItem(wishlistItem)}>
+                Remove Item
+              </button>
+              <button
+                onClick={() => {
+                  addCart(wishlistItem.product)
+                  removeItem(wishlistItem)
+                }}
+              >
+                Move to Cart
+              </button>
             </div>
           )
         })}
         <div>Total Price: {totalPrice}</div>
-        <Link to={`/checkout/${buyerId}`}>Proceed to Checkout</Link>
       </div>
     )
   }
@@ -54,7 +76,7 @@ const mapStateToProps = ({user, wishlistItems}) => {
   let totalPrice = 0
   if (wishlistItems.length) {
     totalPrice = wishlistItems.reduce((total, wishlistItem) => {
-      total += wishlistItem.quantity * wishlistItem.price
+      total += wishlistItem.quantity * wishlistItem.product.price
       return total
     }, 0)
   }
@@ -68,7 +90,9 @@ const mapStateToProps = ({user, wishlistItems}) => {
 const mapDispatchToProps = dispatch => {
   return {
     getWishlist: buyerId => dispatch(getWishlist(buyerId)),
-    changeAmount: (amount, item) => dispatch(editWishlist(amount, item))
+    changeAmount: (amount, item) => dispatch(editWishlist(amount, item)),
+    removeItem: item => dispatch(removeItemFromWishlist(item)),
+    addCart: product => dispatch(addToCart(product))
   }
 }
 

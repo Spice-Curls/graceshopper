@@ -7,7 +7,8 @@
         "_userProfile.scss",
         "_cart.scss",
         "_product.scss",
-        "_categories.scss"
+        "_categories.scss",
+        "_wishlist.scss"
     ],
     "names": [],
     "file": "styles.css"

@@ -3,15 +3,19 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 //store
-import {logout, getCart} from '../store/index'
+import {logout, getCart, getWishlist} from '../store/index'
 //components
 import SearchBar from './SearchBar'
 import user from '../store/user'
 
 const Navbar = props => {
-  const {userId, handleClick, isLoggedIn, history, cart} = props
+  const {userId, handleClick, isLoggedIn, history, cart, wishlist} = props
   useEffect(() => {
     props.loadCart(userId)
+    if (!userId) {
+      return
+    }
+    props.loadWishlist(userId)
   })
   return (
     <div>
@@ -38,11 +42,11 @@ const Navbar = props => {
               </Link>
               <Link
                 className={
-                  history.location.pathname === '/wishlists' ? 'selected' : ''
+                  history.location.pathname === '/wishlist' ? 'selected' : ''
                 }
-                to="/wishlists"
+                to="/wishlist"
               >
-                Wishlist
+                Wishlist ({wishlist})
               </Link>
               <Link
                 className={
@@ -65,6 +69,14 @@ const Navbar = props => {
             </Link>
             <SearchBar history={history} />
             <div className="rightnav">
+              <Link
+                className={
+                  history.location.pathname === '/cart' ? 'selected' : ''
+                }
+                to="/cart"
+              >
+                Cart ({cart})
+              </Link>
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
             </div>
@@ -78,15 +90,27 @@ const Navbar = props => {
 /**
  * CONTAINER
  */
-const mapState = state => {
-  const numInCart = state.cartItems.reduce((acc, now) => {
+
+const mapState = ({user, cartItems, wishlistItems}) => {
+  if (!user.id) {
+    const items = JSON.parse(window.localStorage.getItem('cart'))
+    cartItems = items
+  }
+  const numInCart =
+    cartItems &&
+    cartItems.reduce((acc, now) => {
+      acc += now.quantity
+      return acc
+    }, 0)
+  const numInWishlist = wishlistItems.reduce((acc, now) => {
     acc += now.quantity
     return acc
   }, 0)
   return {
-    isLoggedIn: !!state.user.id,
-    userId: state.user.id,
-    cart: numInCart
+    isLoggedIn: !!user.id,
+    userId: user.id,
+    cart: numInCart || 0,
+    wishlist: numInWishlist
   }
 }
 
@@ -95,7 +119,8 @@ const mapDispatch = dispatch => {
     handleClick() {
       dispatch(logout())
     },
-    loadCart: id => dispatch(getCart(id))
+    loadCart: id => dispatch(getCart(id)),
+    loadWishlist: id => dispatch(getWishlist(id))
   }
 }
 
