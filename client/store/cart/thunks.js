@@ -29,26 +29,45 @@ export const addToCart = product => async dispatch => {
 
 export const getCart = buyerId => {
   return async dispatch => {
-    if (buyerId) {
-      const cart = (await axios.get(`/api/cartItems/${buyerId}`)).data
-      dispatch(_getCart(cart))
+    try {
+      if (buyerId) {
+        const cart = (await axios.get(`/api/cartItems/${buyerId}`)).data
+        dispatch(_getCart(cart))
+      }
+    } catch (err) {
+      console.log(err)
     }
   }
 }
 
 export const editCart = (quantity, item) => {
   return async dispatch => {
-    const editted = (await axios.put(
-      `api/cartItems/${item.buyerId}/${item.id}`,
-      {quantity}
-    )).data
-    dispatch(_editCart(editted))
+    if (item.buyerId) {
+      const editted = (await axios.put(
+        `api/cartItems/${item.buyerId}/${item.id}`,
+        {quantity}
+      )).data
+      dispatch(_editCart(editted))
+    } else {
+      const entireCart = JSON.parse(window.localStorage.getItem('cart'))
+      const myItem = entireCart.find(cartItem => cartItem.id === item.id)
+      myItem.quantity = quantity * 1
+      window.localStorage.setItem('cart', JSON.stringify(entireCart))
+      dispatch(_editCart(myItem))
+    }
   }
 }
 
 export const removeItemFromCart = item => {
   return async dispatch => {
-    await axios.delete(`/api/cartItems/${item.buyerId}/${item.id}`)
+    if (item.buyerId) {
+      await axios.delete(`/api/cartItems/${item.buyerId}/${item.id}`)
+    } else {
+      const cart = JSON.parse(window.localStorage.getItem('cart')).filter(
+        cartItem => cartItem.id !== item.id
+      )
+      window.localStorage.setItem('cart', JSON.stringify(cart))
+    }
     dispatch(_removeItemFromCart(item))
   }
 }
