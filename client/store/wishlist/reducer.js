@@ -11,7 +11,6 @@ const wishlistReducer = (state = [], action) => {
       state = [...action.wishlistItems]
       break
     case ADD_TO_WISHLIST:
-      //if the item is already in the cart
       if (
         state.filter(item => item.id === action.wishlistItem.id).length !== 0
       ) {

@@ -21,6 +21,7 @@ class Cart extends Component {
       buyerId,
       removeItem
     } = this.props
+
     if (cartItems && cartItems.length === 0) {
       return <div>cart is empty</div>
     }

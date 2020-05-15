@@ -3,15 +3,16 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 //store
-import {logout, getCart} from '../store/index'
+import {logout, getCart, getWishlist} from '../store/index'
 //components
 import SearchBar from './SearchBar'
 import user from '../store/user'
 
 const Navbar = props => {
-  const {userId, handleClick, isLoggedIn, history, cart} = props
+  const {userId, handleClick, isLoggedIn, history, cart, wishlist} = props
   useEffect(() => {
     props.loadCart(userId)
+    props.loadWishlist(userId)
   })
   return (
     <div>
@@ -38,11 +39,11 @@ const Navbar = props => {
               </Link>
               <Link
                 className={
-                  history.location.pathname === '/wishlists' ? 'selected' : ''
+                  history.location.pathname === '/wishlist' ? 'selected' : ''
                 }
-                to="/wishlists"
+                to="/wishlist"
               >
-                Wishlist
+                Wishlist ({wishlist})
               </Link>
               <Link
                 className={
@@ -86,6 +87,7 @@ const Navbar = props => {
 /**
  * CONTAINER
  */
+
 const mapState = ({cartItems, user}) => {
   if (!user.id) {
     const items = JSON.parse(window.localStorage.getItem('cart'))
@@ -97,10 +99,15 @@ const mapState = ({cartItems, user}) => {
       acc += now.quantity
       return acc
     }, 0)
+ const numInWishlist = state.wishlistItems.reduce((acc, now) => {
+    acc += now.quantity
+    return acc
+  }, 0)
   return {
     isLoggedIn: !!user.id,
     userId: user.id,
     cart: numInCart || 0
+    wishlist: numInWishlist
   }
 }
 
@@ -109,7 +116,8 @@ const mapDispatch = dispatch => {
     handleClick() {
       dispatch(logout())
     },
-    loadCart: id => dispatch(getCart(id))
+    loadCart: id => dispatch(getCart(id)),
+    loadWishlist: id => dispatch(getWishlist(id))
   }
 }
 
