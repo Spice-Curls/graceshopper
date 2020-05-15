@@ -23,10 +23,10 @@ class Cart extends Component {
     } = this.props
 
     if (cartItems && cartItems.length === 0) {
-      return <div>cart is empty</div>
+      return <div className="notnav">cart is empty</div>
     }
     return (
-      <div className="cart-container">
+      <div className="cart-container notnav">
         {cartItems &&
           cartItems.map(cartItem => {
             const quantity = []
