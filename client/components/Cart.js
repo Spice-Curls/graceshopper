@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getCart, editCart} from '../store/index'
 import {Link} from 'react-router-dom'
+
+//thunks
+import {getCart, editCart, removeItemFromCart} from '../store/index'
 
 class Cart extends Component {
   constructor() {
@@ -12,18 +14,20 @@ class Cart extends Component {
     }
   }
   render() {
-
-    // const {total, subTotal} = this.state
-    const {cartItems, totalPrice, changeAmount, buyerId} = this.props
-
-    const currentCart = JSON.parse(localStorage.getItem('cart'))
+    const {
+      cartItems,
+      totalPrice,
+      changeAmount,
+      buyerId,
+      removeItem
+    } = this.props
 
     if (cartItems.length === 0) {
       return <div>cart is empty</div>
     }
     return (
       <div className="cart-container">
-        {cartItems.map((cartItem, idx) => {
+        {cartItems.map(cartItem => {
           const quantity = []
           for (let amount = 1; amount <= cartItem.product.stock; amount++) {
             quantity.push(amount)
@@ -43,6 +47,7 @@ class Cart extends Component {
               <div>
                 Item Total: {cartItem.quantity * cartItem.product.price}
               </div>
+              <button onClick={() => removeItem(cartItem)}>Remove Item</button>
             </div>
           )
         })}
@@ -57,7 +62,7 @@ const mapStateToProps = ({user, cartItems}) => {
   let totalPrice = 0
   if (cartItems.length) {
     totalPrice = cartItems.reduce((total, cartItem) => {
-      total += cartItem.quantity * cartItem.price
+      total += cartItem.quantity * cartItem.product.price
       return total
     }, 0)
   }
@@ -71,7 +76,8 @@ const mapStateToProps = ({user, cartItems}) => {
 const mapDispatchToProps = dispatch => {
   return {
     getCart: buyerId => dispatch(getCart(buyerId)),
-    changeAmount: (amount, item) => dispatch(editCart(amount, item))
+    changeAmount: (amount, item) => dispatch(editCart(amount, item)),
+    removeItem: item => dispatch(removeItemFromCart(item))
   }
 }
 

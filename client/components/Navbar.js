@@ -10,7 +10,6 @@ import user from '../store/user'
 
 const Navbar = props => {
   const {userId, handleClick, isLoggedIn, history, cart} = props
-  console.log('HISTORY', history)
   useEffect(() => {
     props.loadCart(userId)
   })
