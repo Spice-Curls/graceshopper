@@ -34,7 +34,7 @@ class Cart extends Component {
           }
           return (
             <div key={cartItem.id} className="cart">
-              <div>name: {cartItem.product.name}</div>
+              <h3>Name: {cartItem.product.name}</h3>
               <select
                 defaultValue={cartItem.quantity}
                 onChange={ev => {
@@ -44,9 +44,7 @@ class Cart extends Component {
                 {quantity.map(index => <option key={index}>{index}</option>)}
               </select>
               <img src={cartItem.product.imageURL} />
-              <div>
-                Item Total: {cartItem.quantity * cartItem.product.price}
-              </div>
+              <h3>Item Total: {cartItem.quantity * cartItem.product.price}</h3>
               <button onClick={() => removeItem(cartItem)}>Remove Item</button>
             </div>
           )

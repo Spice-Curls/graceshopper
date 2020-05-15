@@ -1,6 +1,6 @@
 .navbar {
-  position: fixed;
-  top: 0;
+  // position: fixed;
+  // top: 0;
   width: 100%;
   border-bottom: 2px solid black;
   background-color: black;
@@ -10,6 +10,9 @@
   .leftnav {
     float: left;
     margin: 0.5rem;
+    font-size: 1.7rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-decoration: none;
   }
   .leftnav > a {
     color: white;
@@ -21,6 +24,7 @@
     font-size: 1.3rem;
     margin: 0.5rem;
     color: white;
+    text-decoration: none;
   }
 }
 
