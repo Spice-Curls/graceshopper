@@ -31,9 +31,15 @@ class Confirmation extends Component {
     const {loaded, cartItems} = this.state
     const {orders} = this.props
     return !loaded ? (
-      <Loader type="ThreeDots" color="#2BAD60" height="100" width="100" />
+      <Loader
+        className="notnav"
+        type="ThreeDots"
+        color="#2BAD60"
+        height="100"
+        width="100"
+      />
     ) : (
-      <div>
+      <div className="notnav">
         <h1>Your order has been received!</h1>
         <ul>
           {cartItems.map(item => (

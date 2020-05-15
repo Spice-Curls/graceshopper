@@ -40,7 +40,7 @@ class Checkout extends Component {
     } = this.state
     const {placeOrder} = this
     return (
-      <div>
+      <div className="notnav">
         <h1>Checkout</h1>
         <ul>
           {cart.map(item => (

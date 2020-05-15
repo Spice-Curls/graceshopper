@@ -35,7 +35,7 @@ async function seed() {
     {name: 'Books'},
     {name: 'CDs & Vinyl'},
     {name: 'Cell Phones & Accessories'},
-    {name: 'Clothing, Shoes & Jewelery'},
+    {name: 'Clothing, Shoes & Jewelry'},
     {name: 'Collectibles & Fine Art'},
     {name: 'Computers'},
     {name: 'Electronics'},

@@ -59,7 +59,7 @@ class UserProfile extends Component {
     const {addProduct} = this
 
     return (
-      <div className="user-profile">
+      <div className="user-profile notnav">
         <h3>My Products</h3>
         {userProducts &&
           userProducts.map((product, idx) => {
