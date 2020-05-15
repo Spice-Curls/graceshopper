@@ -12,6 +12,9 @@ const Navbar = props => {
   const {userId, handleClick, isLoggedIn, history, cart, wishlist} = props
   useEffect(() => {
     props.loadCart(userId)
+    if (!userId) {
+      return
+    }
     props.loadWishlist(userId)
   })
   return (
