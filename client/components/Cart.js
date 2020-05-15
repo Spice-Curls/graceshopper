@@ -23,7 +23,7 @@ class Cart extends Component {
     } = this.props
 
     if (cartItems.length === 0) {
-      return <div>cart is empty</div>
+      return <div>This Cart is Empty</div>
     }
     return (
       <div className="cart-container">

@@ -27,7 +27,7 @@ export const editWishlist = (quantity, item) => {
         quantity
       }
     )).data
-    dispatch(_editCart(editted))
+    dispatch(_editWishlist(editted))
   }
 }
 
