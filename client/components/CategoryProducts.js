@@ -8,16 +8,10 @@ const CategoryProducts = ({match, categories, addCart, addWish, user}) => {
   )
   const add = product => {
     if (Object.values(user).length === 0) {
-      const cart = window.localStorage.getItem('cart')
-      if (!cart) {
-        window.localStorage.setItem('cart', JSON.stringify([product]))
-      } else {
-        const newCart = JSON.parse(cart)
-        newCart.push(product)
-        window.localStorage.setItem('cart', JSON.stringify(newCart))
-      }
+      addCart(product)
+    } else {
+      addCart(product)
     }
-    addCart(product)
   }
   return (
     <div className="product-container">

@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {CartItem, Product} = require('../db/models')
+const {v4} = require('uuid')
 module.exports = router
 
 //route is /api/cartItems
@@ -15,7 +16,7 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const {product} = req.body
+    const {product, localStorage} = req.body
     if (req.user) {
       const {id} = req.user
       const item = await CartItem.findOne({
@@ -39,9 +40,35 @@ router.post('/', async (req, res, next) => {
         })
         res.status(201).json(updatedItem)
       }
-    } else {
-      console.log(product)
-    }
+    } else if (localStorage) {
+        const duplicate = localStorage.find(
+          item => item.productId === product.id
+        )
+        if (duplicate) {
+          duplicate.quantity++
+          res.json(duplicate)
+        } else {
+          const cartItem = await CartItem.create({
+            productId: product.id,
+            quantity: 1,
+            buyerId: null
+          })
+          const item = await CartItem.findByPk(cartItem.id, {
+            include: [Product]
+          })
+          res.json(item)
+        }
+      } else {
+        const cartItem = await CartItem.create({
+          productId: product.id,
+          quantity: 1,
+          buyerId: null
+        })
+        const item = await CartItem.findByPk(cartItem.id, {
+          include: [Product]
+        })
+        res.json(item)
+      }
   } catch (ex) {
     next(ex)
   }
