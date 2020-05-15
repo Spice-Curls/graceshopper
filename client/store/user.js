@@ -40,15 +40,16 @@ export const auth = (email, password, method) => async dispatch => {
     return dispatch(getUser({error: authError}))
   }
 
-  try {
-    const products = JSON.parse(window.localStorage.getItem('cart'))
-    products.forEach(product => {
-      dispatch(addToCart(product))
-      window.localStorage.removeItem('cart')
-    })
-  } catch (err) {
-    console.log(err)
-  }
+  // try {
+  //   const products = JSON.parse(window.localStorage.getItem('cart'))
+  //   products.forEach(product => {
+  //     console.log(product)
+  //     // dispatch(addToCart(product))
+  //     window.localStorage.removeItem('cart')
+  //   })
+  // } catch (err) {
+  //   console.log(err)
+  // }
 
   try {
     dispatch(getUser(res.data))
