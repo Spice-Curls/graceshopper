@@ -13,6 +13,7 @@ import Search from './components/Search'
 import UserProfile from './components/UserProfile'
 import Wishlist from './components/Wishlist'
 import Checkout from './components/Checkout'
+import Confirmation from './components/Confirmation'
 
 //store
 import {me} from './store'
@@ -62,13 +63,14 @@ class Routes extends Component {
           render={({match}) => <Search match={match} />}
         />
         <Route exact path="/cart" component={Cart} />
+        <Route path="/checkout/:userId?" component={Checkout} />
+        <Route path="/confirmation" component={Confirmation} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/" component={UserHome} />
             <Route exact path="/user/:userId" component={UserProfile} />
             <Route exact path="/wishlist" component={Wishlist} />
-            <Route path="/checkout/:userId" component={Checkout} />
             {/* <Route path='/:category' render={ props => <CategoryProducts {...props} /> } /> */}
           </Switch>
         )}

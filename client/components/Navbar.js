@@ -25,7 +25,7 @@ const Navbar = props => {
             <div className="leftnav">
               {/* The navbar will show these links after you log in */}
               <Link to="/">
-                <h1>GraceShopper</h1>
+                <h1>Free Market</h1>
               </Link>
             </div>
             <SearchBar history={history} />
@@ -65,7 +65,7 @@ const Navbar = props => {
           <div className="logged-out">
             {/* The navbar will show these links before you log in */}
             <Link to="/">
-              <h1>GraceShopper</h1>
+              <h1>Free Market</h1>
             </Link>
             <SearchBar history={history} />
             <div className="rightnav">

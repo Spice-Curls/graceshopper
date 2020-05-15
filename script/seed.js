@@ -27,9 +27,34 @@ async function seed() {
   // console.log(`seeded successfully`)
 
   const categories = [
+    {name: 'Appliances'},
+    {name: 'Arts, Crafts & Sewing'},
+    {name: 'Automotive Parts & Accessories'},
+    {name: 'Baby'},
+    {name: 'Beauty & Personal Care'},
+    {name: 'Books'},
+    {name: 'CDs & Vinyl'},
+    {name: 'Cell Phones & Accessories'},
+    {name: 'Clothing, Shoes & Jewelery'},
+    {name: 'Collectibles & Fine Art'},
+    {name: 'Computers'},
     {name: 'Electronics'},
-    {name: 'Clothing & Accessories'},
-    {name: 'Household'}
+    {name: 'Garden & Outdoor'},
+    {name: 'Grocery & Gourmet Food'},
+    {name: 'Handmade'},
+    {name: 'Health, Household & Baby Care'},
+    {name: 'Home & Kitchen'},
+    {name: 'Industrial & Scientific'},
+    {name: 'Luggage & Travel Gear'},
+    {name: 'Musical Instruments'},
+    {name: 'Office Products'},
+    {name: 'Pet Supplies'},
+    {name: 'Software'},
+    {name: 'Sports & Outdoors'},
+    {name: 'Tools & Home Improvement'},
+    {name: 'Toys & Games'},
+    {name: 'Vehicles'},
+    {name: 'Video Games'}
   ]
   const [electronics, clothing, household] = await Promise.all(
     categories.map(category =>
