@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import Loader from 'react-loader-spinner'
 
+//thunks
+
 class Confirmation extends Component {
   constructor() {
     super()
@@ -18,6 +20,7 @@ class Confirmation extends Component {
         cartItems: JSON.parse(window.localStorage.getItem('cart'))
       })
       window.localStorage.removeItem('cart')
+      this.props.user.email = this.props.orders.email
     }
   }
 
@@ -29,7 +32,7 @@ class Confirmation extends Component {
 
   render() {
     const {loaded, cartItems} = this.state
-    const {orders} = this.props
+    const {orders, user} = this.props
     return !loaded ? (
       <Loader
         className="notnav"
@@ -41,12 +44,15 @@ class Confirmation extends Component {
     ) : (
       <div className="notnav">
         <h1>Your order has been received!</h1>
+        <h1>Order ID: {orders.id}</h1>
+        <h1>Confirmation email sent to: {user.email}</h1>
         <ul>
-          {cartItems.map(item => (
-            <li key={item.id}>
-              {item.product.name}({item.quantity})
-            </li>
-          ))}
+          {cartItems &&
+            cartItems.map(item => (
+              <li key={item.id}>
+                {item.product.name}({item.quantity})
+              </li>
+            ))}
           <h2>Total price: ${orders.totalAmount}</h2>
         </ul>
       </div>

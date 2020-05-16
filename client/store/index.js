@@ -32,7 +32,7 @@ import {getCategories} from './categories/thunks'
 
 //order
 import ordersReducer from './orders/reducer'
-import {createOrder} from './orders/thunks'
+import {createOrder, getOrders} from './orders/thunks'
 
 const reducer = combineReducers({
   user,
@@ -64,7 +64,8 @@ export {
   addToWishlist,
   editWishlist,
   removeItemFromWishlist,
-  createOrder
+  createOrder,
+  getOrders
 }
 
 export * from './user'
