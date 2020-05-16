@@ -31,7 +31,7 @@ class Wishlist extends Component {
       return <div>This Wishlist is Empty</div>
     }
     return (
-      <div className="wishlist-container">
+      <div className="wishlist-container notnav">
         {wishlistItems.map(wishlistItem => {
           const quantity = []
           for (let amount = 1; amount <= wishlistItem.product.stock; amount++) {

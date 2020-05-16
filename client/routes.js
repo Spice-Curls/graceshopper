@@ -14,6 +14,7 @@ import UserProfile from './components/UserProfile'
 import Wishlist from './components/Wishlist'
 import Checkout from './components/Checkout'
 import Confirmation from './components/Confirmation'
+import Orders from './components/Orders'
 
 //store
 import {me} from './store'
@@ -28,7 +29,7 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn, closed} = this.props
 
     return (
       <Switch>
@@ -36,7 +37,7 @@ class Routes extends Component {
         <Route
           exact
           path="/"
-          render={() => <Redirect to="/category/electronics" />}
+          render={() => <Redirect to="/category/appliances" />}
         />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
@@ -45,7 +46,7 @@ class Routes extends Component {
           path="/"
           render={() => (
             <div className="categoriesandproducts">
-              <Categories />
+              <Categories closed={closed} />
             </div>
           )}
         />
@@ -53,7 +54,7 @@ class Routes extends Component {
           path="/category/:category?"
           render={props => (
             <div className="categoriesandproducts">
-              <Categories />
+              <Categories {...props} closed={closed} />
               <CategoryProducts {...props} />
             </div>
           )}
@@ -71,6 +72,7 @@ class Routes extends Component {
             <Route exact path="/" component={UserHome} />
             <Route exact path="/user/:userId" component={UserProfile} />
             <Route exact path="/wishlist" component={Wishlist} />
+            <Route exact path="/orders" component={Orders} />
             {/* <Route path='/:category' render={ props => <CategoryProducts {...props} /> } /> */}
           </Switch>
         )}

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
@@ -7,9 +7,21 @@ import {logout, getCart, getWishlist} from '../store/index'
 //components
 import SearchBar from './SearchBar'
 import user from '../store/user'
+//fontawesome
+import {faList} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 const Navbar = props => {
-  const {userId, handleClick, isLoggedIn, history, cart, wishlist} = props
+  const {
+    userId,
+    handleClick,
+    isLoggedIn,
+    history,
+    cart,
+    wishlist,
+    closed,
+    setClosed
+  } = props
   useEffect(() => {
     props.loadCart(userId)
     if (!userId) {
@@ -21,52 +33,40 @@ const Navbar = props => {
     <div>
       <nav className="navbar">
         {isLoggedIn ? (
-          <div className="logged-in">
+          <div>
             <div className="leftnav">
               {/* The navbar will show these links after you log in */}
-              <Link to="/">
-                <h1>Free Market</h1>
-              </Link>
+              <FontAwesomeIcon
+                className="icon"
+                onClick={() => setClosed(!closed)}
+                icon={faList}
+                size="3x"
+              />
+              <Link to="/">Free Market</Link>
             </div>
             <SearchBar history={history} />
             <div className="rightnav">
-              <Link
-                className={
-                  history.location.pathname === `/user/${userId}`
-                    ? 'selected'
-                    : ''
-                }
-                to={`/user/${userId}`}
-              >
-                My Profile
-              </Link>
-              <Link
-                className={
-                  history.location.pathname === '/wishlist' ? 'selected' : ''
-                }
-                to="/wishlist"
-              >
-                Wishlist ({wishlist})
-              </Link>
-              <Link
-                className={
-                  history.location.pathname === '/cart' ? 'selected' : ''
-                }
-                to="/cart"
-              >
-                Cart ({cart})
-              </Link>
+              <Link to={`/user/${userId}`}>My Profile</Link>
+              <Link to="/orders">My Orders</Link>
+              <Link to="/wishlist">Wishlist ({wishlist})</Link>
+              <Link to="/cart">Cart ({cart})</Link>
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
             </div>
           </div>
         ) : (
-          <div className="logged-out">
+          <div>
             {/* The navbar will show these links before you log in */}
-            <Link to="/">
-              <h1>Free Market</h1>
-            </Link>
+            <div className="leftnav">
+              <FontAwesomeIcon
+                className="icon"
+                onClick={() => setClosed(!closed)}
+                icon={faList}
+                size="3x"
+              />
+              <Link to="/">Free Market</Link>
+            </div>
             <SearchBar history={history} />
             <div className="rightnav">
               <Link
