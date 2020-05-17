@@ -25,11 +25,12 @@ class Orders extends Component {
                 <div>
                   Items:
                   <ul>
-                    {order.cartItems.map(item => (
-                      <li key={item.id}>
-                        {item.product.name}({item.quantity})
-                      </li>
-                    ))}
+                    {order.cartItems &&
+                      order.cartItems.map(item => (
+                        <li key={item.id}>
+                          {item.product.name}({item.quantity})
+                        </li>
+                      ))}
                   </ul>
                   <div>Order total: ${order.totalAmount}</div>
                 </div>
