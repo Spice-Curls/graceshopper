@@ -68,7 +68,16 @@ const Navbar = props => {
             </div>
             <SearchBar history={history} />
             <div className="rightnav">
-              <Link to="/cart">Cart ({cart})</Link>
+              <Link
+                to="/wishlist"
+              >
+                Wishlist ({wishlist})
+              </Link>
+              <Link
+                to="/cart"
+              >
+                Cart ({cart})
+              </Link>
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
             </div>
@@ -87,6 +96,8 @@ const mapState = ({user, cartItems, wishlistItems}) => {
   if (!user.id) {
     const items = JSON.parse(window.localStorage.getItem('cart'))
     cartItems = items
+    const wishlist = JSON.parse(window.localStorage.getItem('wishlist'))
+    wishlistItems = wishlist
   }
   const numInCart =
     cartItems &&
@@ -94,15 +105,17 @@ const mapState = ({user, cartItems, wishlistItems}) => {
       acc += now.quantity
       return acc
     }, 0)
-  const numInWishlist = wishlistItems.reduce((acc, now) => {
-    acc += now.quantity
-    return acc
-  }, 0)
+  const numInWishlist =
+    wishlistItems &&
+    wishlistItems.reduce((acc, now) => {
+      acc += now.quantity
+      return acc
+    }, 0)
   return {
     isLoggedIn: !!user.id,
     userId: user.id,
     cart: numInCart || 0,
-    wishlist: numInWishlist
+    wishlist: numInWishlist || 0
   }
 }
 
