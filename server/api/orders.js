@@ -1,6 +1,8 @@
 const nodemailer = require('nodemailer')
 const router = require('express').Router()
 const {Order, CartItem, Product} = require('../db/models')
+const uuid = require('uuid')
+const stripe = require('stripe')(process.env.STRIPE_KEY)
 module.exports = router
 
 // route is api/orders
@@ -26,27 +28,57 @@ router.get('/:buyerId', async (req, res, next) => {
 })
 
 router.post('/:buyerId?', async (req, res, next) => {
+  const price = req.body.order.totalPrice
+  const {token} = req.body.order
+  const customer = await stripe.customers.create({
+    email: token.email,
+    source: token.id
+  })
+  const idempotencyKey = uuid()
+  await stripe.charges.create(
+    {
+      amount: price * 100,
+      currency: 'usd',
+      customer: customer.id,
+      receipt_email: token.email,
+      description: `Confirmation`,
+      shipping: {
+        name: token.card.name,
+        address: {
+          line1: token.card.address_line1,
+          line2: token.card.address_line2,
+          city: token.card.address_city,
+          country: token.card.address_country,
+          postal_code: token.card.address_zip
+        }
+      }
+    },
+    {
+      idempotencyKey
+    }
+  )
   let {buyerId} = req.params
-  let email
+  const name = req.body.order.addresses.billing_name
+  const {email} = token
   if (!buyerId) {
-    email = req.body.order.email
     buyerId = null
-  } else {
-    email = req.user.email
   }
-  const {
-    name,
-    shippingAddress,
-    billingAddress,
-    creditCard,
-    cart,
-    price
-  } = req.body.order
+  const shippingAddress = {
+    line1: token.card.address_line1,
+    line2: token.card.address_line2,
+    city: token.card.address_city,
+    country: token.card.address_country,
+    postal_code: token.card.address_zip
+  }
+  const cart = req.body.order.cart
   try {
-    //create the order
     const newOrder = await Order.create({
-      shippingAddress,
-      billingAddress,
+      shippingAddress: `${shippingAddress.line1}, ${shippingAddress.city}, ${
+        shippingAddress.country
+      }, ${shippingAddress.postal_code}`,
+      billingAddress: `${shippingAddress.line1}, ${shippingAddress.city}, ${
+        shippingAddress.country
+      }, ${shippingAddress.postal_code}`,
       totalAmount: price,
       buyerId,
       cartItems: cart
@@ -78,7 +110,7 @@ router.post('/:buyerId?', async (req, res, next) => {
       <p>Order Confirmation Number: ${order.id}</p>
         <ul>
           <li>Ship to ${name}</li>
-          <li>Address: ${shippingAddress}</li>
+          <li>Address: ${newOrder.shippingAddress}</li>
           <li>Email: ${email}</li>
           <li>Total Price: $${newOrder.totalAmount}</li>
         </ul>
@@ -127,7 +159,7 @@ router.post('/:buyerId?', async (req, res, next) => {
       )
     })
 
-    res.json(newOrder)
+    res.json({newOrder, email})
   } catch (err) {
     next(err)
   }

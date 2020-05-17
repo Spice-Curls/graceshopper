@@ -6,7 +6,6 @@ import {Link} from 'react-router-dom'
 import {logout, getCart, getWishlist} from '../store/index'
 //components
 import SearchBar from './SearchBar'
-import user from '../store/user'
 //fontawesome
 import {faList} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -70,17 +69,11 @@ const Navbar = props => {
             <SearchBar history={history} />
             <div className="rightnav">
               <Link
-                className={
-                  history.location.pathname === '/wishlist' ? 'selected' : ''
-                }
                 to="/wishlist"
               >
                 Wishlist ({wishlist})
               </Link>
               <Link
-                className={
-                  history.location.pathname === '/cart' ? 'selected' : ''
-                }
                 to="/cart"
               >
                 Cart ({cart})
