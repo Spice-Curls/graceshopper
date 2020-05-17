@@ -44,8 +44,8 @@ class Confirmation extends Component {
     ) : (
       <div className="notnav">
         <h1>Your order has been received!</h1>
-        <h1>Order ID: {orders.id}</h1>
-        <h1>Confirmation email sent to: {user.email}</h1>
+        <h1>Order ID: {orders[0].newOrder.id}</h1>
+        <h1>Confirmation email sent to: {orders[0].email}</h1>
         <ul>
           {cartItems &&
             cartItems.map(item => (
@@ -53,7 +53,7 @@ class Confirmation extends Component {
                 {item.product.name}({item.quantity})
               </li>
             ))}
-          <h2>Total price: ${orders.totalAmount}</h2>
+          <h2>Total price: ${orders[0].newOrder.totalAmount}</h2>
         </ul>
       </div>
     )

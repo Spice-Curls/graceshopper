@@ -1,106 +1,52 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import StripeCheckout from 'react-stripe-checkout'
 
 import {createOrder, getCart} from '../store/index'
 
 class Checkout extends Component {
   constructor() {
     super()
-    this.state = {
-      name: '',
-      shippingAddress: '',
-      billingAddress: '',
-      creditCard: '',
-      email: ''
-    }
     this.placeOrder = this.placeOrder.bind(this)
   }
   async componentDidMount() {
     const url = this.props.match.params.userId
     this.props.getCart(url)
   }
-  placeOrder(ev) {
-    // ev.preventDefault();
+  placeOrder(token, addresses) {
     this.props.createOrder({
-      ...this.state,
       userId: this.props.userId || '',
       cart: this.props.cart,
-      price: this.props.totalPrice
+      token,
+      addresses,
+      totalPrice: this.props.totalPrice
     })
+    this.props.history.push('/confirmation')
   }
   render() {
-    const {cart, totalPrice, userId} = this.props
-    const {
-      name,
-      shippingAddress,
-      billingAddress,
-      creditCard,
-      email
-    } = this.state
+    const {cart, totalPrice} = this.props
     const {placeOrder} = this
     return (
       <div className="notnav">
         <h1>Checkout</h1>
         <ul>
-          {cart.map(item => (
-            <li key={item.id}>
-              {item.product.name} - {item.product.price} ({item.quantity})<img
-                src={item.product.imageURL}
-              />
-            </li>
-          ))}
+          {cart &&
+            cart.map(item => (
+              <li key={item.id}>
+                {item.product.name} - {item.product.price} ({item.quantity})<img
+                  src={item.product.imageURL}
+                />
+              </li>
+            ))}
           <li>Total Price: {totalPrice}</li>
         </ul>
-        <form>
-          <div>
-            <label>Full Name:</label>
-            <input
-              type="text"
-              value={name}
-              onChange={ev => this.setState({name: ev.target.value})}
-            />
-          </div>
-          <div>
-            <label>Shipping Address:</label>
-            <input
-              type="text"
-              value={shippingAddress}
-              onChange={ev => this.setState({shippingAddress: ev.target.value})}
-            />
-          </div>
-          <div>
-            <label>Billing Address:</label>
-            <input
-              type="text"
-              value={billingAddress}
-              onChange={ev => this.setState({billingAddress: ev.target.value})}
-            />
-          </div>
-          <div>
-            <label>Credit Card:</label>
-            <input
-              type="text"
-              value={creditCard}
-              onChange={ev => this.setState({creditCard: ev.target.value})}
-            />
-          </div>
-          {!userId ? (
-            <div>
-              <label>Email:</label>
-              <input
-                type="text"
-                value={email}
-                onChange={ev => this.setState({email: ev.target.value})}
-              />
-            </div>
-          ) : (
-            ''
-          )}
-          <Link onClick={placeOrder} to="/confirmation">
-            Place Order
-          </Link>
-        </form>
+        <StripeCheckout
+          stripeKey="pk_test_1XvQ9G3RqAuYvDGxXwMQaMYs00fHeB7gA0"
+          token={placeOrder}
+          billingAddress
+          shippingAddress
+          amount={totalPrice * 100}
+        />
       </div>
     )
   }
@@ -111,7 +57,7 @@ const mapState = state => {
     state.cartItems = JSON.parse(window.localStorage.getItem('cart'))
   }
   let totalPrice = 0
-  if (state.cartItems.length) {
+  if (state.cartItems) {
     totalPrice = state.cartItems.reduce((total, cartItem) => {
       total += cartItem.quantity * cartItem.product.price
       return total
