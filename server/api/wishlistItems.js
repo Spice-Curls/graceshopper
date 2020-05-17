@@ -10,49 +10,72 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
-
 router.post('/', async (req, res, next) => {
   try {
-    const {product} = req.body
-    const {id} = req.user
-    const item = await WishlistItem.findOne({
-      where: {productId: product.id, buyerId: id},
-      include: [Product]
-    })
-    if (item) {
-      const quantity = item.quantity + 1
-      await item.update({
-        quantity
-      })
-      res.status(201).json(item)
-    } else {
-      const newItem = await WishlistItem.create({
-        productId: product.id,
-        quantity: 1,
-        buyerId: id
-      })
-      const updatedItem = await WishlistItem.findByPk(newItem.id, {
+    const {product, localStorage} = req.body
+    if (req.user) {
+      const {id} = req.user
+      const item = await WishlistItem.findOne({
+        where: {productId: product.id, buyerId: id},
         include: [Product]
       })
-      res.status(201).json(updatedItem)
+      if (item) {
+        const quantity = item.quantity + 1
+        await item.update({
+          quantity
+        })
+        res.status(201).json(item)
+      } else {
+        const newItem = await WishlistItem.create({
+          productId: product.id,
+          quantity: 1,
+          buyerId: id
+        })
+        const updatedItem = await WishlistItem.findByPk(newItem.id, {
+          include: [Product]
+        })
+        res.status(201).json(updatedItem)
+      }
+    } else if (localStorage) {
+      const duplicate = localStorage.find(item => item.productId === product.id)
+      if (duplicate) {
+        duplicate.quantity++
+        res.json(duplicate)
+      } else {
+        const wishlistItem = await WishlistItem.create({
+          productId: product.id,
+          quantity: 1,
+          buyerId: null
+        })
+        const item = await WishlistItem.findByPk(wishlistItem.id, {
+          include: [Product]
+        })
+        res.json(item)
+      }
+    } else {
+      const wishlistItem = await WishlistItem.create({
+        productId: product.id,
+        quantity: 1,
+        buyerId: null
+      })
+      const item = await WishlistItem.findByPk(wishlistItem.id, {
+        include: [Product]
+      })
+      res.json(item)
     }
   } catch (ex) {
     next(ex)
   }
 })
 
-router.get('/:buyerId', async (req, res, next) => {
-  try {
-    const wishlistItems = await WishlistItem.findAll({
-      where: {
-        buyerId: req.params.buyerId
-      },
-      include: [Product]
-    })
-    res.json(wishlistItems)
-  } catch (err) {
-    next(err)
-  }
+router.get('/:buyerId', async (req, res) => {
+  const wishlistItems = await WishlistItem.findAll({
+    where: {
+      buyerId: req.params.buyerId
+    },
+    include: [Product]
+  })
+  res.json(wishlistItems)
 })
 
 router.put('/:buyerId/:id', async (req, res, next) => {

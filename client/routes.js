@@ -64,6 +64,7 @@ class Routes extends Component {
           render={({match}) => <Search match={match} />}
         />
         <Route exact path="/cart" component={Cart} />
+        <Route exact path="/wishlist" component={Wishlist} />
         <Route path="/checkout/:userId?" component={Checkout} />
         <Route path="/confirmation" component={Confirmation} />
         {isLoggedIn && (

@@ -71,6 +71,14 @@ const Navbar = props => {
             <div className="rightnav">
               <Link
                 className={
+                  history.location.pathname === '/wishlist' ? 'selected' : ''
+                }
+                to="/wishlist"
+              >
+                Wishlist ({wishlist})
+              </Link>
+              <Link
+                className={
                   history.location.pathname === '/cart' ? 'selected' : ''
                 }
                 to="/cart"
@@ -95,6 +103,8 @@ const mapState = ({user, cartItems, wishlistItems}) => {
   if (!user.id) {
     const items = JSON.parse(window.localStorage.getItem('cart'))
     cartItems = items
+    const wishlist = JSON.parse(window.localStorage.getItem('wishlist'))
+    wishlistItems = wishlist
   }
   const numInCart =
     cartItems &&
@@ -102,15 +112,17 @@ const mapState = ({user, cartItems, wishlistItems}) => {
       acc += now.quantity
       return acc
     }, 0)
-  const numInWishlist = wishlistItems.reduce((acc, now) => {
-    acc += now.quantity
-    return acc
-  }, 0)
+  const numInWishlist =
+    wishlistItems &&
+    wishlistItems.reduce((acc, now) => {
+      acc += now.quantity
+      return acc
+    }, 0)
   return {
     isLoggedIn: !!user.id,
     userId: user.id,
     cart: numInCart || 0,
-    wishlist: numInWishlist
+    wishlist: numInWishlist || 0
   }
 }
 
