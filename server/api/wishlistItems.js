@@ -42,7 +42,7 @@ router.post('/', async (req, res, next) => {
         duplicate.quantity++
         res.json(duplicate)
       } else {
-        const WishlistItem = await WishlistItem.create({
+        const wishlistItem = await WishlistItem.create({
           productId: product.id,
           quantity: 1,
           buyerId: null
