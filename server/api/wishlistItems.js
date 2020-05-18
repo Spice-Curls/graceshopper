@@ -42,7 +42,7 @@ router.post('/', async (req, res, next) => {
       const duplicate = localStorage.find(item => item.productId === product.id)
       if (duplicate) {
         duplicate.quantity = cartQuantity
-          ? duplicate.quantity + wishlistQuantity
+          ? duplicate.quantity + cartQuantity
           : duplicate.quantity + 1
         res.json(duplicate)
       } else {
