@@ -6,10 +6,11 @@ import {
   _removeItemFromWishlist
 } from './actions'
 
-export const addToWishlist = product => async dispatch => {
+export const addToWishlist = (product, cartQuantity = 0) => async dispatch => {
   const localStorage = JSON.parse(window.localStorage.getItem('wishlist'))
   const productWishlist = (await axios.post(`/api/wishlistItems`, {
     product,
+    cartQuantity,
     localStorage
   })).data
   if (!productWishlist.buyerId) {
@@ -52,7 +53,7 @@ export const editWishlist = (quantity, item) => {
       )).data
       dispatch(_editWishlist(edited))
     } else {
-      const entireWishlist = JSON.parse(window.localStorage.getItem('wishilst'))
+      const entireWishlist = JSON.parse(window.localStorage.getItem('wishlist'))
       const myItem = entireWishlist.find(
         wishlistItem => wishlistItem.id === item.id
       )

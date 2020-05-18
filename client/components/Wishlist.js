@@ -64,7 +64,7 @@ class Wishlist extends Component {
                 </button>
                 <button
                   onClick={() => {
-                    addCart(wishlistItem.product)
+                    addCart(wishlistItem.product, wishlistItem.quantity)
                     removeItem(wishlistItem)
                   }}
                 >
@@ -103,7 +103,7 @@ const mapDispatchToProps = dispatch => {
     getWishlist: buyerId => dispatch(getWishlist(buyerId)),
     changeAmount: (amount, item) => dispatch(editWishlist(amount, item)),
     removeItem: item => dispatch(removeItemFromWishlist(item)),
-    addCart: product => dispatch(addToCart(product))
+    addCart: (product, quantity) => dispatch(addToCart(product, quantity))
   }
 }
 

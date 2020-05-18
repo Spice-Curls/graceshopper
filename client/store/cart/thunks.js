@@ -1,10 +1,15 @@
 import axios from 'axios'
 import {_addToCart, _getCart, _editCart, _removeItemFromCart} from './actions'
 
-export const addToCart = product => async dispatch => {
-  const localStorage = JSON.parse(window.localStorage.getItem('cart'))
+export const addToCart = (
+  product,
+  wishlistQuantity = 0,
+  reference = 'cart'
+) => async dispatch => {
+  const localStorage = JSON.parse(window.localStorage.getItem(reference))
   const productCart = (await axios.post(`/api/cartItems`, {
     product,
+    wishlistQuantity,
     localStorage
   })).data
   if (!productCart.buyerId) {
