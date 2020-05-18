@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 import {logout, getCart, getWishlist} from '../store/index'
 //components
 import SearchBar from './SearchBar'
+import ItemAdded from './ItemAdded'
 //fontawesome
 import {faList} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -19,7 +20,9 @@ const Navbar = props => {
     cart,
     wishlist,
     closed,
-    setClosed
+    setClosed,
+    cartNotif,
+    setCartNotif
   } = props
   useEffect(() => {
     props.loadCart(userId)
@@ -48,7 +51,10 @@ const Navbar = props => {
               <Link to={`/user/${userId}`}>My Profile</Link>
               <Link to="/orders">My Orders</Link>
               <Link to="/wishlist">Wishlist ({wishlist})</Link>
-              <Link to="/cart">Cart ({cart})</Link>
+              <div className="cartthing">
+                <Link to="/cart">Cart ({cart})</Link>
+                <ItemAdded cartNotif={cartNotif} setCartNotif={setCartNotif} />
+              </div>
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
@@ -68,16 +74,11 @@ const Navbar = props => {
             </div>
             <SearchBar history={history} />
             <div className="rightnav">
-              <Link
-                to="/wishlist"
-              >
-                Wishlist ({wishlist})
-              </Link>
-              <Link
-                to="/cart"
-              >
-                Cart ({cart})
-              </Link>
+              <Link to="/wishlist">Wishlist ({wishlist})</Link>
+              <div className="cartthing">
+                <Link to="/cart">Cart ({cart})</Link>
+                <ItemAdded cartNotif={cartNotif} setCartNotif={setCartNotif} />
+              </div>
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
             </div>

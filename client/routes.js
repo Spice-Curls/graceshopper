@@ -18,7 +18,7 @@ import Orders from './components/Orders'
 
 //store
 import {me} from './store'
-import {getCategories} from './store/index'
+import {getCategories, getProducts} from './store/index'
 
 /**
  * COMPONENT
@@ -29,39 +29,25 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn, closed} = this.props
+    const {isLoggedIn, closed, setCartNotif} = this.props
 
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route
-          exact
-          path="/"
-          render={() => <Redirect to="/category/appliances" />}
-        />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <div className="categoriesandproducts">
-              <Categories closed={closed} />
-            </div>
-          )}
-        />
         <Route
           path="/category/:category?"
           render={props => (
             <div className="categoriesandproducts">
               <Categories {...props} closed={closed} />
-              <CategoryProducts {...props} />
+              <CategoryProducts {...props} setCartNotif={setCartNotif} />
             </div>
           )}
         />
         <Route
           path="/search/:type/:query"
-          render={({match}) => <Search match={match} />}
+          render={props => <Search {...props} setCartNotif={setCartNotif} />}
         />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/wishlist" component={Wishlist} />
@@ -70,7 +56,11 @@ class Routes extends Component {
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route exact path="/" component={UserHome} />
+            <Route
+              exact
+              path="/"
+              render={props => <UserHome {...props} closed={closed} />}
+            />
             <Route exact path="/user/:userId" component={UserProfile} />
             <Route exact path="/wishlist" component={Wishlist} />
             <Route exact path="/orders" component={Orders} />
@@ -80,7 +70,11 @@ class Routes extends Component {
         {!isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            {/* <Route path="/" component={NotUserHome} /> */}
+            <Route
+              exact
+              path="/"
+              render={props => <NotUserHome {...props} closed={closed} />}
+            />
             <Route
               path="/category/:category?"
               render={props => (
@@ -115,6 +109,7 @@ const mapDispatch = dispatch => {
     loadInitialData: () => {
       dispatch(me())
       dispatch(getCategories())
+      dispatch(getProducts())
     }
   }
 }

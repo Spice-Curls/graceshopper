@@ -3,6 +3,10 @@ import {connect} from 'react-redux'
 import Select from 'react-select'
 import axios from 'axios'
 
+//fontawesome
+import {faSearch} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+
 class SearchBar extends Component {
   constructor() {
     super()
@@ -77,7 +81,9 @@ class SearchBar extends Component {
             options={items}
             className="searchinput"
           />
-          <button>Search</button>
+          <button className="search">
+            <FontAwesomeIcon icon={faSearch} size="2x" />
+          </button>
         </form>
       </div>
     )

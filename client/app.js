@@ -5,14 +5,21 @@ import Routes from './routes'
 
 const App = () => {
   const [closed, setClosed] = useState(false)
+  const [cartNotif, setCartNotif] = useState(false)
   return (
     <div>
       <Route
         render={({history}) => (
-          <Navbar closed={closed} setClosed={setClosed} history={history} />
+          <Navbar
+            closed={closed}
+            setClosed={setClosed}
+            history={history}
+            cartNotif={cartNotif}
+            setCartNotif={setCartNotif}
+          />
         )}
       />
-      <Routes closed={closed} />
+      <Routes closed={closed} setCartNotif={setCartNotif} />
     </div>
   )
 }

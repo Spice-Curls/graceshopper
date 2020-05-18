@@ -33,46 +33,60 @@ class Search extends Component {
   }
 
   render() {
-    const {match, addCart, addWish} = this.props
+    const {match, addCart, addWish, setCartNotif} = this.props
     const {found} = this.state
     return match.params.type === 'product' ? (
-      <div>
+      <div className="notnav">
         {found.map(product => (
           <div key={product.id}>
             <div>{product.name}</div>
             <img src={product.imageURL} />
             <div>{product.description}</div>
             <div>{product.condition}</div>
-            <div>{product.price}</div>
+            <div>${product.price}</div>
+            <div>Stock:{product.stock}</div>
             <button type="submit" onClick={() => addWish(product)}>
               Add To Wishlist
             </button>
-            <button type="submit" onClick={() => addCart(product)}>
+            <button
+              type="submit"
+              onClick={() => {
+                addCart(product)
+                setCartNotif(true)
+              }}
+            >
               Add To Cart
             </button>
           </div>
         ))}
       </div>
     ) : match.params.type === 'category' ? (
-      <div>
+      <div className="notnav">
         {found.map(product => (
           <div key={product.id}>
             <div>{product.name}</div>
             <img src={product.imageURL} />
             <div>{product.description}</div>
             <div>{product.condition}</div>
-            <div>{product.price}</div>
+            <div>${product.price}</div>
+            <div>Stock{product.stock}</div>
             <button type="submit" onClick={() => addWish(product)}>
               Add To Wishlist
             </button>
-            <button type="submit" onClick={() => addCart(product)}>
+            <button
+              type="submit"
+              onClick={() => {
+                addCart(product)
+                setCartNotif(true)
+              }}
+            >
               Add To Cart
             </button>
           </div>
         ))}
       </div>
     ) : (
-      <div>
+      <div className="notnav">
         {found.map(user => <Link to={`/user/${user.id}`}>{user.email}</Link>)}
       </div>
     )
