@@ -14,6 +14,10 @@ import {
 } from './wishlist/thunks'
 
 //products
+import productsReducer from './products/reducer'
+import {getProducts} from './products/thunks'
+
+//user owned products
 import userProductsReducer from './userProducts/reducer'
 import {
   getUserProducts,
@@ -40,7 +44,8 @@ const reducer = combineReducers({
   categories: categoriesReducer,
   userProducts: userProductsReducer,
   wishlistItems: wishlistReducer,
-  orders: ordersReducer
+  orders: ordersReducer,
+  products: productsReducer
 })
 
 const middleware = composeWithDevTools(
@@ -65,7 +70,8 @@ export {
   editWishlist,
   removeItemFromWishlist,
   createOrder,
-  getOrders
+  getOrders,
+  getProducts
 }
 
 export * from './user'

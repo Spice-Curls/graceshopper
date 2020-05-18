@@ -1,12 +1,61 @@
+* {
+  font-family: 'Balsamiq Sans', cursive;
+}
+
 .navbar {
   width: 100%;
   margin-top: 0;
   border-bottom: 2px solid lightseagreen;
   background-color: lightseagreen;
-  color: white;
+  /* color: white; */
   /* border-bottom-right-radius: 15px; */
   /* border-bottom-left-radius: 15px; */
   position: fixed;
+}
+
+.shopbycategory {
+  margin-left: 22%;
+  display: flex;
+  color: tomato;
+}
+
+.homepage {
+  background-color: #f9f2ec;
+}
+
+.homepageitems {
+  margin-left: 22%;
+}
+
+.moststock {
+  display: flex;
+  overflow-x: scroll;
+}
+
+.productcard {
+  padding: 3rem;
+  border: 3px solid #f9f2ec;
+  background-color: white;
+}
+
+.homepage > div > h2 {
+  padding: 1rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+.homepageitems > div > a > img {
+  max-height: 300px;
+  max-width: 500px;
+  min-height: 300px;
+  min-width: 500px;
+}
+
+.homepage {
+  text-align: center;
+  /* padding-left: 25%; */
 }
 
 .notnav {
@@ -35,28 +84,13 @@
   padding: 0 3rem;
 }
 
-/*
-.navbar .rightnav > * {
-   display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: distribute;
-  justify-content: space-around;
-  -ms-flex-line-pack: end;
-  align-content: flex-end;
-  font-size: 1.3rem;
-  margin: 0.5rem;
-  color: white;
-  text-decoration: none;
-  
-} */
-
 .navbar :first-child {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
+  flex-wrap: wrap;
   justify-content: space-between;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -121,7 +155,6 @@ label {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin: 0.5rem;
 }
 
 .cart {
@@ -183,6 +216,7 @@ label {
 }
 
 .categories-list {
+  background-color: white;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -242,7 +276,7 @@ label {
   padding: 1rem;
   font-size: 1.5rem;
   text-decoration: none;
-  color: seagreen;
+  color: tomato;
 }
 
 .categoriesandproducts {
@@ -279,15 +313,18 @@ label {
   padding: 0.5rem;
 }
 
-.navbar > div > div > a {
+.navbar > div > div > a,
+.navbar > div > div > .cartthing > a {
   padding: 1rem;
   font-size: 1.5rem;
   color: white;
   text-decoration: none;
 }
 
-.rightnav > a:hover {
-  background-color: lightseagreen;
+.rightnav > a:hover,
+.navbar > div > div > .cartthing > a:hover {
+  background-color: tomato;
+  transition: 0.3s;
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -296,12 +333,23 @@ label {
 .categories-list > a:hover {
   background-color: lightseagreen;
   border-radius: 10px;
-  color: white;
   display: flex;
   align-items: center;
 }
 
-button {
+.search {
+  background-color: tomato;
+  border: 1px solid tomato;
+  color: white;
+  padding: 0.6rem;
+}
+
+.search:hover {
+  cursor: pointer;
+  background-color: salmon;
+}
+
+button:not(.search) {
   margin: 0.2rem;
   height: 2rem;
   width: 5rem;
@@ -311,7 +359,7 @@ button {
   color: white;
 }
 
-button:hover {
+button:hover:not(.search) {
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
   -webkit-box-shadow: 5px 10px 18px red;
@@ -333,11 +381,32 @@ select {
 /*# sourceMappingURL=styles.css.map */
 
 .selected {
-  background-color: tomato;
+  background-color: lightseagreen;
+}
+
+.itemadded {
+  position: absolute;
+  color: black;
+  border: 1px solid black;
+  padding: 2rem 5rem 2rem 2rem;
+  margin-top: 2rem;
+}
+
+.closeicon {
+  margin-left: 10rem;
+}
+
+.closeicon:hover {
+  color: tomato;
+  cursor: pointer;
 }
 
 .closed {
   display: none;
+}
+
+.icon {
+  color: white;
 }
 
 .icon:hover {
@@ -355,6 +424,17 @@ select {
   -webkit-animation: slide-out-left 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53)
     both;
   animation: slide-out-left 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+}
+
+.slide-in-top {
+  -webkit-animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.shake-horizontal {
+  -webkit-animation: shake-horizontal 0.8s
+    cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
 }
 
 /* ----------------------------------------------
@@ -416,5 +496,87 @@ select {
     -webkit-transform: translateX(-1000px);
     transform: translateX(-1000px);
     opacity: 0;
+  }
+}
+
+@-webkit-keyframes slide-in-top {
+  0% {
+    -webkit-transform: translateY(-1000px);
+    transform: translateY(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-top {
+  0% {
+    -webkit-transform: translateY(-1000px);
+    transform: translateY(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes shake-horizontal {
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70% {
+    -webkit-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+  20%,
+  40%,
+  60% {
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+  80% {
+    -webkit-transform: translateX(8px);
+    transform: translateX(8px);
+  }
+  90% {
+    -webkit-transform: translateX(-8px);
+    transform: translateX(-8px);
+  }
+}
+@keyframes shake-horizontal {
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70% {
+    -webkit-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+  20%,
+  40%,
+  60% {
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+  80% {
+    -webkit-transform: translateX(8px);
+    transform: translateX(8px);
+  }
+  90% {
+    -webkit-transform: translateX(-8px);
+    transform: translateX(-8px);
   }
 }

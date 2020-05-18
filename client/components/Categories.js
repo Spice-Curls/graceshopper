@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 
 const Categories = props => {
   const {categories, match, closed} = props
-  const url = match.params.category
+  const url = match && match.params.category
   return (
     <div
       className={
