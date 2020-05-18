@@ -224,7 +224,7 @@ async function seed() {
         'Toddler Kid Baby Girls Strap Romper Jumpsuit Heart Harem Pants Trousers',
       imageURL: 'https://i.ebayimg.com/images/g/FAwAAOSwG7Fakhnr/s-l1600.jpg',
       description:
-        '100% Brand New and High Quality Fashionable and cute,soft and comfortable',
+        '100 Brand New and High Quality Fashionable and cute,soft and comfortable',
       condition: 'New',
       price: 9.98,
       sellerId: stan.id,
@@ -312,7 +312,7 @@ async function seed() {
     },
     {
       name:
-        'Face Masks Handmade Washable 100% Cotton Fabric NEW 13 colors Free Shipping',
+        'Face Masks Handmade Washable 100 Cotton Fabric NEW 13 colors Free Shipping',
       imageURL: 'https://i.ebayimg.com/images/g/rXIAAOSwGLdetHHG/s-l1600.jpg',
       description:
         'Handmade, Washable, multi-layer Face Mask with Elastic Ear loop',

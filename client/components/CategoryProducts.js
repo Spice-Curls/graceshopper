@@ -21,7 +21,7 @@ class CategoryProducts extends Component {
           category.products.map(product => {
             return (
               <div className="product" key={product.id}>
-                <h3>{product.name}</h3>
+                <h1>{product.name}</h1>
                 <img src={product.imageURL} />
                 <h3>{product.description}</h3>
                 <h3>{product.condition}</h3>

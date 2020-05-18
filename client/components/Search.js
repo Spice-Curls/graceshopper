@@ -36,10 +36,10 @@ class Search extends Component {
     const {match, addCart, addWish, setCartNotif} = this.props
     const {found} = this.state
     return match.params.type === 'product' ? (
-      <div className="notnav">
+      <div className="notnav searchresults">
         {found.map(product => (
           <div key={product.id}>
-            <div>{product.name}</div>
+            <h1>{product.name}</h1>
             <img src={product.imageURL} />
             <div>{product.description}</div>
             <div>{product.condition}</div>

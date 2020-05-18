@@ -81,7 +81,10 @@ class SearchBar extends Component {
             options={items}
             className="searchinput"
           />
-          <button className="search">
+          <button
+            disabled={this.state.text.length === 0 ? 'disabled' : ''}
+            className="search"
+          >
             <FontAwesomeIcon icon={faSearch} size="2x" />
           </button>
         </form>
