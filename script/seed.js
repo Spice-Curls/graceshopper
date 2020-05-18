@@ -69,7 +69,7 @@ async function seed() {
     health,
     home,
     luggage,
-    muscial,
+    musical,
     office,
     pet,
     sports,
@@ -379,6 +379,173 @@ async function seed() {
       sellerId: tam.id,
       categoryId: home.id,
       stock: 293
+    },
+    {
+      name: 'Samsonite Bartlett Spinner',
+      imageURL: 'https://i.ebayimg.com/images/g/l8kAAOSwOvRba7Xt/s-l1600.jpg',
+      description:
+        'Four, multi-directional spinner wheels for easy mobility. Fully featured interior includes mesh and show pockets for increased organizations.',
+      condition: 'New',
+      price: 55.99,
+      sellerId: joe.id,
+      categoryId: luggage.id,
+      stock: 511
+    },
+    {
+      name:
+        'Duffle Bag Sport Gym Carry On Travel Luggage Shoulder Tote HandBag Waterproof',
+      imageURL: 'https://i.ebayimg.com/images/g/Ms8AAOSwkJBdibsc/s-l1600.jpg',
+      description:
+        'Made of high quality polyester material, more durable. Main compartment with easy-access U-shaped opening.',
+      condition: 'New',
+      price: 26.9,
+      sellerId: joe.id,
+      categoryId: luggage.id,
+      stock: 15
+    },
+    {
+      name:
+        'New Firefly FFTH Semi-Hollow body Guitar Electri Gutiar (Sunburst Color)',
+      imageURL: 'https://i.ebayimg.com/images/g/8lgAAOSw2d5etPg0/s-l1600.jpg',
+      description:
+        'Firefly FFTH Semi-Hollow body Guitars (Sunburst Color) are made of A grade Mahogany body and Maple neck with the beautiful white pearl pickguard. And it has white edge banding on the body.',
+      condition: 'New',
+      price: 129.99,
+      sellerId: dan.id,
+      categoryId: musical.id,
+      stock: 10
+    },
+    {
+      name:
+        'Professional Worlde Panda mini 25-Key USB Keyboard Drum Pad MIDI Controller Gift',
+      imageURL:
+        'https://miracdiam666.guphotos.com/i/w?u=/images/I/9/I1429/I1429-1-e263-y61u.jpg',
+      description:
+        '25 velocity-sensitive keys. 8 backlit trigger pads. 4 MIDI control groups.(4 assignable control knobs plus 4 assignable control sliders). 4 banks for different settings. 8 control buttons: C--C Mod, Mod, Bank, Prog, Pi tch down / Pi tch up, Octave down / Octave up. Plug and Play USB 2.0 cable, no need of driver installation. USB bus powered - no additional power cable needed.',
+      condition: 'New',
+      price: 62.99,
+      sellerId: dan.id,
+      categoryId: musical.id,
+      stock: 30
+    },
+    {
+      name:
+        'Office Desk Chair Computer PU Leather Luxury Home Black Executive Swivel',
+      imageURL: 'https://i.ebayimg.com/images/g/SogAAOSwbZpewSXY/s-l1600.jpg',
+      description:
+        'This executive chair adopts excellent steel construction, wear-resistant casters and soft PU leather wrapped. Also equip with a footrest, pull outwards to relax legs on or fully withdrawn for work, gaming or study.',
+      condition: 'New',
+      price: 69.99,
+      sellerId: cody.id,
+      categoryId: office.id,
+      stock: 27
+    },
+    {
+      name:
+        'Crenova A4 Thermal Laminator Machine + 20 Laminating Pouches for Home Office',
+      imageURL: 'https://i.ebayimg.com/images/g/~oMAAOSw4ThdZdzt/s-l1600.jpg',
+      description:
+        'Crenova A4 Thermal Laminator Machine + 20 Laminating Pouches for Home Office',
+      condition: 'New',
+      price: 49.99,
+      sellerId: murphy.id,
+      categoryId: office.id,
+      stock: 84
+    },
+    {
+      name:
+        'Donut Plush Pet Dog Cat Bed Fluffy Soft Warm Calming Bed Sleeping Kennel Nest',
+      imageURL: 'https://i.ebayimg.com/images/g/80gAAOSwLrtd08b9/s-l1600.jpg',
+      description:
+        'Donut round design puppy bed,4 size options ,suitable for small,medium and large pets. Made of faux shag fur ,and filling with quality airloft fibers ,the self-warming luxury dog bed brings a superior comfort,and the raised rim creates a sense of security and provides head and neck support,animals will have full, restful sleep for improved behavior and better health.',
+      condition: 'New',
+      price: 14.99,
+      sellerId: jon.id,
+      categoryId: pet.id,
+      stock: 72
+    },
+    {
+      name:
+        'Ultra Quiet Rechargeable Pet Dog/Cat Hair Trimmer Animal Grooming Clippers',
+      imageURL: 'https://i.ebayimg.com/images/g/55gAAOSwLdtesJQW/s-l1600.jpg',
+      description:
+        "Sharp and high precision blades offer superior strength to enable a powerful cutting performance. Effortlessly trim your pet's hair, never hurt your cute dog or cat's skin, doesn't rust and durable for long time use.",
+      condition: 'New',
+      price: 34.99,
+      sellerId: stan.id,
+      categoryId: pet.id,
+      stock: 104
+    },
+    {
+      name: 'Five Ten Rock Climbing Shoes Mens GYM MASTER',
+      imageURL: 'https://i.ebayimg.com/images/g/zvAAAOSwCWZdhCLA/s-l1600.jpg',
+      description:
+        "The Gym Master is designed specifically for gym rental fleets. Based off of the Wall Master, it has the same fit but with exterior size icons for easy fitting and a machine-washable canvas upper, which won't stretch out with use.",
+      condition: 'Used - Very Good',
+      price: 27.99,
+      sellerId: dan.id,
+      categoryId: sports.id,
+      stock: 104
+    },
+    {
+      name:
+        '3-4 Person Outdoor Camping Waterproof Automatic Instant Pop Up Tent Camouflage',
+      imageURL: 'https://i.ebayimg.com/images/g/gxQAAOSwiYFXDgY3/s-l1600.jpg',
+      description:
+        'Waterproof, pop up type, easy to use and fold. Two mesh windows provides maximum ventilation, one is on the side, the other one is on the top. Large zippered door for convenient access. Great for camping, hiking, climbing, picnic or daily use at home.',
+      condition: 'New',
+      price: 31.98,
+      sellerId: tam.id,
+      categoryId: sports.id,
+      stock: 33
+    },
+    {
+      name:
+        'AquaDance® Antimicrobial High Pressure Shower Head with 6-Settings',
+      imageURL: 'https://i.ebayimg.com/images/g/IJIAAOSw8lpZMG7E/s-l1600.jpg',
+      description:
+        '6-Spray Pattern, Microban® Nozzle Protection, Anti-Clog, Antimicrobial, High-Pressure, Lifetime Warranty, Rub-Clean Jets, Tools-Free Installation, Multi-Position, Wall Mount',
+      condition: 'New',
+      price: 44.98,
+      sellerId: cody.id,
+      categoryId: tools.id,
+      stock: 67
+    },
+    {
+      name:
+        'Large Lot of Miscellaneous Tools - Selling here instead of Yard Sale!',
+      imageURL: 'https://i.ebayimg.com/images/g/NeYAAOSw2QZeviaX/s-l1600.jpg',
+      description:
+        "I was going to have a spring yard sale, had been setting this stuff aside in boxes and pricing it out.  With our current situation, no chance for that so it's for sale here, one lot, one flat rate priority box at a time.  What you see is what you get!",
+      condition: 'Used - Good',
+      price: 49.99,
+      sellerId: joe.id,
+      categoryId: tools.id,
+      stock: 1
+    },
+    {
+      name:
+        'Pink Princess Castle Cute Playhouse Children Kids Play Tent Outdoor Toys',
+      imageURL: 'https://i.ebayimg.com/images/g/51AAAOSw11BdZysc/s-l1600.jpg',
+      description:
+        'Our cutest princess tent offers your little angels a private place and let them rest, read or dream inside it!',
+      condition: 'New',
+      price: 27.99,
+      sellerId: jon.id,
+      categoryId: toys.id,
+      stock: 19
+    },
+    {
+      name:
+        'Super Mario Magikoopa Kamek Plush 7" Stuffed Animal Magic Figure Soft Toy',
+      imageURL: 'https://i.ebayimg.com/images/g/GXQAAOSwEUVZYtqM/s-l1600.jpg',
+      description:
+        'Very soft high quality plush. Makes a perfect gift to any Super Mario Bros. Fan or Children.',
+      condition: 'New',
+      price: 10.95,
+      sellerId: murphy.id,
+      categoryId: toys.id,
+      stock: 11
     }
   ]
   const [macbook, jacket, sofa] = await Promise.all(
