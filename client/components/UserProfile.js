@@ -13,9 +13,9 @@ const initialState = {
   image: null,
   description: '',
   condition: '',
-  price: 0,
+  price: '',
   categoryId: '',
-  stock: 0,
+  stock: '',
   editAmount: ''
 }
 
@@ -60,7 +60,7 @@ class UserProfile extends Component {
 
     return (
       <div className="user-profile notnav">
-        <h3>My Products</h3>
+        <h1>My Products</h1>
         {userProducts &&
           userProducts.map((product, idx) => {
             return (
@@ -76,7 +76,6 @@ class UserProfile extends Component {
                           close()
                         }}
                       >
-                        <label>Edit Amount</label>
                         <input
                           type="number"
                           value={editAmount}
@@ -112,7 +111,6 @@ class UserProfile extends Component {
             onChange={ev => this.setState({name: ev.target.value})}
             required
           />
-          <label>Price</label>
           <input
             type="number"
             name="price"
@@ -121,7 +119,6 @@ class UserProfile extends Component {
             onChange={ev => this.setState({price: ev.target.value})}
             required
           />
-          <label>Category</label>
           <select
             value={categoryId}
             onChange={ev => this.setState({categoryId: ev.target.value})}
@@ -134,15 +131,14 @@ class UserProfile extends Component {
               )
             })}
           </select>
-          <label>Add Image:</label>
           <input
             type="file"
             name="image"
             onChange={ev => this.setState({image: ev.target.files[0]})}
             required
           />
-          <label>Stock:</label>
           <input
+            placeholder="Stock"
             type="number"
             value={stock}
             onChange={ev => this.setState({stock: ev.target.value})}
@@ -156,7 +152,6 @@ class UserProfile extends Component {
             onChange={ev => this.setState({description: ev.target.value})}
             required
           />
-          <label>Condition:</label>
           <select
             name="condition"
             value={condition}
@@ -174,7 +169,7 @@ class UserProfile extends Component {
             <option value="Used - Good">Used - Good</option>
             <option value="Used - Acceptable">Used - Acceptable</option>
           </select>
-          <button>New Post</button>
+          <button>New Product</button>
         </form>
       </div>
     )
