@@ -3,7 +3,12 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
 //thunks
-import {getCart, editCart, removeItemFromCart} from '../store/index'
+import {
+  getCart,
+  editCart,
+  removeItemFromCart,
+  addToWishlist
+} from '../store/index'
 
 class Cart extends Component {
   constructor() {
@@ -19,11 +24,12 @@ class Cart extends Component {
       totalPrice,
       changeAmount,
       buyerId,
+      addWish,
       removeItem
     } = this.props
 
     if (cartItems && cartItems.length === 0) {
-      return <div className="notnav">cart is empty</div>
+      return <div className="notnav">The Cart is Empty</div>
     }
     return (
       <div className="cart-container notnav">
@@ -48,6 +54,14 @@ class Cart extends Component {
                 <div>
                   Item Total: {cartItem.quantity * cartItem.product.price}
                 </div>
+                <button
+                  onClick={() => {
+                    addWish(cartItem.product, cartItem.quantity)
+                    removeItem(cartItem)
+                  }}
+                >
+                  Move to Wishlist
+                </button>
                 <button onClick={() => removeItem(cartItem)}>
                   Remove Item
                 </button>
@@ -84,6 +98,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getCart: buyerId => dispatch(getCart(buyerId)),
     changeAmount: (amount, item) => dispatch(editCart(amount, item)),
+    addWish: (product, quantity) => dispatch(addToWishlist(product, quantity)),
     removeItem: item => dispatch(removeItemFromCart(item))
   }
 }

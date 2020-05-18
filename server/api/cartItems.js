@@ -15,8 +15,9 @@ router.get('/', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
+  console.log(req.body)
   try {
-    const {product, localStorage} = req.body
+    const {product, wishlistQuantity, localStorage} = req.body
     if (req.user) {
       const {id} = req.user
       const item = await CartItem.findOne({
@@ -24,7 +25,9 @@ router.post('/', async (req, res, next) => {
         include: [Product]
       })
       if (item) {
-        const quantity = item.quantity + 1
+        const quantity = wishlistQuantity
+          ? item.quantity + wishlistQuantity
+          : item.quantity + 1
         await item.update({
           quantity
         })
@@ -32,7 +35,7 @@ router.post('/', async (req, res, next) => {
       } else {
         const newItem = await CartItem.create({
           productId: product.id,
-          quantity: 1,
+          quantity: wishlistQuantity ? wishlistQuantity : 1,
           buyerId: id
         })
         const updatedItem = await CartItem.findByPk(newItem.id, {
@@ -43,12 +46,14 @@ router.post('/', async (req, res, next) => {
     } else if (localStorage) {
       const duplicate = localStorage.find(item => item.productId === product.id)
       if (duplicate) {
-        duplicate.quantity++
+        duplicate.quantity = wishlistQuantity
+          ? duplicate.quantity + wishlistQuantity
+          : duplicate.quantity + 1
         res.json(duplicate)
       } else {
         const cartItem = await CartItem.create({
           productId: product.id,
-          quantity: 1,
+          quantity: wishlistQuantity ? wishlistQuantity : 1,
           buyerId: null
         })
         const item = await CartItem.findByPk(cartItem.id, {
