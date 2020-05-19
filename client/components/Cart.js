@@ -68,7 +68,7 @@ class Cart extends Component {
               </div>
             )
           })}
-        <div>Total Price: {totalPrice}</div>
+        <div>Total Price: {totalPrice.toFixed(2)}</div>
         <Link to={`/checkout/${buyerId}`}>Proceed to Checkout</Link>
       </div>
     )

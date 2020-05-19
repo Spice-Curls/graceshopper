@@ -19,7 +19,7 @@ class Checkout extends Component {
       cart: this.props.cart,
       token,
       addresses,
-      totalPrice: this.props.totalPrice
+      totalPrice: this.props.totalPrice.toFixed(2)
     })
     this.props.history.push('/confirmation')
   }
@@ -33,12 +33,11 @@ class Checkout extends Component {
           {cart &&
             cart.map(item => (
               <li key={item.id}>
-                {item.product.name} - {item.product.price} ({item.quantity})<img
-                  src={item.product.imageURL}
-                />
+                {item.product.name} - {item.product.price} ({item.quantity})
+                <img src={item.product.imageURL} />
               </li>
             ))}
-          <li>Total Price: {totalPrice}</li>
+          <li>Total Price: {totalPrice.toFixed(2)}</li>
         </ul>
         <StripeCheckout
           stripeKey="pk_test_1XvQ9G3RqAuYvDGxXwMQaMYs00fHeB7gA0"
