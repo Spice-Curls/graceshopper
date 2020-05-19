@@ -93,7 +93,7 @@ async function seed() {
       price: 44.99,
       sellerId: cody.id,
       categoryId: appliances.id,
-      stock: 1
+      stock: 10
     },
     {
       name: '4ft 3 prong/wire Dryer Cord',
@@ -103,7 +103,7 @@ async function seed() {
       price: 9.6,
       sellerId: murphy.id,
       categoryId: appliances.id,
-      stock: 359
+      stock: 35
     },
     {
       name: 'Original Motivational Painting Acrylic',
@@ -113,7 +113,7 @@ async function seed() {
       price: 38.0,
       sellerId: jon.id,
       categoryId: arts.id,
-      stock: 1
+      stock: 10
     },
     {
       name: 'Banksy Print Balloon Girl Love',
@@ -123,7 +123,7 @@ async function seed() {
       price: 75.99,
       sellerId: jon.id,
       categoryId: arts.id,
-      stock: 1
+      stock: 215
     },
     {
       name: 'OBD2 Scanner Check Engine Fault Diagnostic Scan Tool',
@@ -169,7 +169,7 @@ async function seed() {
       price: 4.7,
       sellerId: tam.id,
       categoryId: beauty.id,
-      stock: 1013
+      stock: 101
     },
     {
       name:
@@ -181,7 +181,7 @@ async function seed() {
       price: 25,
       sellerId: joe.id,
       categoryId: books.id,
-      stock: 500
+      stock: 50
     },
     {
       name:
@@ -193,7 +193,7 @@ async function seed() {
       price: 3.59,
       sellerId: cody.id,
       categoryId: books.id,
-      stock: 2
+      stock: 20
     },
     {
       name:
@@ -229,7 +229,7 @@ async function seed() {
       price: 9.98,
       sellerId: stan.id,
       categoryId: clothing.id,
-      stock: 73
+      stock: 115
     },
     {
       name: 'Leather Jacket from Zara',
@@ -240,7 +240,7 @@ async function seed() {
       price: 50.0,
       sellerId: murphy.id,
       categoryId: clothing.id,
-      stock: 1
+      stock: 11
     },
     {
       name: 'Funko POP! The Mandalorian - Baby Yoda The Child Vinyl Figure',
@@ -261,7 +261,7 @@ async function seed() {
       price: 9.95,
       sellerId: stan.id,
       categoryId: collectibles.id,
-      stock: 200
+      stock: 20
     },
     {
       name: '15" Macbook Pro',
@@ -287,6 +287,39 @@ async function seed() {
       stock: 37
     },
     {
+      name: 'GALAXY SKIN FORTNITE ACCOUNT!',
+      imageURL: 'https://i.ebayimg.com/images/g/hv8AAOSwkB1ew0jE/s-l1600.jpg',
+      description:
+        'NFA fortnite account with galaxy skin! This account also comes with all the other galaxy items such as the galaxy disk, galaxy pickaxe and the galaxy glider! Information will be sent to you.',
+      condition: 'New',
+      price: 499.0,
+      sellerId: stan.id,
+      categoryId: electronics.id,
+      stock: 5
+    },
+    {
+      name: 'Bose SoundLink Color Bluetooth Speaker II',
+      imageURL: 'https://i.ebayimg.com/images/g/R6IAAOSw~w5eRb5z/s-l1600.jpg',
+      description:
+        'NFA fortnite account with galaxy skin! This account also comes with all the other galaxy items such as the galaxy disk, galaxy pickaxe and the galaxy glider! Information will be sent to you.',
+      condition: 'New',
+      price: 499.0,
+      sellerId: stan.id,
+      categoryId: electronics.id,
+      stock: 19
+    },
+    {
+      name: 'TheraGun G3PRO',
+      imageURL: 'https://i.ebayimg.com/images/g/CL8AAOSwRSpewqPC/s-l1600.jpg',
+      description:
+        'From the pool to the park to the patio, the SoundLink Color Bluetooth speaker II is a tough and water-resistant companion that’s perfect for any adventure.',
+      condition: 'New',
+      price: 74.95,
+      sellerId: jon.id,
+      categoryId: electronics.id,
+      stock: 119
+    },
+    {
       name:
         'Solar Garden Stakes Water Faucet Fairy Light Yard Lawn Art Outdoor Home Decor',
       imageURL: 'https://i.ebayimg.com/images/g/tmYAAOSwqHtehkEj/s-l1600.jpg',
@@ -308,7 +341,40 @@ async function seed() {
       price: 24.99,
       sellerId: joe.id,
       categoryId: garden.id,
-      stock: 125
+      stock: 25
+    },
+    {
+      name: 'Jsg-justinsglass, Retticello Marble, handmade glass marble',
+      imageURL: 'https://i.ebayimg.com/images/g/u5oAAOSwzStewVjk/s-l1600.jpg',
+      description:
+        'Marble size is 1 5/8 a inch In diameter (41mm), signed and dated. Colors visible in pictures.',
+      condition: 'New',
+      price: 46.95,
+      sellerId: tam.id,
+      categoryId: handmade.id,
+      stock: 25
+    },
+    {
+      name:
+        'WOMENS PEASANT EMBROIDERED MEXICAN HANDMADE BLOUSE BOHO VINTAGE STYLE MEDIUM',
+      imageURL: 'https://i.ebayimg.com/images/g/gq0AAOSwv9Zcw2Sy/s-l1600.jpg',
+      description: 'MADE BY MEXICAN ARTISANS FROM PUEBLA, MEXICO',
+      condition: 'New',
+      price: 19.99,
+      sellerId: tam.id,
+      categoryId: handmade.id,
+      stock: 9
+    },
+    {
+      name:
+        'Fine HANDMADE 925 Solid Sterling Silver Jewelry MOONSTONE Gemstone Ring',
+      imageURL: 'https://i.ebayimg.com/images/g/DWUAAOSw91teYtC1/s-l1600.jpg',
+      description: 'Fine Handmade Best Quality 925 Silver Jewelry',
+      condition: 'New',
+      price: 40.95,
+      sellerId: tam.id,
+      categoryId: handmade.id,
+      stock: 13
     },
     {
       name:
@@ -332,7 +398,7 @@ async function seed() {
       price: 29.99,
       sellerId: jon.id,
       categoryId: handmade.id,
-      stock: 87
+      stock: 150
     },
     {
       name:
@@ -366,7 +432,7 @@ async function seed() {
       price: 100.0,
       sellerId: murphy.id,
       categoryId: home.id,
-      stock: 1
+      stock: 10
     },
     {
       name:
@@ -378,7 +444,7 @@ async function seed() {
       price: 12.97,
       sellerId: tam.id,
       categoryId: home.id,
-      stock: 293
+      stock: 29
     },
     {
       name: 'Samsonite Bartlett Spinner',
@@ -389,7 +455,7 @@ async function seed() {
       price: 55.99,
       sellerId: joe.id,
       categoryId: luggage.id,
-      stock: 511
+      stock: 51
     },
     {
       name:
@@ -454,6 +520,29 @@ async function seed() {
     },
     {
       name:
+        'Dog Raincoat Waterproof Outdoor pet Doggie Rain Coat Rainwear Clothes',
+      imageURL: 'https://i.ebayimg.com/images/g/rWgAAOSwtOZctNju/s-l1600.jpg',
+      description: 'The waterproof coats will keep your pet dry in rainy day!',
+      condition: 'New',
+      price: 14.99,
+      sellerId: stan.id,
+      categoryId: pet.id,
+      stock: 27
+    },
+    {
+      name:
+        '36 inch Cat Tree Bed Furniture Scratching Tower Post Condo Kitten Pet House',
+      imageURL: 'https://i.ebayimg.com/images/g/tfgAAOSwNlxdUhPt/s-l500.jpg',
+      description:
+        'This 37 inch high cat tree would be a great ideal for kittens with enlarged base condo.Provides a roomy hideaway houses for kittens to relax, nap or sleep.',
+      condition: 'New',
+      price: 29.85,
+      sellerId: dan.id,
+      categoryId: pet.id,
+      stock: 8
+    },
+    {
+      name:
         'Donut Plush Pet Dog Cat Bed Fluffy Soft Warm Calming Bed Sleeping Kennel Nest',
       imageURL: 'https://i.ebayimg.com/images/g/80gAAOSwLrtd08b9/s-l1600.jpg',
       description:
@@ -463,6 +552,18 @@ async function seed() {
       sellerId: jon.id,
       categoryId: pet.id,
       stock: 72
+    },
+    {
+      name:
+        '20-Gallon Deluxe Aquatic Turtle Reptile Tank Habitat Complete Starter Kit',
+      imageURL: 'https://i.ebayimg.com/images/g/iMgAAOSwtgNdxPHr/s-l1600.jpg',
+      description:
+        'Provide a space for your pet with this 20-Gallon Turtle Tank Kit.',
+      condition: 'New',
+      price: 141.99,
+      sellerId: joe.id,
+      categoryId: pet.id,
+      stock: 7
     },
     {
       name:
@@ -521,7 +622,7 @@ async function seed() {
       price: 49.99,
       sellerId: joe.id,
       categoryId: tools.id,
-      stock: 1
+      stock: 10
     },
     {
       name:
