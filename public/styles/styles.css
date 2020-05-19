@@ -89,6 +89,7 @@ a {
 }
 
 .notnav {
+  margin-left: 5rem;
   padding-top: 6rem;
 }
 
@@ -411,7 +412,6 @@ label {
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  width: 10rem;
   margin: 0.5rem;
   padding: 0.5rem;
 }
