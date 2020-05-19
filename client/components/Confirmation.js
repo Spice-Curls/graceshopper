@@ -53,7 +53,7 @@ class Confirmation extends Component {
                 {item.product.name}({item.quantity})
               </li>
             ))}
-          <h2>Total price: ${orders[0].newOrder.totalAmount}</h2>
+          <h2>Total price: ${orders[0].newOrder.totalAmount.toFixed(2)}</h2>
         </ul>
       </div>
     )
