@@ -341,6 +341,7 @@ label {
   display: inline-block;
   position: relative;
   transition: 0.7s;
+  font-size: 3rem;
 }
 
 .categorylink span:after {
@@ -399,7 +400,7 @@ label {
 .slide-in-left.categories-list > * > * {
   display: flex;
   flex-wrap: wrap;
-  font-size: 13px;
+  font-size: 1.25rem;
   font-weight: bold;
 }
 
