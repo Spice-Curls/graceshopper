@@ -44,7 +44,7 @@ class Confirmation extends Component {
     ) : (
       <div className="notnav">
         <h1>Your order has been received!</h1>
-        <h1>Order ID: {orders[0].newOrder.id}</h1>
+        <h1>Order ID: {orders[0].newOrder.id ? orders[0].newOrder.id : ''}</h1>
         <h1>Confirmation email sent to: {orders[0].email}</h1>
         <ul>
           {cartItems &&
