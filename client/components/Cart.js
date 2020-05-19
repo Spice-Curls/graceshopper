@@ -41,7 +41,7 @@ class Cart extends Component {
             }
             return (
               <div key={cartItem.id} className="cart">
-                <div>name: {cartItem.product.name}</div>
+                <h2>name: {cartItem.product.name}</h2>
                 <select
                   defaultValue={cartItem.quantity}
                   onChange={ev => {
@@ -51,9 +51,9 @@ class Cart extends Component {
                   {quantity.map(index => <option key={index}>{index}</option>)}
                 </select>
                 <img src={cartItem.product.imageURL} />
-                <div>
-                  Item Total: {cartItem.quantity * cartItem.product.price}
-                </div>
+                <h2>
+                  Item Total: ${cartItem.quantity * cartItem.product.price}
+                </h2>
                 <button
                   onClick={() => {
                     addWish(cartItem.product, cartItem.quantity)
@@ -68,8 +68,10 @@ class Cart extends Component {
               </div>
             )
           })}
-        <div>Total Price: {totalPrice.toFixed(2)}</div>
-        <Link to={`/checkout/${buyerId}`}>Proceed to Checkout</Link>
+        <h2>Total Price: ${totalPrice.toFixed(2)}</h2>
+        <Link style={{fontSize: '3rem'}} to={`/checkout/${buyerId}`}>
+          Proceed to Checkout
+        </Link>
       </div>
     )
   }

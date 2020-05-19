@@ -378,6 +378,13 @@ label {
   background-color: #bce7e5;
 }
 
+.description > * {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: center;
+}
+
 /* .wishlist-container {
   display: flex;
   justify-content: center;

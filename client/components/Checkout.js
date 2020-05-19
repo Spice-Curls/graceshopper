@@ -29,15 +29,15 @@ class Checkout extends Component {
     return (
       <div className="notnav">
         <h1>Checkout</h1>
-        <ul>
+        <ul className="description">
           {cart &&
             cart.map(item => (
-              <li key={item.id}>
+              <h2 key={item.id}>
                 {item.product.name} - {item.product.price} ({item.quantity})
                 <img src={item.product.imageURL} />
-              </li>
+              </h2>
             ))}
-          <li>Total Price: {totalPrice.toFixed(2)}</li>
+          <h2>Total Price: {totalPrice.toFixed(2)}</h2>
         </ul>
         <StripeCheckout
           stripeKey="pk_test_1XvQ9G3RqAuYvDGxXwMQaMYs00fHeB7gA0"
