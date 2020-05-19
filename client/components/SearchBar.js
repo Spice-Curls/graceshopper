@@ -13,7 +13,7 @@ class SearchBar extends Component {
     this.state = {
       text: '',
       items: [],
-      options: ['Product', 'Category', 'User'],
+      options: ['Product', 'Category'],
       type: 'product'
     }
     this.onSubmit = this.onSubmit.bind(this)
@@ -40,14 +40,6 @@ class SearchBar extends Component {
           return {
             value: category.id,
             label: category.name
-          }
-        })
-        break
-      case 'user':
-        items = (await axios.get('/api/users')).data.map(user => {
-          return {
-            value: user.id,
-            label: user.email
           }
         })
         break
