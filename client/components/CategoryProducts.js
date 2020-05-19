@@ -25,7 +25,7 @@ class CategoryProducts extends Component {
                 <img src={product.imageURL} />
                 <h3>{product.description}</h3>
                 <h3>{product.condition}</h3>
-                <h3>{product.price}</h3>
+                <h3>${product.price}</h3>
                 <h3>Stock: {product.stock}</h3>
                 <button type="submit" onClick={() => addWish(product)}>
                   Add To Wishlist

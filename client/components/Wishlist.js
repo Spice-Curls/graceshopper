@@ -56,7 +56,7 @@ class Wishlist extends Component {
                 </select>
                 <img src={wishlistItem.product.imageURL} />
                 <div>
-                  Item Total:{' '}
+                  Item Total: $
                   {wishlistItem.quantity * wishlistItem.product.price}
                 </div>
                 <button onClick={() => removeItem(wishlistItem)}>
@@ -73,7 +73,7 @@ class Wishlist extends Component {
               </div>
             )
           })}
-        <div>Total Price: {totalPrice}</div>
+        <div>Total Price: ${totalPrice}</div>
       </div>
     )
   }
