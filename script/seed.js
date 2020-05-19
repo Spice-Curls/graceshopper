@@ -166,7 +166,7 @@ async function seed() {
       description:
         'Contains 10 PCS different function brushes, suitable for a wide rang of the makeup needs for professional or at-home use.',
       condition: 'New',
-      price: 4.69,
+      price: 4.7,
       sellerId: tam.id,
       categoryId: beauty.id,
       stock: 1013
