@@ -1,5 +1,7 @@
 import axios from 'axios'
 import history from '../history'
+// import {_copyCart} from './cart/actions'
+import {addToCart} from './index'
 
 /**
  * ACTION TYPES
@@ -38,9 +40,20 @@ export const auth = (email, password, method) => async dispatch => {
     return dispatch(getUser({error: authError}))
   }
 
+  // try {
+  //   const products = JSON.parse(window.localStorage.getItem('cart'))
+  //   products.forEach(product => {
+  //     console.log(product)
+  //     // dispatch(addToCart(product))
+  //     window.localStorage.removeItem('cart')
+  //   })
+  // } catch (err) {
+  //   console.log(err)
+  // }
+
   try {
     dispatch(getUser(res.data))
-    history.push('/home')
+    history.push('/')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
   }

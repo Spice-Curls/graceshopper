@@ -1,78 +1,110 @@
-import React, {useEffect, Component} from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getWishlist} from '../store/index'
+import {Link} from 'react-router-dom'
 
-// useEffect(() => {
-//   async function fetchData(id) {
-//     const response = await getWishlist(id)
-//     return response
-//   }
-//   fetchData(this.props.buyerId)
-// }, [])
+//thunks
+import {
+  getWishlist,
+  editWishlist,
+  removeItemFromWishlist,
+  addToCart
+} from '../store/index'
 
 class Wishlist extends Component {
-  componentDidMount() {
-    this.props.getWishlist(this.props.buyerId)
+  constructor() {
+    super()
+    this.state = {
+      total: 0,
+      subTotal: 0
+    }
   }
   render() {
-    const wishlistItems = this.props.wishlists
-    if (!wishlistItems) return <div>Wishlist Empty</div>
+    const {
+      wishlistItems,
+      totalPrice,
+      changeAmount,
+      removeItem,
+      buyerId,
+      addCart
+    } = this.props
+
+    if (wishlistItems && wishlistItems.length === 0) {
+      return <div className="notnav">This Wishlist is Empty</div>
+    }
     return (
-      <ul>
-        {wishlistItems.map(wishlist => (
-          <li key={wishlist.productId}>
-            <div>{wishlist.product.name}</div>
-            <img src={wishlist.product.imageURL} />
-            <div>{wishlist.product.description}</div>
-            <div>{wishlist.product.condition}</div>
-            <div>{wishlist.product.price}</div>
-            <div>{wishlist.quantity}</div>
-          </li>
-        ))}
-      </ul>
+      <div className="wishlist-container notnav">
+        {wishlistItems &&
+          wishlistItems.map(wishlistItem => {
+            const quantity = []
+            for (
+              let amount = 1;
+              amount <= wishlistItem.product.stock;
+              amount++
+            ) {
+              quantity.push(amount)
+            }
+            return (
+              <div key={wishlistItem.id} className="wishlist">
+                <div>name: {wishlistItem.product.name}</div>
+                <select
+                  defaultValue={wishlistItem.quantity}
+                  onChange={ev => {
+                    changeAmount(ev.target.value, wishlistItem)
+                  }}
+                >
+                  {quantity.map(index => <option key={index}>{index}</option>)}
+                </select>
+                <img src={wishlistItem.product.imageURL} />
+                <div>
+                  Item Total: $
+                  {wishlistItem.quantity * wishlistItem.product.price}
+                </div>
+                <button onClick={() => removeItem(wishlistItem)}>
+                  Remove Item
+                </button>
+                <button
+                  onClick={() => {
+                    addCart(wishlistItem.product, wishlistItem.quantity)
+                    removeItem(wishlistItem)
+                  }}
+                >
+                  Move to Cart
+                </button>
+              </div>
+            )
+          })}
+        <div>Total Price: ${totalPrice}</div>
+      </div>
     )
   }
 }
 
-// const Wishlist = ({buyerId, wishlists, getWishlist}) => {
-//   useEffect(() => {
-//     async function fetchData(id) {
-//       const response = await getWishlist(id)
-//       return response
-//     }
-//     fetchData(buyerId)
-//   }, [])
-//   const {wishlistItems} = wishlists
-//   if (wishlistItems) {
-//     console.log(wishlistItems)
-//     return (
-//       <ul>
-//         {wishlistItems.map(wishlist => (
-//           <li key={wishlist.productId}>
-//             <div>{wishlist.product.name}</div>
-//             <img src={wishlist.product.imageURL} />
-//             <div>{wishlist.product.description}</div>
-//             <div>{wishlist.product.condition}</div>
-//             <div>{wishlist.product.price}</div>
-//             <div>{wishlist.quantity}</div>
-//           </li>
-//         ))}
-//       </ul>
-//     )
-//   }
-//   return <div>Wishlist empty</div>
-// }
-
-const mapState = ({user, wishlists}) => {
-  return {
-    buyerId: user.id,
-    wishlists
+const mapStateToProps = ({user, wishlistItems}) => {
+  let totalPrice = 0
+  if (!user.id) {
+    const items = JSON.parse(window.localStorage.getItem('wishlist'))
+    wishlistItems = items
   }
-}
-const mapDispatch = dispatch => {
+  if (wishlistItems && wishlistItems.length) {
+    totalPrice = wishlistItems.reduce((total, wishlistItem) => {
+      total += wishlistItem.quantity * wishlistItem.product.price
+      return total
+    }, 0)
+  }
   return {
-    getWishlist: buyerId => dispatch(getWishlist(buyerId))
+    buyerId: user.id || '',
+    wishlistItems,
+    totalPrice
   }
 }
 
-export default connect(mapState, mapDispatch)(Wishlist)
+const mapDispatchToProps = dispatch => {
+  return {
+    getWishlist: buyerId => dispatch(getWishlist(buyerId)),
+    changeAmount: (amount, item) => dispatch(editWishlist(amount, item)),
+    removeItem: item => dispatch(removeItemFromWishlist(item)),
+    addCart: (product, quantity) => dispatch(addToCart(product, quantity))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wishlist)

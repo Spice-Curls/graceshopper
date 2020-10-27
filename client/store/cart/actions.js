@@ -1,4 +1,9 @@
-import {GET_CART, ADD_TO_CART, EDIT_CART} from '../constants'
+import {
+  GET_CART,
+  ADD_TO_CART,
+  EDIT_CART,
+  REMOVE_ITEM_FROM_CART
+} from '../constants'
 
 export const _getCart = cartItems => {
   return {
@@ -17,6 +22,13 @@ export const _addToCart = cartItem => {
 export const _editCart = item => {
   return {
     type: EDIT_CART,
+    item
+  }
+}
+
+export const _removeItemFromCart = item => {
+  return {
+    type: REMOVE_ITEM_FROM_CART,
     item
   }
 }

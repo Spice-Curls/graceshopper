@@ -1,15 +1,34 @@
-import {ADD_TO_WISHLIST, GET_WISHLIST} from '../constants'
+import {
+  GET_WISHLIST,
+  ADD_TO_WISHLIST,
+  EDIT_WISHLIST,
+  REMOVE_ITEM_FROM_WISHLIST
+} from '../constants'
 
-export const _addToWishlist = product => {
+export const _getWishlist = wishlistItems => {
   return {
-    type: ADD_TO_WISHLIST,
-    product
+    type: GET_WISHLIST,
+    wishlistItems
   }
 }
 
-export const _getWishlist = product => {
+export const _addToWishlist = wishlistItem => {
   return {
-    type: GET_WISHLIST,
-    product
+    type: ADD_TO_WISHLIST,
+    wishlistItem
+  }
+}
+
+export const _editWishlist = item => {
+  return {
+    type: EDIT_WISHLIST,
+    item
+  }
+}
+
+export const _removeItemFromWishlist = item => {
+  return {
+    type: REMOVE_ITEM_FROM_WISHLIST,
+    item
   }
 }

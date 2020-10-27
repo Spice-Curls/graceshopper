@@ -1,0 +1,27 @@
+// .user-profile > .product-form {
+//   display: flex;
+//   flex-direction: column;
+// }
+
+// .product-form {
+//   width: 30vw;
+// }
+
+.user-profile {
+  width: 100%;
+}
+
+.user-profile > * {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+input,
+select,
+textarea,
+label {
+  font-size: 1.3rem;
+  width: 15rem;
+  height: 2rem;
+}

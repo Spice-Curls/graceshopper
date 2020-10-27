@@ -3,7 +3,9 @@ import {connect} from 'react-redux'
 import Select from 'react-select'
 import axios from 'axios'
 
-// import styles from './navbar/navbar.css';
+//fontawesome
+import {faSearch} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 class SearchBar extends Component {
   constructor() {
@@ -11,7 +13,7 @@ class SearchBar extends Component {
     this.state = {
       text: '',
       items: [],
-      options: ['Product', 'Category', 'User'],
+      options: ['Product', 'Category'],
       type: 'product'
     }
     this.onSubmit = this.onSubmit.bind(this)
@@ -38,14 +40,6 @@ class SearchBar extends Component {
           return {
             value: category.id,
             label: category.name
-          }
-        })
-        break
-      case 'user':
-        items = (await axios.get('/api/users')).data.map(user => {
-          return {
-            value: user.id,
-            label: user.email
           }
         })
         break
@@ -79,7 +73,12 @@ class SearchBar extends Component {
             options={items}
             className="searchinput"
           />
-          <button>Search</button>
+          <button
+            disabled={this.state.text.length === 0 ? 'disabled' : ''}
+            className="search"
+          >
+            <FontAwesomeIcon icon={faSearch} size="2x" />
+          </button>
         </form>
       </div>
     )

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {withRouter, Route, Switch} from 'react-router-dom'
+import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 //components
@@ -13,10 +13,12 @@ import Search from './components/Search'
 import UserProfile from './components/UserProfile'
 import Wishlist from './components/Wishlist'
 import Checkout from './components/Checkout'
+import Confirmation from './components/Confirmation'
+import Orders from './components/Orders'
 
 //store
 import {me} from './store'
-import {getCategories} from './store/index'
+import {getCategories, getProducts} from './store/index'
 
 /**
  * COMPONENT
@@ -27,7 +29,7 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn, closed, setCartNotif} = this.props
 
     return (
       <Switch>
@@ -35,44 +37,46 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route
-          exact
-          path="/"
-          render={() => (
-            <div className="categoriesandproducts">
-              <Categories />
-            </div>
-          )}
-        />
-        <Route
           path="/category/:category?"
           render={props => (
             <div className="categoriesandproducts">
-              <Categories />
-              <CategoryProducts {...props} />
+              <Categories {...props} closed={closed} />
+              <CategoryProducts {...props} setCartNotif={setCartNotif} />
             </div>
           )}
         />
         <Route
           path="/search/:type/:query"
-          render={({match}) => <Search match={match} />}
+          render={props => <Search {...props} setCartNotif={setCartNotif} />}
         />
+        <Route exact path="/cart" component={Cart} />
+        <Route exact path="/wishlist" component={Wishlist} />
+        <Route path="/checkout/:userId?" component={Checkout} />
+        <Route path="/confirmation" component={Confirmation} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route exact path="/" component={UserHome} />
-            <Route exact path="/cart" component={Cart} />
+            <Route
+              exact
+              path="/"
+              render={props => <UserHome {...props} closed={closed} />}
+            />
             <Route exact path="/user/:userId" component={UserProfile} />
-            <Route exact path="/wishlists/:userId" component={Wishlist} />
-            <Route path="/checkout/:userId" component={Checkout} />
+            <Route exact path="/wishlist" component={Wishlist} />
+            <Route exact path="/orders" component={Orders} />
             {/* <Route path='/:category' render={ props => <CategoryProducts {...props} /> } /> */}
           </Switch>
         )}
         {!isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            {/* <Route path="/" component={NotUserHome} /> */}
             <Route
-              path="/:category?"
+              exact
+              path="/"
+              render={props => <NotUserHome {...props} closed={closed} />}
+            />
+            <Route
+              path="/category/:category?"
               render={props => (
                 <div>
                   <NotUserHome />
@@ -105,6 +109,7 @@ const mapDispatch = dispatch => {
     loadInitialData: () => {
       dispatch(me())
       dispatch(getCategories())
+      dispatch(getProducts())
     }
   }
 }

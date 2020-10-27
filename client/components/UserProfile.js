@@ -1,6 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getUserProducts, addProduct} from '../store/index'
+import {
+  getUserProducts,
+  addProduct,
+  editProduct,
+  removeProduct
+} from '../store/index'
 import Popup from 'reactjs-popup'
 
 const initialState = {
@@ -8,10 +13,10 @@ const initialState = {
   image: null,
   description: '',
   condition: '',
-  price: 0,
+  price: '',
   categoryId: '',
-  stock: 0,
-  editAmount: 0
+  stock: '',
+  editAmount: ''
 }
 
 class UserProfile extends Component {
@@ -50,32 +55,54 @@ class UserProfile extends Component {
       categoryId,
       editAmount
     } = this.state
-    const {userProducts, categories, remove, user} = this.props
+    const {userProducts, categories, remove, updateStock} = this.props
     const {addProduct} = this
 
     return (
-      <div>
-        <div>My Products</div>
+      <div className="user-profile notnav">
+        <h1>My Products</h1>
         {userProducts &&
           userProducts.map((product, idx) => {
             return (
-              <div key={idx}>
+              <h3 key={idx}>
                 {product.name}({product.stock})
-                <Popup modal trigger={<span>Edit</span>}>
-                  <label>Edit Amount</label>
-                  <input
-                    type="number"
-                    value={editAmount}
-                    onChange={ev =>
-                      this.setState({editAmount: ev.target.value})
-                    }
-                  />
+                <Popup modal trigger={<a href="#">Edit</a>}>
+                  {close => (
+                    <div>
+                      <form
+                        onSubmit={ev => {
+                          ev.preventDefault()
+                          updateStock(product, editAmount)
+                          close()
+                        }}
+                      >
+                        <input
+                          type="number"
+                          value={editAmount}
+                          required
+                          onChange={ev =>
+                            this.setState({editAmount: ev.target.value})
+                          }
+                        />
+                        <button>Update Stock</button>
+                      </form>
+                      <form
+                        onSubmit={ev => {
+                          ev.preventDefault()
+                          remove(product)
+                          close()
+                        }}
+                      >
+                        <button>Remove Item</button>
+                      </form>
+                    </div>
+                  )}
                 </Popup>
-              </div>
+              </h3>
             )
           })}
         <br />
-        <form onSubmit={addProduct}>
+        <form onSubmit={addProduct} className="product-form">
           <input
             type="text"
             name="name"
@@ -84,7 +111,6 @@ class UserProfile extends Component {
             onChange={ev => this.setState({name: ev.target.value})}
             required
           />
-          <label>Price</label>
           <input
             type="number"
             name="price"
@@ -93,7 +119,6 @@ class UserProfile extends Component {
             onChange={ev => this.setState({price: ev.target.value})}
             required
           />
-          <label>Category</label>
           <select
             value={categoryId}
             onChange={ev => this.setState({categoryId: ev.target.value})}
@@ -106,15 +131,14 @@ class UserProfile extends Component {
               )
             })}
           </select>
-          <label>Add Image:</label>
           <input
             type="file"
             name="image"
             onChange={ev => this.setState({image: ev.target.files[0]})}
             required
           />
-          <label>Stock:</label>
           <input
+            placeholder="Stock"
             type="number"
             value={stock}
             onChange={ev => this.setState({stock: ev.target.value})}
@@ -128,7 +152,6 @@ class UserProfile extends Component {
             onChange={ev => this.setState({description: ev.target.value})}
             required
           />
-          <label>Condition:</label>
           <select
             name="condition"
             value={condition}
@@ -146,7 +169,7 @@ class UserProfile extends Component {
             <option value="Used - Good">Used - Good</option>
             <option value="Used - Acceptable">Used - Acceptable</option>
           </select>
-          <button>New Post</button>
+          <button>New Product</button>
         </form>
       </div>
     )
@@ -166,7 +189,8 @@ const mapDispatchToProps = dispatch => {
     getUserProducts: userId => dispatch(getUserProducts(userId)),
     addProduct: (product, formData, userId) =>
       dispatch(addProduct(product, formData, userId)),
-    remove: (product, userId) => console.log(product, userId)
+    remove: product => dispatch(removeProduct(product)),
+    updateStock: (product, amount) => dispatch(editProduct(product, amount))
   }
 }
 

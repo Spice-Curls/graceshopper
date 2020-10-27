@@ -1,0 +1,53 @@
+.navbar {
+  // position: fixed;
+  // top: 0;
+  width: 100%;
+  border-bottom: 2px solid black;
+  background-color: black;
+  color: white;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  .leftnav {
+    margin: 0.5rem;
+    font-size: 1.7rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-decoration: none;
+  }
+  .leftnav > a {
+    color: white;
+  }
+  .rightnav > * {
+    display: flex;
+    justify-content: space-around;
+    align-content: flex-end;
+    font-size: 1.3rem;
+    margin: 0.5rem;
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.navbar :first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+form {
+  display: flex;
+}
+
+.searchinput {
+  width: 25vw;
+}
+
+img {
+  min-width: 40vw;
+  max-height: 70vh;
+  max-width: 40vw;
+  max-height: 70vh;
+}
+
+// .login {
+//   padding-top: 4.5%;
+// }

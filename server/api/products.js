@@ -27,8 +27,26 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+router.put('/:id', async (req, res, next) => {
+  try {
+    await Product.update({stock: req.body.amount}, {where: {id: req.params.id}})
+    const product = await Product.findOne({where: {id: req.params.id}})
+    res.json(product)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const destroyed = await Product.destroy({where: {id: req.params.id}})
+    res.status(200).json(destroyed)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post('/:id', singleUpload, async (req, res, next) => {
-  console.log(req.body.stock)
   const url = req.file.location
   try {
     const user = req.params.id

@@ -3,12 +3,27 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 
 const Categories = props => {
-  const {categories} = props
+  const {categories, match, closed} = props
+  const url = match && match.params.category
   return (
-    <div className="categories-list">
+    <div
+      className={
+        closed
+          ? 'slide-out-left categories-list'
+          : 'slide-in-left categories-list'
+      }
+    >
       {categories.map((category, idx) => (
-        <Link to={`/category/${category.name.toLowerCase()}`} key={idx}>
-          {category.name}
+        <Link
+          className={
+            url === category.name.toLowerCase()
+              ? 'selected categorylink'
+              : 'categorylink'
+          }
+          to={`/category/${category.name.toLowerCase()}`}
+          key={idx}
+        >
+          <span>{category.name}</span>
         </Link>
       ))}
     </div>
